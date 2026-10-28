@@ -1,0 +1,173 @@
+talks:
+- title: Introduction to Physics Neural Surrogates for Engineering and Healthcare
+  type: Tutorial
+  url: https://conference.mlinpl.org/2026/program
+  description: A hands-on tutorial with Julian Suk on geometric learning, neural fields, neural operators, and physical inductive biases.
+  event: ML in PL · Warsaw, Poland
+  dates:
+  - Oct 2026
+- title: Equivariance drives data-efficiency in deep-learning-based estimation of hemodynamics in cardiovascular diseases
+  event: 21st International Symposium on Biomechanics in Vascular Biology and Cardiovascular Disease · Geneva, Switzerland
+  type: Contributed talk
+  url: https://shearstresssymposium.nl/wp-content/uploads/2026/05/SSS-2026-Meeting-program_FINAL.pdf#page=7
+  description: Presented in the session on advanced imaging for biomechanical forces, wall structure and function at the Shear Stress Symposium.
+  dates:
+  - Jun 2026
+- title: Neural Surrogates for Hemodynamics Estimation in Cardiovascular Diseases
+  event: Medis headquarters · Leiden, the Netherlands
+  type: Invited talk
+  description: Invited presentation on neural surrogates for cardiovascular hemodynamics.
+  dates:
+  - Apr 2026
+  source_note: Title, invitation, month and venue supplied by Patryk on 28 October 2026.
+- title: Neural Surrogates for Hemodynamics Estimation in Cardiovascular Diseases
+  event: MISP² · Leiden, the Netherlands
+  type: Talk · Best Talk Award
+  url: https://medimagesymposium.github.io/assets/booklets/MISP2-booklet-2026.pdf
+  description: Geometric neural surrogates for blood-flow estimation, with an emphasis on data efficiency and physical structure.
+  dates:
+  - Jan 2026
+- title: AI-driven surrogate models for flow estimation in abdominal aortic aneurysms
+  event: Cardiovascular Biomechanics NL (CVB-NL) · TU Delft, the Netherlands
+  type: Talk
+  url: "/files/cvb-2025-programme.pdf"
+  description: Presented at the Dutch cardiovascular biomechanics meeting, hosted by the Department of Mechanical Engineering at TU Delft.
+  dates:
+  - Nov 2025
+  source_note: Supplied programme, Agenda CVB_NL 05-11-25_sessions_with_speakers.pdf; title listed in session 1.
+- title: Neural surrogates in medicine
+  event: Dutch Inverse Problems Meeting · University of Twente, Enschede, the Netherlands
+  type: Masterclass
+  url: https://www.aanmelder.nl/165632/home
+  description: A contribution on neural surrogates in medicine to the masterclass on deep learning for medical image processing at the fifth Dutch Inverse Problems meeting.
+  dates:
+  - Oct 2025
+  source_note: Patryk confirmed the topic and participation; the official 2025 event page dates the masterclass to Thursday 30 October. The supplied CWI reference describes the separate 2026 edition.
+- title: Active Learning for Deep Learning-Based Hemodynamic Parameter Estimation
+  event: STACOM at MICCAI · Daejeon, South Korea
+  type: Talk & poster
+  url: https://stacom.github.io/stacom2025/
+  description: Selecting informative simulations to train hemodynamic surrogates with less reference data.
+  dates:
+  - Sep 2025
+- title: Neural surrogates for blood flow dynamics
+  event: Innovation in vascular surgery · Meander Medical Centre, the Netherlands
+  type: Invited talk
+  description: Invited presentation at a conference on innovation in vascular surgery.
+  dates:
+  - Jun 2025
+  source_note: Topic, invitation, month and venue supplied by Patryk on 28 October 2026.
+- title: Geometric deep learning for blood flow modelling in cardiovascular diseases
+  event: GHOST Day · Poznań, Poland
+  type: Talk
+  url: https://ghostday.pl/25-edition-speakers/
+  description: An introduction to learning blood-flow models directly from vascular geometry.
+  dates:
+  - May 2025
+  date_source: https://ghostday.pl/GHOST-Day-Terms-and-Conditions-2025.pdf
+- title: Global Control for Local SO(3)-Equivariant Scale-Invariant Vessel Segmentation
+  event: STACOM at MICCAI · Marrakesh, Morocco
+  type: Poster · Best Poster Award
+  url: https://stacom.github.io/stacom2024/
+  description: Combining local symmetry-aware segmentation with global control over the vascular model.
+  dates:
+  - Oct 2024
+- title: Artificial Intelligence for non-invasive cardiac diagnostics
+  type: Co-authored research
+  url: https://conference2023.mlinpl.org/program
+  description: CenterlinePointNet++ research presented by Tomasz Konopczyński in a contributed talk on non-invasive cardiac diagnostics.
+  event: ML in PL · Warsaw, Poland
+  dates:
+  - Oct 2023
+- title: 'CenterlinePointNet++: A New Point Cloud Based Architecture for Coronary Artery Pressure Drop and vFFR Estimation'
+  event: MICCAI · Vancouver, Canada
+  type: Poster
+  url: https://conferences.miccai.org/2023/files/downloads/MICCAI2023-Main-Conference-Oral-and-Poster-Program.pdf#page=4
+  description: Poster on learning coronary pressure drop and virtual fractional flow reserve from vessel geometry.
+  dates:
+  - Oct 2023
+- title: Applications of neural networks for point clouds in vascular medical image processing
+  event: GHOST Day · Poznań, Poland
+  type: Talk
+  url: https://ghostday.pl/23-edition-speakers/
+  description: Point-cloud networks for medical imaging, including vessel labeling and vascular geometry analysis.
+  dates:
+  - Apr 2023
+  date_source: https://si.cs.put.poznan.pl/wydarzenia
+- title: Eigenvector Grouping for Point Cloud Vessel Labeling
+  event: GeoMedIA workshop · Amsterdam, the Netherlands
+  type: Poster
+  url: https://geomedia-workshop.github.io/index.html#program
+  description: Geometric deep learning for coronary vessel labeling using point-cloud neighborhoods shaped to vascular anatomy.
+  dates:
+  - Nov 2022
+  source_note: Poster presentation and November 2022 confirmed by Patryk; title and workshop date corroborated by the official programme.
+- title: Coronary Ostia Localization Using Residual U-Net with Heatmap Matching and 3D DSNT
+  type: Poster · co-author
+  url: https://conference2022.mlinpl.org/accepted-talks-and-posters/
+  description: Joint work with Miłosz Gajowczyk and Tomasz Konopczyński on localizing coronary landmarks in CT images.
+  event: ML in PL · Warsaw, Poland
+  dates:
+  - Nov 2022
+  date_source: https://conference2022.mlinpl.org/cfc/
+- title: Coronary Ostia Localization Using Residual U-Net with Heatmap Matching and 3D DSNT
+  event: MLMI workshop at MICCAI · Singapore
+  type: Workshop presentation
+  url: "/publications/coronary-ostia/"
+  description: Presented the coronary ostia localization paper at the Machine Learning in Medical Imaging workshop.
+  dates:
+  - Sep 2022
+  source_note: Presentation confirmed by Patryk; venue and year corroborated by the Springer MLMI 2022 proceedings.
+- title: Artefact removal from 3D coronary artery segmentation from CT via point cloud neural network
+  type: Poster
+  url: https://conference2021.mlinpl.org/accepted-talks-and-posters/
+  description: Point-cloud classification for separating coronary vessels from segmentation artefacts, with Tomasz Konopczyński and Maciej Zięba.
+  event: ML in PL · Online
+  dates:
+  - Nov 2021
+  date_source: https://conference2021.mlinpl.org/
+community:
+- title: Co-organizer
+  organization: LOGML Summer School · Imperial College London, United Kingdom
+  url: https://www.logml.ai/people.html
+  description: Co-organized the London Geometry and Machine Learning Summer School as part of the speakers and mentors team.
+  dates:
+  - 2026
+- dates:
+  - 2026
+  - 2025
+  - 2024
+  title: Association member & conference organizer
+  organization: ML in PL · Warsaw, Poland
+  url: https://mlinpl.org/
+  appearances:
+  - date: 2026
+    title: Call for Contributions team coordinator
+    url: https://conference.mlinpl.org/2026/
+    description: Coordinated the conference's Call for Contributions team.
+  - date: 2025
+    title: Tutorials coordinator & Call for Contributions team
+    url: https://conference2025.mlinpl.org/
+    description: Helped organize tutorials and contributed research sessions.
+  - date: 2024
+    title: Association member & Call for Contributions team
+    url: https://mlinpl.org/
+    description: Joined the association and the conference's Call for Contributions team; co-organized the Utrecht meetup.
+- title: General chair
+  organization: MISP² · University of Twente, the Netherlands
+  url: https://www.utwente.nl/en/eemcs/mia/workshops/misp/
+  description: Chaired the Medical Imaging Symposium for Netherlands-based PhD candidates and postdoctoral researchers on 15 January 2025.
+  dates:
+  - 2025
+- title: Machine Learning section leader
+  organization: SOLVRO · Wrocław University of Science and Technology, Poland
+  url: https://solvro.pwr.edu.pl/en/
+  description: Section member from October 2019 to September 2023 and leader from September 2021. Also represented MSc AI students on the curriculum board in 2022–2023.
+  dates:
+  - 2023
+- title: Volunteer robotics teacher
+  organization: Charity events
+  url: ''
+  description: Taught LEGO robotics at charitable events between 2020 and 2023.
+  dates:
+  - 2023

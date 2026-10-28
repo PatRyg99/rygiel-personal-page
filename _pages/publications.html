@@ -1,36 +1,28 @@
 ---
-layout: archive
-title: "Publications"
+layout: profile
+title: Publications
 permalink: /publications/
-author_profile: true
+description: Papers, preprints, datasets, and other research outputs by Patryk Rygiel.
 ---
-
-{% if site.author.googlescholar %}
-  <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
-{% endif %}
-
-{% include base_path %}
-
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
-
-
-
+<header class="page-heading">
+  <p class="eyebrow">Research output</p>
+  <h1>Publications<span class="accent">.</span></h1>
+  <p>Geometric learning, neural surrogates, and medical imaging. Each work has its own page, with links to the paper and available research materials.</p>
+  <div class="page-actions"><a href="{{ '/files/publications.bib' | relative_url }}" download>Download bibliography <span aria-hidden="true">↓</span></a><a href="{{ site.author.googlescholar }}">Google Scholar <span aria-hidden="true">↗</span></a><a href="#patents">Patent applications</a></div>
+</header>
+<form class="filters" data-publication-filters role="search" aria-label="Filter publications" hidden>
+  <label>Search publications<input type="search" name="q" placeholder="Title, author, venue, year…" autocomplete="off"></label>
+  <label>Output type<select name="type"><option value="">All types</option>{% for type in site.data.publication_types %}<option value="{{ type[0] }}">{{ type[1] }}</option>{% endfor %}</select></label>
+  <label>Research topic<select name="topic"><option value="">All topics</option><option value="geometry">Geometry & symmetry</option><option value="surrogates">Neural surrogates</option><option value="imaging">Medical imaging</option></select></label>
+  <button type="reset">Reset filters</button>
+</form>
+<p class="result-count" data-result-count role="status" aria-live="polite">{{ site.publications.size }} research outputs</p>
+<p class="empty-results" data-empty-results hidden>No publications match these filters. Try a different search or reset the filters.</p>
+{% assign papers = site.publications | where_exp: 'paper', 'paper.type != "dataset"' | where_exp: 'paper', 'paper.type != "thesis"' | sort: 'date' | reverse %}
+{% assign years = papers | group_by: 'publication_year' | sort: 'name' | reverse %}
+{% for year in years %}<section class="year-group" data-publication-group aria-labelledby="year-{{ year.name }}"><h2 class="year-label" id="year-{{ year.name }}">{{ year.name }}</h2>{% for paper in year.items %}{% include publication-item.html paper=paper %}{% endfor %}</section>{% endfor %}
+<section class="content-section" data-publication-group aria-labelledby="datasets-title"><h2 id="datasets-title">Datasets</h2>{% assign datasets = site.publications | where: 'type', 'dataset' %}{% for paper in datasets %}{% include publication-item.html paper=paper show_summary=true %}{% endfor %}</section>
+<section class="content-section" data-publication-group aria-labelledby="theses-title"><h2 id="theses-title">Theses</h2>{% assign theses = site.publications | where: 'type', 'thesis' %}{% for paper in theses %}{% include publication-item.html paper=paper show_summary=true %}{% endfor %}</section>
+<section id="patents" class="content-section" aria-labelledby="patents-title"><p class="section-kicker">Applied research</p><h2 id="patents-title">Patent applications</h2>
+{% for patent in site.data.patents %}<article class="patent-item"><p class="patent-number">{{ patent.publication_number }} · {{ patent.date | date: '%Y' }}</p><h3><a href="{{ patent.url }}">{{ patent.title }}</a></h3><p>{% for inventor in patent.inventors %}{% if inventor == 'Patryk Rygiel' %}<strong>{{ inventor }}</strong>{% else %}{{ inventor }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</p><p>{{ patent.status }}</p></article>{% endfor %}
+</section>

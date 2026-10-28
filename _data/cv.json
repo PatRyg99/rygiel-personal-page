@@ -1,152 +1,295 @@
 {
-  "basics": {
-    "name": "Your Sidebar Name",
-    "email": "none@example.org",
-    "phone": "",
-    "website": "https://academicpages.github.io",
-    "summary": "Currently employed at Red Brick University. Short biography for the left-hand sidebar",
-    "location": {
-      "address": "",
-      "postalCode": "",
-      "city": "Earth",
-      "countryCode": "US",
-      "region": ""
-    },
-    "profiles": [
-      {
-        "network": "Google Scholar",
-        "username": "",
-        "url": "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-      },
-      {
-        "network": "ORCID",
-        "username": "",
-        "url": "https://orcid.org/yourorcidurl"
-      },
-      {
-        "network": "GitHub",
-        "username": "academicpages",
-        "url": "https://github.com/academicpages"
-      }
-    ]
-  },
-  "work": [],
-  "education": [
+  "intro": "I work on geometric deep learning and neural surrogates for science and health, with an emphasis on cardiovascular imaging, blood-flow modeling, and reliable learning from limited data.",
+  "sections": [
     {
-      "institution": "GitHub University",
-      "area": "Ph.D in Version Control Theory",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2018",
-      "gpa": null,
-      "courses": []
+      "id": "appointments",
+      "title": "Academic appointments",
+      "items": [
+        {
+          "title": "Guest scientific researcher",
+          "organization": "Delft University of Technology · Department of BioMechanical Engineering",
+          "period": "Sep 2026 – present",
+          "description": "Research with Dr. Selene Pirola."
+        },
+        {
+          "title": "Visiting PhD researcher",
+          "organization": "University of Manchester · CIMIM",
+          "period": "May 2026 – present",
+          "description": "Research visit with Prof. Dr. Alejandro Frangi at the Centre for Computational Imaging and Modelling in Medicine; part of the In Silico Science community.",
+          "url": "https://cimim.org/people/"
+        },
+        {
+          "title": "Guest scientific researcher",
+          "organization": "Amsterdam UMC · Department of Surgery",
+          "period": "Jun 2024 – present",
+          "description": "Research within the EU Horizon VASCUL-AID project."
+        }
+      ]
     },
     {
-      "institution": "GitHub University",
-      "area": "M.S. in Jekyll",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2014",
-      "gpa": null,
-      "courses": []
+      "id": "education",
+      "title": "Education",
+      "items": [
+        {
+          "title": "PhD candidate in artificial intelligence",
+          "organization": "University of Twente · Applied Mathematics / Technical Medical Centre",
+          "period": "Nov 2023 – present",
+          "description": "VASCUL-AID research on geometric deep learning for cardiovascular disease risk assessment. Supervisors: Dr. Jelmer M. Wolterink, Prof. Dr. Christoph Brune, and Prof. Dr. Kak Khee Yeung.",
+          "url": "https://www.utwente.nl/en/eemcs/mia/research/projects/projectpage-rygiel/"
+        },
+        {
+          "title": "MSc in Artificial Intelligence",
+          "organization": "Wrocław University of Science and Technology",
+          "period": "Mar 2022 – Jul 2023",
+          "description": "Thesis: Estimation of FFR in coronary arteries with deep learning. Supervisor: Maciej Zięba.",
+          "url": "https://arxiv.org/abs/2405.12224"
+        },
+        {
+          "title": "BSc in Algorithmic Computer Science",
+          "organization": "Wrocław University of Science and Technology",
+          "period": "Oct 2018 – Feb 2022",
+          "description": "Thesis: Artefact removal from 3D coronary artery segmentation from CT via point cloud neural network. Supervisor: Maciej Zięba."
+        }
+      ]
     },
     {
-      "institution": "GitHub University",
-      "area": "B.S. in GitHub",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2012",
-      "gpa": null,
-      "courses": []
-    }
-  ],
-  "skills": [],
-  "languages": [],
-  "interests": [],
-  "references": [],
-  "publications": [
-    {
-      "name": "Paper Title Number 1",
-      "publisher": "Journal 1",
-      "releaseDate": "2009-10-01",
-      "website": "https://academicpages.github.io/files/paper1.pdf",
-      "summary": "This paper is about the number 1. The number 2 is left for future work."
+      "id": "experience",
+      "title": "Industry experience",
+      "items": [
+        {
+          "title": "Visiting student",
+          "organization": "NVIDIA · Warsaw, Poland",
+          "period": "May – Jun 2023",
+          "description": "Contributed to the DALI project."
+        },
+        {
+          "title": "AI developer & researcher",
+          "organization": "Hemolens Diagnostics · Wrocław, Poland",
+          "period": "Jun 2021 – Oct 2023",
+          "description": "Geometric deep learning for medical imaging."
+        },
+        {
+          "title": "AI intern",
+          "organization": "LifeFlow / Hemolens Diagnostics · Wrocław, Poland",
+          "period": "Jul – Oct 2020",
+          "description": "Deep learning and computer vision for medical imaging. LifeFlow became Hemolens Diagnostics in 2022."
+        },
+        {
+          "title": "Web development intern",
+          "organization": "Asseco Poland · Wrocław, Poland",
+          "period": "Aug 2018; Aug 2019",
+          "description": "Web application development with Spring Boot and Angular."
+        }
+      ]
     },
     {
-      "name": "Paper Title Number 2",
-      "publisher": "Journal 1",
-      "releaseDate": "2010-10-01",
-      "website": "https://academicpages.github.io/files/paper2.pdf",
-      "summary": "This paper is about the number 2. The number 3 is left for future work."
+      "id": "grants",
+      "title": "Research grants",
+      "items": [
+        {
+          "title": "Young Talent Research Grant",
+          "organization": "Aneurysm-NL",
+          "period": "2026",
+          "description": "AI-supported in-silico observational study of aneurysmal hemodynamics."
+        },
+        {
+          "title": "Snellius computing grant · EINF-16639",
+          "organization": "Dutch Research Council (NWO)",
+          "period": "2025",
+          "description": "Development of data-efficient geometrical neural surrogates for complex physics simulations."
+        },
+        {
+          "title": "Snellius computing grant · EINF-10199",
+          "organization": "Dutch Research Council (NWO)",
+          "period": "2024",
+          "description": "Longitudinal Study of Hemodynamic in Abdominal Aortic Aneurysms."
+        }
+      ]
     },
     {
-      "name": "Paper Title Number 3",
-      "publisher": "Journal 1",
-      "releaseDate": "2015-10-01",
-      "website": "https://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about the number 3. The number 4 is left for future work."
+      "id": "awards",
+      "title": "Awards & scholarships",
+      "items": [
+        {
+          "title": "Best Talk Award",
+          "organization": "Medical Imaging Symposium for PhDs and Postdocs (MISP²)",
+          "period": "2026",
+          "description": "Neural Surrogates for Hemodynamics Estimation in Cardiovascular Diseases.",
+          "url": "https://medimagesymposium.github.io/assets/booklets/MISP2-booklet-2026.pdf"
+        },
+        {
+          "title": "Best Poster Presentation",
+          "organization": "STACOM at MICCAI",
+          "period": "2024",
+          "description": "Global Control for Local SO(3)-Equivariant Scale-Invariant Vessel Segmentation.",
+          "url": "https://stacom.github.io/stacom2024/"
+        },
+        {
+          "title": "Best MSc graduate",
+          "organization": "Wrocław University of Science and Technology · Faculty of Information and Communication Technology",
+          "period": "2022/23",
+          "description": "Recognition for the academic year 2022/2023."
+        },
+        {
+          "title": "Student Author Registration (STAR) Award",
+          "organization": "MICCAI",
+          "period": "2023",
+          "description": "Awarded; declined for personal reasons."
+        },
+        {
+          "title": "Program for talented students",
+          "organization": "Wrocław University of Science and Technology",
+          "period": "2018 – 2022",
+          "description": "Member of the university program for talented students."
+        },
+        {
+          "title": "Student Scholarship Program",
+          "organization": "City of Wrocław",
+          "period": "2018/19",
+          "description": "Scholarship for scientific accomplishments."
+        }
+      ]
     },
     {
-      "name": "Paper Title Number 4",
-      "publisher": "GitHub Journal of Bugs",
-      "releaseDate": "2024-02-17",
-      "website": "https://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about fixing template issue #693."
-    }
-  ],
-  "presentations": [
-    {
-      "name": "Talk 1 on Relevant Topic in Your Field",
-      "event": "UC San Francisco, Department of Testing",
-      "date": "2012-03-01",
-      "location": "San Francisco, CA, USA",
-      "description": ""
+      "id": "service",
+      "title": "Community & academic service",
+      "items": [
+        {
+          "title": "Co-organizer",
+          "organization": "London Geometry and Machine Learning (LOGML) Summer School",
+          "period": "2026",
+          "description": "Co-organized the summer school as part of the speakers and mentors team.",
+          "url": "https://www.logml.ai/people.html"
+        },
+        {
+          "title": "General chair",
+          "organization": "Medical Imaging Symposium for PhDs and Postdocs (MISP²)",
+          "period": "15 Jan 2025",
+          "description": "Organized the Netherlands-based medical imaging symposium at the University of Twente.",
+          "url": "https://www.utwente.nl/en/eemcs/mia/workshops/misp/"
+        },
+        {
+          "title": "Association member & conference organizer",
+          "organization": "ML in PL",
+          "period": "2024 – present",
+          "description": "Call for Contributions team coordinator in 2026; CfC team member and tutorials coordinator in 2025; CfC team member and Utrecht meetup co-organizer in 2024.",
+          "url": "https://conference.mlinpl.org/2026/"
+        },
+        {
+          "title": "Reviewer",
+          "organization": "NeurIPS",
+          "period": "2026",
+          "description": "Main track and GDDL workshop."
+        },
+        {
+          "title": "Reviewer",
+          "organization": "MICCAI",
+          "period": "2024, 2025",
+          "description": "Main conference track."
+        },
+        {
+          "title": "Reviewer",
+          "organization": "ICML · GRaM workshop",
+          "period": "2024",
+          "description": "Geometry-grounded Representation Learning and Generative Modeling workshop."
+        },
+        {
+          "title": "Reviewer",
+          "organization": "PP-RAI",
+          "period": "2024",
+          "description": "Generative Artificial Intelligence track."
+        },
+        {
+          "title": "Journal reviewer",
+          "organization": "Computer Methods in Biomechanics and Biomedical Engineering; Journal of Endovascular Therapy",
+          "period": "",
+          "description": "Peer review for research journals."
+        },
+        {
+          "title": "Student representative on the curriculum board",
+          "organization": "Wrocław University of Science and Technology",
+          "period": "Sep 2022 – Jul 2023",
+          "description": "Represented students on the MSc Artificial Intelligence curriculum board."
+        },
+        {
+          "title": "Machine Learning section member and leader",
+          "organization": "SOLVRO student research group · Wrocław University of Science and Technology",
+          "period": "Oct 2019 – Sep 2023",
+          "description": "Member of the Machine Learning section; section leader from September 2021."
+        },
+        {
+          "title": "Volunteer LEGO robotics teacher",
+          "organization": "Charity events",
+          "period": "2020 – 2023",
+          "description": "Taught robotics at charitable events."
+        }
+      ]
     },
     {
-      "name": "Tutorial 1 on Relevant Topic in Your Field",
-      "event": "UC-Berkeley Institute for Testing Science",
-      "date": "2013-03-01",
-      "location": "Berkeley, CA, USA",
-      "description": ""
+      "id": "supervision",
+      "title": "Student supervision",
+      "items": [
+        {
+          "title": "Felix Terwel · BSc Biomedical Engineering",
+          "organization": "University of Twente",
+          "period": "2026",
+          "description": "Evaluation of methods for virtual contrast CT synthesis: Applications to assessment of cardiovascular diseases."
+        },
+        {
+          "title": "Konstantinos Benjamin Vigos · BSc Advanced Technology",
+          "organization": "University of Twente",
+          "period": "2025",
+          "description": "CT-2-CFD: CT-based hemodynamics estimation with deep learning methods."
+        }
+      ]
     },
     {
-      "name": "Talk 2 on Relevant Topic in Your Field",
-      "event": "London School of Testing",
-      "date": "2014-02-01",
-      "location": "London, UK",
-      "description": ""
+      "id": "summer-schools",
+      "title": "Summer schools",
+      "items": [
+        {
+          "title": "London Geometry and Machine Learning (LOGML)",
+          "organization": "Imperial College London",
+          "period": "Jul 2025",
+          "description": "Participant in the London Geometry and Machine Learning Summer School."
+        },
+        {
+          "title": "Computational Tissue Biomechanics",
+          "organization": "KTH Royal Institute of Technology",
+          "period": "Aug 2023",
+          "description": "Participant in the Computational Tissue Biomechanics Summer School."
+        }
+      ]
     },
     {
-      "name": "Conference Proceeding talk 3 on Relevant Topic in Your Field",
-      "event": "Testing Institute of America 2014 Annual Conference",
-      "date": "2014-03-01",
-      "location": "Los Angeles, CA, USA",
-      "description": ""
-    }
-  ],
-  "teaching": [
-    {
-      "course": "Teaching experience 1",
-      "institution": "University 1, Department",
-      "date": "2014-01-01",
-      "role": "Undergraduate course",
-      "description": ""
-    },
-    {
-      "course": "Teaching experience 2",
-      "institution": "University 1, Department",
-      "date": "2015-01-01",
-      "role": "Workshop",
-      "description": ""
-    }
-  ],
-  "portfolio": [
-    {
-      "name": "Portfolio item number 1",
-      "category": "portfolio",
-      "date": "",
-      "url": "",
-      "description": "Short description of portfolio item number 1<br/><img src='/images/500x300.png'>"
+      "id": "skills",
+      "title": "Technical skills & languages",
+      "items": [
+        {
+          "title": "Programming",
+          "organization": "",
+          "period": "",
+          "description": "Python; CUDA C."
+        },
+        {
+          "title": "Deep learning",
+          "organization": "",
+          "period": "",
+          "description": "PyTorch, PyTorch Lightning, PyTorch Geometric, and MONAI."
+        },
+        {
+          "title": "Numerical methods",
+          "organization": "",
+          "period": "",
+          "description": "SimVascular and OpenFOAM."
+        },
+        {
+          "title": "Languages",
+          "organization": "",
+          "period": "",
+          "description": "Polish (native), English (C2), French (A2), German (A1), and Dutch (A1)."
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,18 @@
+@{{ include.paper.bibtex_type | default: 'misc' }}{ {{- include.paper.bibtex_key | default: include.paper.slug -}},
+  title = { {{- include.paper.title | replace: '&', '\&' -}}},
+  author = { {% for author in include.paper.authors %}{% if include.paper.corporate_authors contains author %}{ {{- author | replace: '&', '\&' -}}}{% else %}{{ author }}{% endif %}{% unless forloop.last %} and {% endunless %}{% endfor %} },
+  year = { {{- include.paper.publication_year -}}}{% if include.paper.type == 'journal' %},
+  journal = { {{- include.paper.venue | replace: '&', '\&' -}}}{% elsif include.paper.type == 'conference' or include.paper.type == 'chapter' %},
+  booktitle = { {{- include.paper.venue | replace: '&', '\&' -}}}{% endif %}{% if include.paper.volume %},
+  volume = { {{- include.paper.volume -}}}{% endif %}{% if include.paper.number %},
+  number = { {{- include.paper.number -}}}{% endif %}{% if include.paper.pages %},
+  pages = { {{- include.paper.pages -}}}{% endif %}{% if include.paper.article_number %},
+  eid = { {{- include.paper.article_number -}}}{% endif %}{% if include.paper.publisher %},
+  publisher = { {{- include.paper.publisher -}}}{% endif %}{% if include.paper.school %},
+  school = { {{- include.paper.school -}}}{% endif %}{% if include.paper.doi %},
+  doi = { {{- include.paper.doi -}}}{% endif %}{% if include.paper.arxiv %},
+  eprint = { {{- include.paper.arxiv -}}},
+  archivePrefix = {arXiv}{% endif %}{% if include.paper.bibtex_note %},
+  note = { {{- include.paper.bibtex_note -}}}{% endif %},
+  url = { {% if include.paper.doi %}https://doi.org/{{ include.paper.doi }}{% elsif include.paper.arxiv %}https://arxiv.org/abs/{{ include.paper.arxiv }}{% else %}{{ include.paper.resources.first.url }}{% endif %} }
+}

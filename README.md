@@ -1,101 +1,101 @@
-# Academic Pages
-**Academic Pages is a GitHub Pages template for personal and professional portfolio-oriented websites.**
+# Patryk Rygiel — research website
 
-![Academic Pages template example](images/themes/homepage-light.png "Academic Pages template example")
+A personal academic website built from Academic Pages with Jekyll. It contains a complete publication archive, an expanded AB-GATr project page, a download of the supplied CV, and talks/community activities. Content is maintained locally in Markdown and structured data; visitors need no account or JavaScript to read it.
 
-# Getting Started
+## Local development
 
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Click the "Use this template" button in the top right.
-1. On the "New repository" page, enter your public repository name as "[your GitHub username].github.io", which will also be your website's URL.
-1. Edit site-wide configuration in `_config.yml` and double check that the `url` is the one that you just selected in the previous step and that `repository` reflects the correct path for your repository.
-1. Add your site content, upload any files (like PDFs, .zip files, etc.) to the `files/` directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.
-1. Check status by going to the repository settings, in the "GitHub pages" section
-1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
+Use Ruby with Bundler, then:
 
-See more info at https://academicpages.github.io/
-
-### Additional Tutorials
-
-Additional tutorials for working with the Academic Pages template can be found at the following sites:
-- https://jayrobwilliams.com/posts/2020/06/academic-website/
-
-## Running locally
-
-When you are initially working on your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
-
-1. Clone the repository and made updates as detailed above.
-
-### Using a different IDE
-1. Make sure you have ruby-dev, bundler, and nodejs installed
-    
-    On most Linux distribution and [Windows Subsystem Linux](https://learn.microsoft.com/en-us/windows/wsl/about) the command is:
-    ```bash
-    sudo apt install ruby-dev ruby-bundler nodejs
-    ```
-    If you see error `Unable to locate package ruby-bundler`, `Unable to locate package nodejs `, run the following:
-    ```bash
-    sudo apt update && sudo apt upgrade -y
-    ```
-    then try run `sudo apt install ruby-dev ruby-bundler nodejs` again.
-
-    On MacOS the commands are:
-    ```bash
-    brew install ruby
-    brew install node
-    gem install bundler
-    ```
-1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
-
-    If you see file permission error like `Fetching bundler-2.6.3.gem ERROR:  While executing gem (Gem::FilePermissionError) You don't have write permissions for the /var/lib/gems/3.2.0 directory.` or `Bundler::PermissionError: There was an error while trying to write to /usr/local/bin.`
-    Install Gems Locally (Recommended):
-    ```bash
-    bundle config set --local path 'vendor/bundle'
-    ```
-    then try run `bundle install` again. If succeeded, you should see a folder called `vendor` and `.bundle`.
-
-1. Run `jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change to Markdown (*.md) and HTML files, while changes to the core template and configuration (i.e., `_config.yml`) will require stopping and restarting Jekyll.
-    You may also try `bundle exec jekyll serve -l -H localhost` to ensure jekyll to use specific dependencies on your own local machine.
-
-If you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`
-
-## Using Docker
-
-Working from a different OS, or just want to avoid installing dependencies? You can use the provided `Dockerfile` to build a container that will run the site for you if you have [Docker](https://www.docker.com/) installed.
-
-You can build and execute the container by running the following command in the repository:
-
-```bash
-chmod -R 777 .
-docker compose up
+```sh
+bundle install
+ruby -EUTF-8 scripts/sync_publications.rb
+bundle exec jekyll serve --port 4000
 ```
 
-You should now be able to access the website from `localhost:4000`.
+Open `http://127.0.0.1:4000/rygiel-personal-page/`. No npm installation is needed for the website. JavaScript is plain, unbundled browser code.
 
-### Using the DevContainer in VS Code
+The default configuration matches this repository's GitHub Pages project URL. For a custom domain or a root-level site, change `url` and `baseurl` in `_config.yml`. All internal links and assets use Jekyll URL filters.
 
-If you are using [Visual Studio Code](https://code.visualstudio.com/) you can use the [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) that comes with this Repository. Normally VS Code detects that a development container configuration is available and asks you if you want to use the container. If this doesn't happen you can manually start the container by **F1->DevContainer: Reopen in Container**. This restarts your VS Code in the container and automatically hosts your academic page locally on http://localhost:4000. All changes will be updated live to that page after a few seconds.
+## Check a production build
 
-# Maintenance
+```sh
+ruby -EUTF-8 scripts/sync_publications.rb
+JEKYLL_ENV=production bundle exec jekyll build
+bundle exec ruby -EUTF-8 scripts/check_site.rb
+```
 
-Bug reports and feature requests to the template should be [submitted via GitHub](https://github.com/academicpages/academicpages.github.io/issues/new/choose). For questions concerning how to style the template, please feel free to start a [new discussion on GitHub](https://github.com/academicpages/academicpages.github.io/discussions).
+The checks verify publication coverage, unique identifiers, matching citation downloads, internal links and anchors, structured metadata, and exclusion of template/private files. The build output is `_site/`.
 
-This repository was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License (see LICENSE.md). It is currently being maintained by [Robert Zupko](https://github.com/rjzupkoii) and additional maintainers would be welcomed.
+For browser checks, start the preview server in another terminal, then run:
 
-## Bugfixes and enhancements
+```sh
+node scripts/browser-check.mjs
+```
 
-If you have bugfixes and enhancements that you would like to submit as a pull request, you will need to [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as opposed to using it as a template. This will also allow you to [synchronize your copy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) of template to your fork as well.
+This requires Node 22+ and Google Chrome. Set `CHROME_PATH` for a nonstandard Chrome location and `SITE_PREVIEW_URL` if the preview address differs. The script checks five routes at desktop/tablet/mobile widths, figure loading on all 21 publication pages, filters, previous-title search, theme persistence, citation copying, and reading without JavaScript. It saves screenshots to the system temporary directory, checks grouped activity dates, and verifies that the downloaded CV is identical to the supplied PDF. It never edits or regenerates the CV.
 
-Unfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize, although [rebasing](https://git-scm.com/docs/git-rebase) the changes from this template will work along with manually [cherry picking](https://git-scm.com/docs/git-cherry-pick) the relevant commits. If you are not comfortable with the Git command line, you can save your various `.yml` configuration files and Markdown files, delete the repository, and fork it again. 
+## Add or update a publication
 
----
-<div align="center">
-    
-![pages-build-deployment](https://github.com/academicpages/academicpages.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
-[![GitHub contributors](https://img.shields.io/github/contributors/academicpages/academicpages.github.io.svg)](https://github.com/academicpages/academicpages.github.io/graphs/contributors)
-[![GitHub release](https://img.shields.io/github/v/release/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/academicpages/academicpages.github.io?color=blue)](https://github.com/academicpages/academicpages.github.io/blob/master/LICENSE)
+1. Add `_publications/<stable-slug>.md`. Copy a similar existing record and change its metadata.
+2. Keep a single record for a paper's preprint and published versions. Update `status`, `venue`, `publication_year`, and `doi` after acceptance; keep the arXiv identifier and resource links.
+3. Keep `conference_year` separate from `publication_year` where proceedings appear later. `date` controls ordering; set `date_precision` to `year`, `month`, or `day` rather than inventing precision.
+4. Put the expandable project narrative below the front matter. Images, tables, videos, extra experiments, and ordinary Markdown can be added here without changing layouts.
+5. Run the sync script and build checks above. Commit the generated `_pages/bibtex/` wrappers together with the publication. These wrappers contain references only; citation content is generated from the same publication metadata as the page.
 
-[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
-[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
-</div>
+Core fields:
+
+```yaml
+layout: publication
+title: "Paper title"
+slug: stable-slug
+permalink: /publications/stable-slug/
+authors:
+  - Patryk Rygiel
+publication_year: 2026
+date: "2026-01-01"
+date_precision: year
+venue: arXiv
+type: preprint
+status: Preprint
+summary: "An original short description of the work."
+bibtex_type: misc
+bibtex_key: rygiel2026example
+resources:
+  - label: Paper
+    url: https://example.org/paper
+topics:
+  - geometry
+featured: false
+```
+
+Types: `journal`, `conference`, `preprint`, `report`, `chapter`, `dataset`, `thesis`. Topics: `geometry`, `surrogates`, `imaging`. Only add links that exist. `featured: true` and `feature_order` place a work in the homepage selection; AB-GATr has a dedicated feature block. For a workshop held at MICCAI, set `parent_conference: MICCAI` and the actual `conference_year`; the archive and detail pages display the parent conference and search includes it. Publication pages support `previous_titles`, `equal_contribution`, `collaborators`, `corporate_authors`, and `related_publications` (stable slugs). Keep corporate/consortium attribution separate from individual authorship.
+
+A publication can include a `figure` object with `src`, `alt`, `caption`, `source_url`, `source_label`, and `credit`. Store the actual paper figure in `images/research/`; the shared layout displays it above the narrative with source attribution. The AB-GATr page keeps its richer sequence of inline figures.
+
+`_includes/bibtex-entry.txt` is the single citation template used by page previews and downloads. Full names and Unicode are preserved. There is no second manually maintained `.bib` database.
+
+## Edit other content
+
+- Homepage and dated news: `_pages/about.md`.
+- Homepage research grants: the `grants` section of `_data/cv.json`; other background data is retained for reference, and reviewing roles are not displayed on the website.
+- CV download: `files/patryk-rygiel-cv.pdf`, an unchanged copy of the supplied `Patryk_Rygiel_CV.pdf`. Replace both when you provide a newer CV; there is no separate CV page.
+- Talks and community roles: `_data/activities.yml`. Talks are individual entries, including ML in PL, with dates written as month and year (for example, `Oct 2026`). Each record accepts a `dates` list; use `appearances` with `date`, `title`, `description`, and optional `url`/`type` for grouped community roles (as with ML in PL organization). Community roles may retain year-only dates.
+- Patent application families: `_data/patents.yml`.
+- Identity, email, social profiles, hosting URL: `_config.yml`.
+- Main navigation: `_data/navigation.yml`.
+- Styles and interaction: `assets/css/site.scss`, `assets/js/site.js`.
+
+The root CV is excluded to avoid a duplicate URL. The downloadable copy preserves the original PDF exactly, as requested. Updating website content does not modify the PDF. To replace the download after updating the root file, run `cp Patryk_Rygiel_CV.pdf files/patryk-rygiel-cv.pdf`.
+
+## Research sources and assets
+
+Source records and editorial decisions are kept in `_planning/`, which is excluded from the built site:
+
+- `website-plan.md`: original implementation plan and completion note.
+- `publication-sources.md`: publication metadata and attribution decisions.
+- `assets-and-manchester.md`: CIMIM appointment details, image sources, and manuscript version/figure credits.
+- `figures-assets.md` and `figures-content.md`: sources, manuscript versions, and credits for the other 20 publication visuals; two figures come from the authors’ official slides/poster when the paper full text was unavailable.
+
+The professional portrait comes from the official CIMIM people page. AB-GATr figures are unchanged originals from arXiv v2, credited on the site under CC BY-NC-SA 4.0. The template's MIT license does not supersede the licenses of research figures or the portrait.
+
+The site is prepared for static hosting. No hosting service, domain, or repository settings are changed by a local build.

@@ -1,0 +1,15 @@
+<aside class="profile" aria-label="About Patryk">
+  <img class="portrait" src="{{ site.author.avatar | relative_url }}" alt="Patryk Rygiel" width="240" height="240" fetchpriority="high">
+  <p class="profile-name">Patryk Rygiel</p>
+  <p class="profile-role">PhD candidate<br>AI for science and health</p>
+  <a class="profile-affiliation" href="{{ site.author.university }}">University of Twente <span aria-hidden="true">↗</span></a>
+  <a class="profile-affiliation profile-mlinpl" href="https://mlinpl.org/">ML in PL <span aria-hidden="true">↗</span></a>
+  <p class="profile-location"><span>Enschede, the Netherlands</span><span>Wrocław, Poland</span></p>
+  <div class="profile-links">
+    <a href="mailto:{{ site.author.email }}">{% include profile-icon.html name='email' %}Email</a>
+    <a href="{{ site.author.googlescholar }}">{% include profile-icon.html name='scholar' %}Google Scholar</a>
+    <a href="https://github.com/{{ site.author.github }}">{% include profile-icon.html name='github' %}GitHub</a>
+    <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/">{% include profile-icon.html name='linkedin' %}LinkedIn</a>
+    <a href="{{ site.author.orcid }}">{% include profile-icon.html name='orcid' %}ORCID</a>
+  </div>
+</aside>

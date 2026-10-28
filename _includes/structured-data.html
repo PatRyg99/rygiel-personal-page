@@ -1,0 +1,17 @@
+{% if page.collection == 'publications' %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"{% if page.type == 'dataset' %}Dataset{% else %}ScholarlyArticle{% endif %}",
+"headline":{{ page.title | jsonify }},"name":{{ page.title | jsonify }},
+"description":{{ page.summary | jsonify }},"url":{{ page.url | absolute_url | jsonify }},
+"datePublished":{{ page.publication_year | append: '' | jsonify }},
+"author":[{% for author in page.authors %}{"@type":"{% if page.corporate_authors contains author %}Organization{% else %}Person{% endif %}","name":{{ author | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+{% if page.doi %},"identifier":{{ page.doi | jsonify }}{% endif %}}
+</script>
+{% else %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Patryk Rygiel",
+"url":{{ '/' | absolute_url | jsonify }},"image":{{ site.author.avatar | absolute_url | jsonify }},
+"jobTitle":"PhD candidate","affiliation":{"@type":"CollegeOrUniversity","name":"University of Twente"},
+"sameAs":[{{ site.author.university | jsonify }},{{ site.author.googlescholar | jsonify }},"https://github.com/PatRyg99","https://www.linkedin.com/in/patryk-rygiel-7b93811b9/",{{ site.author.orcid | jsonify }}]}
+</script>
+{% endif %}

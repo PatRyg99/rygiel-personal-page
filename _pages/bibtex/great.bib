@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /files/bibtex/great.bib
+sitemap: false
+---
+{% assign paper = site.publications | where: 'slug', 'great' | first %}{% include bibtex-entry.txt paper=paper %}

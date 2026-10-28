@@ -1,0 +1,11 @@
+{% assign paper = include.paper %}
+<article class="publication-item" data-publication data-type="{{ paper.type }}" data-topics="{{ paper.topics | join: ' ' }}" data-search="{{ paper.title | append: ' ' | append: paper.venue | escape }} {{ paper.parent_conference | escape }} {{ paper.conference_year }} {{ paper.authors | join: ' ' | escape }} {{ paper.collaborators | join: ' ' | escape }} {{ paper.previous_titles | join: ' ' | escape }} {{ paper.publication_year }}">
+  <div class="publication-meta"><span>{% include publication-venue.html paper=paper %}</span><span class="type-label">{{ site.data.publication_types[paper.type] | default: paper.type }}</span></div>
+  <h3><a href="{{ paper.url | relative_url }}">{{ paper.title }}</a></h3>
+  {% if paper.authors.size > 10 %}<details class="author-disclosure"><summary>{{ paper.authors.first }}{% if paper.authors contains 'Patryk Rygiel' %}, <strong>Patryk Rygiel</strong>{% endif %} and collaborators <span>· All authors</span></summary><p class="authors">{% include publication-authors.html paper=paper %}</p></details>{% else %}<p class="authors">{% include publication-authors.html paper=paper %}</p>{% endif %}
+  {% if paper.contribution_note %}<p class="contribution-note">{% if paper.collaborators contains 'Patryk Rygiel' %}<strong>Patryk Rygiel</strong> · {% endif %}{{ paper.contribution_note }}</p>{% endif %}
+  {% if paper.equal_contribution %}<p class="contribution-note">* Equal contribution</p>{% endif %}
+  {% if include.show_summary %}<p class="publication-summary">{{ paper.summary }}</p>{% endif %}
+  {% if paper.conference_year and paper.conference_year != paper.publication_year %}<p class="date-note">{{ paper.conference_year }} conference · {{ paper.publication_year }} proceedings</p>{% endif %}
+  {% include publication-resources.html paper=paper project_link=true %}
+</article>

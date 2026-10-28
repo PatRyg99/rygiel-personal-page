@@ -1,16 +1,20 @@
 ---
-layout: archive
-title: "Talks and presentations"
+layout: profile
+title: Talks & Community
 permalink: /talks/
-author_profile: true
+description: Research talks, tutorials, conference organization, and community activities of Patryk Rygiel.
 ---
-
-{% if site.talkmap_link == true %}
-
-<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
-
-{% endif %}
-
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
-{% endfor %}
+<header class="page-heading">
+  <p class="eyebrow">Presentations & organization</p>
+  <h1>Talks & community<span class="accent">.</span></h1>
+  <p>My conference presentations, invited talks, tutorials, and community roles.</p>
+  <div class="page-actions"><a href="#talks">Talks & tutorials</a><a href="#community">Organization & community</a></div>
+</header>
+<section id="talks" aria-labelledby="talks-title">
+  <h2 id="talks-title">Talks, tutorials & posters</h2>
+  <ol class="activity-list">{% for item in site.data.activities.talks %}{% include activity.html item=item %}{% endfor %}</ol>
+</section>
+<section id="community" class="content-section" aria-labelledby="community-title">
+  <h2 id="community-title">Organization & community</h2>
+  <ol class="activity-list">{% for item in site.data.activities.community %}{% include activity.html item=item %}{% endfor %}</ol>
+</section>

@@ -1,0 +1,13 @@
+{% assign activity = include.item %}
+<li class="activity">
+  <div class="activity-year">{% if activity.dates %}{% for date in activity.dates %}<span>{{ date }}</span>{% endfor %}{% else %}<span>{{ activity.period | default: activity.year }}</span>{% endif %}</div>
+  <div>
+    <p class="activity-meta">{% if activity.type %}{{ activity.type }} · {% endif %}{{ activity.event | default: activity.organization }}</p>
+    <h3>{% if activity.url and activity.url != '' %}<a href="{{ activity.url | relative_url }}">{{ activity.title }} <span aria-hidden="true">↗</span></a>{% else %}{{ activity.title }}{% endif %}</h3>
+    {% if activity.description %}<p>{{ activity.description }}</p>{% endif %}
+    {% if activity.appearances %}<ol class="activity-appearances">{% for appearance in activity.appearances %}<li>
+      <h4><span>{{ appearance.date }}</span> · {% if appearance.url %}<a href="{{ appearance.url | relative_url }}">{{ appearance.title }}</a>{% else %}{{ appearance.title }}{% endif %}</h4>
+      <p>{% if appearance.type %}{{ appearance.type }}. {% endif %}{{ appearance.description }}</p>
+    </li>{% endfor %}</ol>{% endif %}
+  </div>
+</li>

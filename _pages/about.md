@@ -1,56 +1,58 @@
 ---
+layout: profile
+title: Patryk Rygiel — AI for science and health
 permalink: /
-title: "Academic Pages is a ready-to-fork GitHub Pages template for academic personal websites"
-author_profile: true
-redirect_from: 
+redirect_from:
   - /about/
   - /about.html
 ---
-
-This is the front page of a website that is powered by the [Academic Pages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the repository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. Incidentally, these same features make it a great template for anyone that needs to show off a professional template!
-
- You can fork [this template](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and Markdown files, add your own PDFs and other content, and have your own site for free, with no ads!
-
-A data-driven personal website
-======
-Like many other Jekyll-based GitHub Pages templates, Academic Pages makes you separate the website's content from its form. The content & metadata of your website are in structured Markdown files, while various other files constitute the theme, specifying how to transform that content & metadata into HTML pages. You keep these various Markdown (.md), YAML (.yml), HTML, and CSS files in a public GitHub repository. Each time you commit and push an update to the repository, the [GitHub pages](https://pages.github.com/) service creates static HTML pages based on these files, which are hosted on GitHub's servers free of charge.
-
-Many of the features of dynamic content management systems (like Wordpress) can be achieved in this fashion, using a fraction of the computational resources and with far less vulnerability to hacking and DDoSing. You can also modify the theme to your heart's content without touching the content of your site. If you get to a point where you've broken something in Jekyll/HTML/CSS beyond repair, your Markdown files describing your talks, publications, etc. are safe. You can rollback the changes or even delete the repository and start over - just be sure to save the Markdown files! You can also write scripts that process the structured data on the site, such as [this one](https://github.com/academicpages/academicpages.github.io/blob/master/talkmap.ipynb) that analyzes metadata in pages about talks to display [a map of every location you've given a talk](https://academicpages.github.io/talkmap.html).
-
-For those users that need more advanced functionality, the template also supports the following popular tools:
-- [MathJax](https://www.mathjax.org/) for mathematical equations
-- [Mermaid](https://mermaid.js.org/) for diagraming
-- [Plotly](https://plotly.com/javascript/) for plotting
-
-Getting started
-======
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Fork [this template](https://github.com/academicpages/academicpages.github.io) by clicking the "Use this template" button in the top right. 
-1. Go to the repository's settings (rightmost item in the tabs that start with "Code", should be below "Unwatch"). Rename the repository "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and create content & metadata (see below -- also see [this set of diffs](https://archive.is/3TPas) showing what files were changed to set up [an example site](https://getorg-testacct.github.io) for a user with the username "getorg-testacct")
-1. Upload any files (like PDFs, .zip files, etc.) to the files/ directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.  
-1. Check status by going to the repository settings, in the "GitHub pages" section
-
-Site-wide configuration
-------
-The main configuration file for the site is in the base directory in [_config.yml](https://github.com/academicpages/academicpages.github.io/blob/master/_config.yml), which defines the content in the sidebars and other site-wide features. You will need to replace the default variables with ones about yourself and your site's github repository. The configuration file for the top menu is in [_data/navigation.yml](https://github.com/academicpages/academicpages.github.io/blob/master/_data/navigation.yml). For example, if you don't have a portfolio or blog posts, you can remove those items from that navigation.yml file to remove them from the header. 
-
-Create content & metadata
-------
-For site content, there is one Markdown file for each type of content, which are stored in directories like _publications, _talks, _posts, _teaching, or _pages. For example, each talk is a Markdown file in the [_talks directory](https://github.com/academicpages/academicpages.github.io/tree/master/_talks). At the top of each Markdown file is structured data in YAML about the talk, which the theme will parse to do lots of cool stuff. The same structured data about a talk is used to generate the list of talks on the [Talks page](https://academicpages.github.io/talks), each [individual page](https://academicpages.github.io/talks/2012-03-01-talk-1) for specific talks, the talks section for the [CV page](https://academicpages.github.io/cv), and the [map of places you've given a talk](https://academicpages.github.io/talkmap.html) (if you run this [python file](https://github.com/academicpages/academicpages.github.io/blob/master/talkmap.py) or [Jupyter notebook](https://github.com/academicpages/academicpages.github.io/blob/master/talkmap.ipynb), which creates the HTML for the map based on the contents of the _talks directory).
-
-**Markdown generator**
-
-The repository includes [a set of Jupyter notebooks](https://github.com/academicpages/academicpages.github.io/tree/master/markdown_generator
-) that converts a CSV containing structured data about talks or presentations into individual Markdown files that will be properly formatted for the Academic Pages template. The sample CSVs in that directory are the ones I used to create my own personal website at stuartgeiger.com. My usual workflow is that I keep a spreadsheet of my publications and talks, then run the code in these notebooks to generate the Markdown files, then commit and push them to the GitHub repository.
-
-How to edit your site's GitHub repository
-------
-Many people use a git client to create files on their local computer and then push them to GitHub's servers. If you are not familiar with git, you can directly edit these configuration and Markdown files directly in the github.com interface. Navigate to a file (like [this one](https://github.com/academicpages/academicpages.github.io/blob/master/_talks/2012-03-01-talk-1.md) and click the pencil icon in the top right of the content preview (to the right of the "Raw | Blame | History" buttons). You can delete a file by clicking the trashcan icon to the right of the pencil icon. You can also create new files or upload files by navigating to a directory and clicking the "Create new file" or "Upload files" buttons. 
-
-Example: editing a Markdown file for a talk
-![Editing a Markdown file for a talk](/images/editing-talk.png)
-
-For more info
-------
-More info about configuring Academic Pages can be found in [the guide](https://academicpages.github.io/markdown/), the [growing wiki](https://github.com/academicpages/academicpages.github.io/wiki), and you can always [ask a question on GitHub](https://github.com/academicpages/academicpages.github.io/discussions). The [guides for the Minimal Mistakes theme](https://mmistakes.github.io/minimal-mistakes/docs/configuration/) (which this theme was forked from) might also be helpful.
+<section class="hero">
+  <p class="eyebrow">Geometric deep learning · Scientific machine learning · Neural surrogates</p>
+  <h1>Geometric deep learning<br>for science and health.</h1>
+  <p class="intro">I am a PhD candidate at the <a href="https://www.utwente.nl/en/eemcs/mia/">University of Twente</a>, working on geometric deep learning for science and health. I develop neural surrogates for complex physical simulations, with a focus on cardiovascular blood flow, generalization, and learning from limited data.</p>
+  <p class="bio-secondary">My research is part of the EU Horizon project <a href="https://vascul-aid.eu/">VASCUL-AID</a>, supervised by <a href="https://scholar.google.com/citations?user=xzlXuWoAAAAJ">Dr. Jelmer Wolterink</a>, <a href="https://scholar.google.com/citations?user=QkD3WhsAAAAJ">Prof. Dr. Christoph Brune</a>, and <a href="https://www.amsterdamumc.org/en/research/researchers/kak-khee-yeung">Prof. Dr. Kak Khee Yeung</a>. I collaborate with Amsterdam UMC and TU Delft, and am a visiting PhD researcher at <a href="https://cimim.org/people/">CIMIM, University of Manchester</a>, with <a href="https://scholar.google.com/citations?user=9fGrB0sAAAAJ">Prof. Dr. Alejandro Frangi</a>.</p>
+  <p class="bio-secondary">Previously, I worked on medical imaging at <a href="https://hemolens.com/">Hemolens Diagnostics</a> under <a href="https://scholar.google.com/citations?user=NOBU0BoAAAAJ">Dr. Tomasz Konopczyński</a> and was a visiting student at <a href="https://www.nvidia.com/">NVIDIA</a>. I earned my BSc in Algorithmic Computer Science and MSc in Artificial Intelligence at Wrocław University of Science and Technology, with both theses supervised by <a href="https://scholar.google.com/citations?user=XmOBJZYAAAAJ">Prof. Dr. Maciej Zięba</a>.</p>
+</section>
+{% assign flagship = site.publications | where: 'slug', 'abgatr' | first %}
+<section class="feature" aria-labelledby="feature-title">
+  <a class="feature-image" href="{{ flagship.url | relative_url }}" aria-label="Explore the AB-GATr project"><img src="{{ '/images/research/abgatr-equivariance.png' | relative_url }}" width="2046" height="815" alt="Figure 1: CFD reference and model predictions under vessel rotation, comparing equivariant AB-GATr with non-equivariant AB-UPT"></a>
+  <p class="feature-credit">Figure 1: Rygiel et al., <a href="https://arxiv.org/abs/2605.18816v2">2026</a> · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+  <div class="feature-body">
+    <div class="feature-topline"><p class="eyebrow">Featured research <span class="eyebrow-dot">/</span> AB-GATr</p><span class="feature-year">2026</span></div>
+    <h2 id="feature-title"><a href="{{ flagship.url | relative_url }}">When does equivariance help?</a></h2>
+    <p>Learning fluid dynamics from geometry. We study how orientation and symmetry shape neural surrogate performance, and introduce a scalable geometric algebra transformer for coupled surface and volume predictions.</p>
+    <div class="resource-links"><a class="resource-link primary" href="{{ flagship.url | relative_url }}">Explore the project <span aria-hidden="true">↗</span></a><a class="resource-link" href="https://arxiv.org/abs/2605.18816">Read the paper <span aria-hidden="true">↗</span></a><a class="resource-link" href="https://github.com/PatRyg99/abgatr">Code <span aria-hidden="true">↗</span></a></div>
+  </div>
+</section>
+<section class="content-section" aria-labelledby="research-title">
+  <div class="section-heading"><h2 id="research-title">Research interests</h2></div>
+  <div class="research-topics">
+    <div><span class="topic-number">01</span><h3><a href="{{ '/publications/?topic=geometry' | relative_url }}">Geometry & symmetry</a></h3><p>Building inductive biases into learning on meshes, point clouds, and geometric structures.</p></div>
+    <div><span class="topic-number">02</span><h3><a href="{{ '/publications/?topic=surrogates' | relative_url }}">Neural physics surrogates</a></h3><p>Making complex simulations efficient, scalable, and useful when training data is limited.</p></div>
+    <div><span class="topic-number">03</span><h3><a href="{{ '/publications/?topic=imaging' | relative_url }}">Cardiovascular imaging</a></h3><p>Connecting medical images, vascular geometry, and patient-specific blood-flow modelling.</p></div>
+  </div>
+</section>
+<section class="content-section" aria-labelledby="selected-title">
+  <div class="section-heading"><div><p class="section-kicker">A few more things I work on</p><h2 id="selected-title">Selected publications</h2></div><a href="{{ '/publications/' | relative_url }}">All publications <span aria-hidden="true">↗</span></a></div>
+  {% assign selected = site.publications | where: 'featured', true | sort: 'feature_order' %}
+  {% for paper in selected %}{% unless paper.slug == 'abgatr' %}{% include publication-item.html paper=paper show_summary=true %}{% endunless %}{% endfor %}
+</section>
+<section class="content-section" aria-labelledby="news-title">
+  <div class="section-heading"><h2 id="news-title">Recently</h2></div>
+  <ul class="news-list">
+    <li><time datetime="2026-10">Oct 2026</time><span>Co-organised ML in PL Conference 2026 and hosted  tutorial on <a href="https://conference.mlinpl.org/2026/program">physics neural surrogates for engineering and healthcare</a>, together with Julian Suk.</span></li>
+    <li><time datetime="2026-09">Sep 2026</time><span><a href="https://arxiv.org/abs/2605.18816v2">AB-GATr preprint</a>: a closer look at canonical alignment and when equivariance helps.</span></li>
+    <li><time datetime="2026-07">Jul 2026</time><span>Co-organized the <a href="https://www.logml.ai/people.html">London Geometry and Machine Learning Summer School</a> at Imperial College London as part of the speakers and mentors team.</span></li>
+  </ul>
+</section>
+{% assign grants = site.data.cv.sections | where: 'id', 'grants' | first %}
+<section id="grants" class="content-section" aria-labelledby="grants-title">
+  <div class="section-heading"><h2 id="grants-title">Research grants</h2></div>
+  <ul class="news-list">
+    {% for grant in grants.items %}<li><time datetime="{{ grant.period }}">{{ grant.period }}</time><span><strong>{{ grant.title }}</strong><br>{{ grant.organization }} · {{ grant.description }}</span></li>{% endfor %}
+  </ul>
+</section>
+<section class="content-section" aria-labelledby="community-title">
+  <div class="section-heading"><h2 id="community-title">My interests</h2><a href="{{ '/talks/' | relative_url }}">Talks & community <span aria-hidden="true">↗</span></a></div>
+  <p class="community-preview">I enjoy bringing researchers together. I coordinate the Call for Contributions team at ML in PL 2026, co-organized LOGML 2026 as part of the speakers and mentors team, and chaired MISP² 2025. Outside research, you’ll often find me climbing, skiing, hiking, or exploring with a camera.</p>
+</section>

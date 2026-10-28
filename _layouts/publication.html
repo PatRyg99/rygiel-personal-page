@@ -1,0 +1,25 @@
+---
+layout: base
+---
+<main id="main" class="paper-page{% if page.project_page %} project-page{% endif %}" tabindex="-1">
+  <a class="back-link" href="{{ '/publications/' | relative_url }}"><span aria-hidden="true">←</span> All publications</a>
+  <header class="paper-header">
+    <p class="eyebrow">{% if page.slug == 'abgatr' %}Featured research · AB-GATr{% else %}{{ site.data.publication_types[page.type] }}{% endif %} <span class="eyebrow-dot">/</span> {{ page.publication_year }}</p>
+    <h1>{{ page.title }}</h1>
+    <p class="paper-authors">{% include publication-authors.html paper=page %}</p>
+    {% if page.equal_contribution %}<p class="contribution-note">* Equal contribution</p>{% endif %}
+    {% if page.contribution_note %}<p class="contribution-note">{{ page.contribution_note }}</p>{% endif %}
+    {% if page.collaborators %}<details class="author-disclosure"><summary>Consortium collaborators</summary><p class="authors">{% for author in page.collaborators %}{% if author contains 'Rygiel' %}<strong>{{ author }}</strong>{% else %}{{ author }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}</p></details>{% endif %}
+    <p class="paper-venue">{% include publication-venue.html paper=page %} <span>· {{ page.status }}</span>{% if page.conference_year and page.conference_year != page.publication_year %}<span> · {{ page.conference_year }} conference, {{ page.publication_year }} proceedings</span>{% endif %}</p>
+    {% include publication-resources.html paper=page %}
+    {% if page.previous_titles %}<p class="version-note">Earlier title: {% for title in page.previous_titles %}<em>{{ title }}</em>{% unless forloop.last %}; {% endunless %}{% endfor %}.</p>{% endif %}
+  </header>
+  {% if page.figure %}{% include publication-figure.html figure=page.figure %}{% endif %}
+  <div class="paper-content prose">{{ content }}</div>
+  <section id="citation" class="citation-section" aria-labelledby="citation-heading">
+    <div class="section-heading"><h2 id="citation-heading">Cite this work</h2><div class="citation-actions"><button type="button" class="text-button" data-copy-citation hidden>Copy BibTeX</button><a href="{{ '/files/bibtex/' | append: page.slug | append: '.bib' | relative_url }}" download>Download .bib <span aria-hidden="true">↓</span></a></div></div>
+    {% capture citation %}{% include bibtex-entry.txt paper=page %}{% endcapture %}<pre class="bibtex"><code id="bibtex">{{ citation | strip | escape }}</code></pre>
+    <p class="copy-status sr-only" role="status"></p>
+  </section>
+  {% if page.related_publications %}<section class="related-papers"><h2>Related work</h2>{% for slug in page.related_publications %}{% assign related = site.publications | where: 'slug', slug | first %}{% if related %}{% include publication-item.html paper=related %}{% endif %}{% endfor %}</section>{% endif %}
+</main>

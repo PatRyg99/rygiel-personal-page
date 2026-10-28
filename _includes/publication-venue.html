@@ -1,0 +1,1 @@
+{{- include.paper.venue | escape -}}{%- if include.paper.parent_conference -%}{%- unless include.paper.venue contains include.paper.parent_conference %} · {{ include.paper.parent_conference | escape }}{% if include.paper.conference_year %} {{ include.paper.conference_year }}{% endif %} workshop{% endunless %}{% endif %}

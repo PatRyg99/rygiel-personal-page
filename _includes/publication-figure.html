@@ -1,0 +1,4 @@
+<figure class="research-figure">
+  <a href="{{ include.figure.src | relative_url }}" aria-label="View figure at full resolution"><img src="{{ include.figure.src | relative_url }}" alt="{{ include.figure.alt | escape }}"{% if include.figure.width %} width="{{ include.figure.width }}"{% endif %}{% if include.figure.height %} height="{{ include.figure.height }}"{% endif %} loading="eager"></a>
+  <figcaption>{{ include.figure.caption | escape }} <a href="{{ include.figure.source_url }}">{{ include.figure.source_label | escape }}</a>{% if include.figure.credit %} · {{ include.figure.credit | escape }}{% endif %}</figcaption>
+</figure>

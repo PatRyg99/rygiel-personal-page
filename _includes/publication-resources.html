@@ -1,0 +1,5 @@
+<div class="resource-links" aria-label="Resources for {{ include.paper.title | escape }}">
+  {% if include.project_link %}<a class="resource-link primary" href="{{ include.paper.url | relative_url }}">{% if include.paper.project_page %}Project page{% else %}Details{% endif %} <span aria-hidden="true">↗</span></a>{% endif %}
+  {% for resource in include.paper.resources %}<a class="resource-link" href="{{ resource.url | relative_url }}">{{ resource.label | escape }} <span aria-hidden="true">↗</span></a>{% endfor %}
+  <a class="resource-link" href="{{ include.paper.url | relative_url }}#citation">Cite</a>
+</div>
