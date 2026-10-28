@@ -12,6 +12,7 @@ redirect_from:
   <p class="intro">I am a PhD candidate at the <a href="https://www.utwente.nl/en/eemcs/mia/">University of Twente</a>, working on geometric deep learning for science and health. I develop neural surrogates for complex physical simulations, with a focus on cardiovascular blood flow, generalization, and learning from limited data.</p>
   <p class="bio-secondary">My research is part of the EU Horizon project <a href="https://vascul-aid.eu/">VASCUL-AID</a>, supervised by <a href="https://scholar.google.com/citations?user=xzlXuWoAAAAJ">Dr. Jelmer Wolterink</a>, <a href="https://scholar.google.com/citations?user=QkD3WhsAAAAJ">Prof. Dr. Christoph Brune</a>, and <a href="https://www.amsterdamumc.org/en/research/researchers/kak-khee-yeung">Prof. Dr. Kak Khee Yeung</a>. I collaborate with Amsterdam UMC and TU Delft, and am a visiting PhD researcher at <a href="https://cimim.org/people/">CIMIM, University of Manchester</a>, with <a href="https://scholar.google.com/citations?user=9fGrB0sAAAAJ">Prof. Dr. Alejandro Frangi</a>.</p>
   <p class="bio-secondary">Previously, I worked on medical imaging at <a href="https://hemolens.com/">Hemolens Diagnostics</a> under <a href="https://scholar.google.com/citations?user=NOBU0BoAAAAJ">Dr. Tomasz Konopczyński</a> and was a visiting student at <a href="https://www.nvidia.com/">NVIDIA</a>. I earned my BSc in Algorithmic Computer Science and MSc in Artificial Intelligence at Wrocław University of Science and Technology, with both theses supervised by <a href="https://scholar.google.com/citations?user=XmOBJZYAAAAJ">Prof. Dr. Maciej Zięba</a>.</p>
+  <p class="bio-secondary">I am a member of the <a href="https://conference.mlinpl.org/2026/#organizers">ML in PL Association</a> and a co-organizer of the <a href="https://www.logml.ai/people/team/patryk.html">London Geometry and Machine Learning Summer School (LOGML)</a>. Outside research, I enjoy climbing, skiing, hiking, and photography.</p>
 </section>
 {% assign flagship = site.publications | where: 'slug', 'abgatr' | first %}
 <section class="feature" aria-labelledby="feature-title">
@@ -42,7 +43,7 @@ redirect_from:
   <ul class="news-list">
     <li><time datetime="2026-10">Oct 2026</time><span>Co-organised ML in PL Conference 2026 and hosted  tutorial on <a href="https://conference.mlinpl.org/2026/program">physics neural surrogates for engineering and healthcare</a>, together with Julian Suk.</span></li>
     <li><time datetime="2026-09">Sep 2026</time><span><a href="https://arxiv.org/abs/2605.18816v2">AB-GATr preprint</a>: a closer look at canonical alignment and when equivariance helps.</span></li>
-    <li><time datetime="2026-07">Jul 2026</time><span>Co-organized the <a href="https://www.logml.ai/people.html">London Geometry and Machine Learning Summer School</a> at Imperial College London as part of the speakers and mentors team.</span></li>
+    <li><time datetime="2026-07">Jul 2026</time><span>Co-organized the <a href="https://www.logml.ai/people/team/patryk.html">London Geometry and Machine Learning Summer School</a> at Imperial College London as part of the speakers and mentors team.</span></li>
   </ul>
 </section>
 {% assign grants = site.data.cv.sections | where: 'id', 'grants' | first %}
@@ -51,8 +52,4 @@ redirect_from:
   <ul class="news-list">
     {% for grant in grants.items %}<li><time datetime="{{ grant.period }}">{{ grant.period }}</time><span><strong>{{ grant.title }}</strong><br>{{ grant.organization }} · {{ grant.description }}</span></li>{% endfor %}
   </ul>
-</section>
-<section class="content-section" aria-labelledby="community-title">
-  <div class="section-heading"><h2 id="community-title">My interests</h2><a href="{{ '/talks/' | relative_url }}">Talks & community <span aria-hidden="true">↗</span></a></div>
-  <p class="community-preview">I enjoy bringing researchers together. I coordinate the Call for Contributions team at ML in PL 2026, co-organized LOGML 2026 as part of the speakers and mentors team, and chaired MISP² 2025. Outside research, you’ll often find me climbing, skiing, hiking, or exploring with a camera.</p>
 </section>
