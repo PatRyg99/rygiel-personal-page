@@ -5,6 +5,9 @@ _site/
 # Ignore the directory for local files during development
 local/
 
+# Keep original photos local; the website uses images/gallery/.
+/images/photography/
+
 # Keep Gemfile.lock tracked for reproducible site builds.
 
 # Ignore files created by npm

@@ -9,6 +9,8 @@ timezone: Europe/Amsterdam
 author:
   name: Patryk Rygiel
   email: p.t.rygiel@utwente.nl
+  email_mlinpl: patryk.rygiel@mlinpl.org
+  email_personal: patrygiel99@gmail.com
   avatar: /images/patryk-rygiel.png
   github: PatRyg99
   linkedin: patryk-rygiel-7b93811b9
@@ -55,6 +57,7 @@ exclude:
   - assets/fonts
   - assets/webfonts
   - images/themes
+  - images/photography
   - images/bio-photo.jpg
   - images/bio-photo-2.jpg
   - images/profile.png

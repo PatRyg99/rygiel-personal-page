@@ -7,7 +7,7 @@ require 'uri'
 require 'date'
 Encoding.default_external = Encoding::UTF_8
 root = File.expand_path('..', __dir__)
-site = File.join(root, ARGV[0] || '_site')
+site = File.expand_path(ARGV[0] || '_site', root)
 config = YAML.safe_load(File.read(File.join(root, '_config.yml')))
 base = config.fetch('baseurl', '')
 errors = []
@@ -88,7 +88,7 @@ html_files.each do |path|
   end
   errors << "Template content remains: #{relative}" if doc.text.match?(/Your Sidebar Name|Paper Title Number|GitHub Journal of Bugs|Red Brick University/)
 end
-%w[Patryk_Rygiel_CV.pdf _planning files/paper1.pdf portfolio teaching year-archive markdown].each do |private_path|
+%w[Patryk_Rygiel_CV.pdf _planning files/paper1.pdf images/photography portfolio teaching year-archive markdown].each do |private_path|
   errors << "Unexpected template/private output: #{private_path}" if File.exist?(File.join(site, private_path))
 end
 if errors.any?

@@ -32,7 +32,19 @@ For browser checks, start the preview server in another terminal, then run:
 node scripts/browser-check.mjs
 ```
 
-This requires Node 22+ and Google Chrome. Set `CHROME_PATH` for a nonstandard Chrome location and `SITE_PREVIEW_URL` if the preview address differs. The script checks five routes at desktop/tablet/mobile widths, figure loading on all 21 publication pages, filters, previous-title search, theme persistence, citation copying, and reading without JavaScript. It saves screenshots to the system temporary directory, checks grouped activity dates, and verifies that the downloaded CV is identical to the supplied PDF. It never edits or regenerates the CV.
+This requires Node 22+ and Google Chrome. Set `CHROME_PATH` for a nonstandard Chrome location and `SITE_PREVIEW_URL` if the preview address differs. The script checks six routes at desktop/tablet/mobile widths, figure loading on all 21 publication pages, the photography gallery and keyboard controls, filters, previous-title search, theme persistence, citation copying, and reading without JavaScript. It saves screenshots to the system temporary directory, checks grouped activity dates, and verifies that the downloaded CV is identical to the supplied PDF. It never edits or regenerates the CV.
+
+## Photography
+
+The gallery lives at `/photography/`, grouped by year (newest first), then region and place (alphabetically). Edit `_data/photography.yml` to change regions, places, countries, years, and accessible image descriptions; the first data entry is featured at full width within its region. Captions show only the place, country, and year. The `alt` descriptions are used for accessibility.
+
+To add photos, put the originals in `images/photography/`, add an entry with `file`, `region`, `place`, `country`, `year`, and `alt` to `_data/photography.yml`, then run:
+
+```sh
+ruby -EUTF-8 scripts/prepare_photography.rb
+```
+
+This requires ImageMagick (`magick`; on macOS, install with `brew install imagemagick`). It creates 800px and 2048px JPEG copies in `images/gallery/`, applies the camera orientation, removes embedded metadata, and updates the dimensions in the data file. Originals remain local, are ignored by Git, and are excluded from the built website. Commit the generated web images and updated data file with the page changes; GitHub Pages does not need to run the image preparation script.
 
 ## Add or update a publication
 

@@ -1136,6 +1136,29 @@ nav a:hover {
   margin:6px 0 0;
 }
 
+.contact-emails {
+  list-style:none;
+  padding:0;
+  margin:12px 0 0;
+  font-size:12px;
+}
+
+.contact-emails li {
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin:5px 0;
+}
+
+.contact-emails li>span {
+  flex:0 0 62px;
+  color:var(--muted);
+}
+
+.contact-emails a {
+  overflow-wrap:anywhere;
+}
+
 .footer-meta {
   display:flex;
   flex-direction:column;

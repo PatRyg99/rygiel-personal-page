@@ -1,0 +1,60 @@
+---
+layout: base
+title: Photography
+permalink: /photography/
+description: Photographs from the United Kingdom, Switzerland, Italy, France, and Monaco, taken by Patryk Rygiel in 2026.
+social_image: /images/gallery/DSCF7256-2048.jpg
+stylesheet: /assets/css/photography.css
+---
+<main id="main" class="photography-page" tabindex="-1">
+  <header class="page-heading photography-heading">
+    <p class="eyebrow">Outside research</p>
+    <h1>Photography</h1>
+    <p class="photography-note">{{ site.data.photography.size }} photographs · Select a photo to enlarge it.</p>
+  </header>
+  <div class="photo-collection">
+    {% assign years = site.data.photography | group_by: 'year' | sort: 'name' | reverse %}
+    {% assign photo_number = 0 %}
+    {% for year in years %}
+      {% assign regions = year.items | group_by: 'region' | sort: 'name' %}
+      <section class="photography-year" aria-labelledby="photos-{{ year.name }}">
+        <div class="photo-year-heading"><h2 id="photos-{{ year.name }}">{{ year.name }}</h2><span>{{ year.items.size }} photographs</span></div>
+        <div class="photo-regions" role="navigation" aria-label="Locations in {{ year.name }}">
+          {% for region in regions %}<a href="#photos-{{ year.name }}-{{ region.name | slugify: 'latin' }}">{{ region.name | escape }}</a>{% endfor %}
+        </div>
+        {% for region in regions %}
+          {% assign photos = region.items | sort: 'place' %}
+          {% assign pair = false %}
+          {% if photos.size <= 2 %}{% assign pair = true %}{% endif %}
+          <section class="photo-region" aria-labelledby="photos-{{ year.name }}-{{ region.name | slugify: 'latin' }}">
+            <h3 id="photos-{{ year.name }}-{{ region.name | slugify: 'latin' }}">{{ region.name | escape }}</h3>
+            <div class="photo-grid{% if pair %} photo-grid-pair{% endif %}">
+              {% for photo in photos %}
+                {% assign photo_number = photo_number | plus: 1 %}
+                {% assign featured = false %}
+                {% if photo.file == site.data.photography.first.file %}{% assign featured = true %}{% endif %}
+                {% include photograph.html photo=photo index=photo_number featured=featured pair=pair %}
+              {% endfor %}
+            </div>
+          </section>
+        {% endfor %}
+      </section>
+    {% endfor %}
+  </div>
+  <p class="photography-credit">All photographs by Patryk Rygiel.</p>
+</main>
+<dialog class="photo-viewer" aria-label="Photograph viewer">
+  <div class="photo-viewer-toolbar">
+    <span class="photo-viewer-count" aria-live="polite" aria-atomic="true"></span>
+    <button type="button" data-photo-close autofocus>Close <span aria-hidden="true">×</span></button>
+  </div>
+  <figure class="photo-viewer-figure">
+    <img alt="" data-photo-image>
+    <figcaption data-photo-caption></figcaption>
+  </figure>
+  <div class="photo-viewer-controls">
+    <button type="button" data-photo-prev aria-label="Previous photograph"><span aria-hidden="true">←</span> Previous</button>
+    <button type="button" data-photo-next aria-label="Next photograph">Next <span aria-hidden="true">→</span></button>
+  </div>
+</dialog>
+<script src="{{ '/assets/js/photography.js' | relative_url }}" defer></script>

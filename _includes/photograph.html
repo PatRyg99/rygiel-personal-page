@@ -1,0 +1,11 @@
+{% assign photo = include.photo %}
+{% assign stem = photo.file | split: '.' | first %}
+{% assign large = '/images/gallery/' | append: stem | append: '-2048.jpg' %}
+{% assign small = '/images/gallery/' | append: stem | append: '-800.jpg' %}
+{% capture photo_location %}{{ photo.place }}{% unless photo.place == photo.country %}, {{ photo.country }}{% endunless %}{% endcapture %}
+<figure class="photo{% if include.featured %} photo-featured{% endif %}">
+  <a class="photo-link" href="{{ large | relative_url }}" data-photo data-description="{{ photo.alt | escape }}" data-caption="{{ photo_location | escape }} · {{ photo.year }}" aria-label="View photograph {{ include.index }}: {{ photo_location | escape }}, {{ photo.year }}. {{ photo.alt | escape }}">
+    <img src="{{ small | relative_url }}" srcset="{{ small | relative_url }} {{ photo.thumbnail_width }}w, {{ large | relative_url }} {{ photo.width }}w" sizes="{% if include.featured %}(max-width: 760px) calc(100vw - 44px), (max-width: 1220px) calc(100vw - 64px), 1156px{% else %}(max-width: 600px) calc(100vw - 44px), (max-width: 760px) calc((100vw - 64px) / 2), {% if include.pair %}(max-width: 1220px) calc((100vw - 84px) / 2), 568px{% else %}(max-width: 900px) calc((100vw - 84px) / 2), (max-width: 1220px) calc((100vw - 104px) / 3), 372px{% endif %}{% endif %}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt | escape }}" decoding="async" {% if include.index == 1 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+  </a>
+  <figcaption class="photo-caption"><span>{{ photo_location | escape }}</span><time datetime="{{ photo.year }}">{{ photo.year }}</time></figcaption>
+</figure>

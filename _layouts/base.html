@@ -19,6 +19,7 @@
   <link rel="icon" href="{{ site.author.avatar | relative_url }}" type="image/png">
   <script src="{{ '/assets/js/theme-init.js' | relative_url }}"></script>
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+  {% if page.stylesheet %}<link rel="stylesheet" href="{{ page.stylesheet | relative_url }}">{% endif %}
   {% include structured-data.html %}
   {% if page.collection == 'publications' %}
     <meta name="citation_title" content="{{ page.title | escape }}">
@@ -46,7 +47,13 @@
   </div></header>
   {{ content }}
   <footer class="site-footer">
-    <div><a href="mailto:{{ site.author.email }}">Contact <span aria-hidden="true">↗</span></a><p>{{ site.author.email }}</p></div>
+    <div><a href="mailto:{{ site.author.email }}">Contact <span aria-hidden="true">↗</span></a>
+      <ul class="contact-emails">
+        <li><span>Research</span><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+        <li><span>ML in PL</span><a href="mailto:{{ site.author.email_mlinpl }}">{{ site.author.email_mlinpl }}</a></li>
+        <li><span>Personal</span><a href="mailto:{{ site.author.email_personal }}">{{ site.author.email_personal }}</a></li>
+      </ul>
+    </div>
     <div class="footer-meta"><span>© {{ site.time | date: '%Y' }} Patryk Rygiel</span><span>Built with <a href="https://github.com/academicpages/academicpages.github.io">Academic Pages</a> & Jekyll</span></div>
   </footer>
   <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
