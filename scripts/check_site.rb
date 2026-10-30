@@ -18,6 +18,36 @@ archive = Nokogiri::HTML(File.read(File.join(site, 'publications/index.html')))
 listed = archive.css('[data-publication] h3 a').map { |node| node['href'] }
 expected = papers.map { |paper| base + paper['permalink'] }
 errors << 'The publication archive does not contain every work exactly once' unless listed.sort == expected.sort
+# Check affiliation coverage and counts against the actual rendered map and archive.
+affiliations = YAML.safe_load(File.read(File.join(root, '_data/publication_affiliations.yml')))
+mapped = affiliations.fetch('papers')
+excluded = affiliations.fetch('excluded')
+slugs = papers.map { |paper| paper.fetch('slug') }
+errors << 'Every publication needs an affiliation audit or an explicit exclusion' unless (mapped.keys + excluded.keys).sort == slugs.sort
+country_codes = affiliations.fetch('countries').map { |country| country.fetch('code') }
+errors << 'Duplicate affiliation country definitions' unless country_codes.uniq == country_codes
+mapped.each do |slug, record|
+  codes = record.fetch('countries')
+  evidence = record.fetch('evidence')
+  errors << "Duplicate or unknown affiliation countries: #{slug}" unless codes.uniq == codes && (codes - country_codes).empty?
+  errors << "Affiliation countries do not match institution evidence: #{slug}" unless evidence.map { |item| item['code'] }.sort == codes.sort
+  errors << "Missing affiliation source: #{slug}" unless record['source_url']&.start_with?('https://') && record['source_section']
+  evidence.each do |item|
+    names = item.fetch('institutions')
+    errors << "Empty or duplicate institutions: #{slug}/#{item['code']}" if names.empty? || names.uniq != names
+  end
+end
+country_codes.each do |code|
+  count = mapped.values.count { |record| record['countries'].include?(code) }
+  selectors = archive.css("[data-country-select='#{code}']")
+  errors << "Missing or incorrect map country count: #{code}" unless count.positive? && selectors.size == 1 && selectors.all? { |node| node['data-country-count'].to_i == count }
+end
+archive.css('[data-publication]').each do |node|
+  paper = papers.find { |record| base + record['permalink'] == node.at_css('h3 a')['href'] }
+  codes = mapped.dig(paper['slug'], 'countries') || []
+  errors << "Incorrect country filter metadata: #{paper['slug']}" unless node['data-countries'].split.sort == codes.sort
+end
+errors << 'Missing public affiliation sources' unless archive.css('[data-affiliation-source]').map { |node| node['data-affiliation-source'] }.sort == mapped.keys.sort
 bib = File.read(File.join(site, 'files/publications.bib'))
 errors << 'The complete bibliography has a missing or duplicate entry' unless bib.scan(/^@\w+\{/).size == papers.size
 papers.each do |paper|
@@ -90,6 +120,39 @@ html_files.each do |path|
 end
 %w[Patryk_Rygiel_CV.pdf _planning files/paper1.pdf images/photography portfolio teaching year-archive markdown].each do |private_path|
   errors << "Unexpected template/private output: #{private_path}" if File.exist?(File.join(site, private_path))
+end
+errors << 'Original simulation volumes must not be published' if Dir[File.join(site, '**/*.vtu')].any?
+demo_root = File.join(site, 'assets/data/abgatr-demo')
+demo = JSON.parse(File.read(File.join(demo_root, 'manifest.json')))
+errors << 'Demo velocity units must be cm/s' unless demo['units'] == 'cm/s'
+demo_datasets = { 'aneumo' => %w[777 832 845], 'synthbifcor' => %w[1815 1847 1962], 'aaa-100' => %w[AAA021-T] }
+errors << 'Demo datasets are incomplete' unless demo['datasets'].map { |dataset| dataset['id'] }.sort == demo_datasets.keys.sort
+demo_datasets.each do |dataset, ids|
+  samples = demo['samples'].select { |sample| sample['dataset'] == dataset }
+  errors << "Demo samples are incomplete: #{dataset}" unless samples.map { |sample| sample['id'] }.sort == ids.sort
+end
+aaa = demo['datasets'].find { |dataset| dataset['id'] == 'aaa-100' }
+errors << 'AAA-100 must identify its time-resolved data' unless aaa && aaa['timeResolved'] && !aaa['timeAveraged']
+%w[AAA021 AAA048 AAA090].each do |old_sample|
+  errors << "Obsolete static AAA geometry is still published: #{old_sample}" if File.directory?(File.join(demo_root, old_sample))
+end
+demo['samples'].each do |sample|
+  assets = [sample['shell']] + sample['slices'].values.flatten
+  if sample['dataset'] == 'aaa-100'
+    errors << 'AAA-100 needs all 21 timesteps' unless sample['timeSteps'] == 21 && !sample['timeAveraged'] && sample['seriesEncoding'] == 'xor-float32-v1'
+    %w[x y z].each do |axis|
+      entries = sample.fetch('series').fetch(axis)
+      errors << "Temporal slices differ from geometry: #{axis}" unless entries.length == sample['slices'][axis].length
+      entries.each do |series|
+        errors << 'Temporal model coverage is incomplete' unless series['models'].keys.sort == demo['models'].map { |model| model['id'] }.sort
+        assets += [series['gt']] + series['models'].values
+      end
+    end
+  end
+  assets.each { |asset| errors << "Missing prepared geometry: #{asset}" unless asset && File.file?(File.join(demo_root, asset)) }
+end
+%w[three.module.min.js three.core.min.js OrbitControls.js LICENSE].each do |asset|
+  errors << "Missing local viewer dependency: #{asset}" unless File.file?(File.join(site, 'assets/js/vendor/three', asset))
 end
 if errors.any?
   warn errors.uniq.join("\n")

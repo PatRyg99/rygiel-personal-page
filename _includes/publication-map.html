@@ -1,0 +1,56 @@
+{% assign affiliations = site.data.publication_affiliations %}
+<section class="publication-map" data-publication-map aria-labelledby="collaboration-map-title">
+  <div class="map-heading">
+    <div><p class="section-kicker">Co-authorship</p><h2 id="collaboration-map-title">Publications by country</h2></div>
+    <p class="map-total">{{ affiliations.papers.size }} papers · {{ affiliations.countries.size }} countries</p>
+  </div>
+  <p class="map-description">Countries represented in the papers’ author affiliations. Each paper counts once per country.</p>
+  <div class="map-tools" hidden data-map-tools>
+    <p>Hover or tap for institutions. Select a country to filter the publications.</p>
+    <div class="map-views" role="group" aria-label="Map view">
+      <button type="button" data-map-view="{{ site.data.world_map.viewbox }}" aria-pressed="true">World</button>
+      <button type="button" data-map-view="407 25 172 108" aria-pressed="false">Europe</button>
+    </div>
+  </div>
+  <div class="map-canvas">
+    <svg class="world-map" viewBox="{{ site.data.world_map.viewbox }}" role="group" aria-labelledby="world-map-title world-map-description" fill-rule="evenodd">
+      <title id="world-map-title">Countries represented in my publications</title>
+      <desc id="world-map-description">Shading shows the number of papers with author affiliations in each country. Each highlighted country includes its name and paper count.</desc>
+      {% for shape in site.data.world_map.countries %}
+        {% assign country = affiliations.countries | where: 'code', shape.code | first %}
+        {% assign count = 0 %}{% for record in affiliations.papers %}{% if record[1].countries contains shape.code %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}
+        {% assign level = 0 %}{% if count >= 8 %}{% assign level = 4 %}{% elsif count >= 4 %}{% assign level = 3 %}{% elsif count >= 2 %}{% assign level = 2 %}{% elsif count == 1 %}{% assign level = 1 %}{% endif %}
+        <path class="map-land map-level-{{ level }}" d="{{ shape.path }}"{% if count > 0 %} data-country-select="{{ shape.code }}" data-country-name="{{ country.name | escape }}" data-country-count="{{ count }}" aria-label="{{ country.name | escape }}: {{ count }} {% if count == 1 %}paper{% else %}papers{% endif %}"{% else %} aria-hidden="true"{% endif %}>{% if count > 0 %}<title>{{ country.name }} · {{ count }} {% if count == 1 %}paper{% else %}papers{% endif %}</title>{% endif %}</path>
+      {% endfor %}
+    </svg>
+    <div class="map-tooltip" id="map-tooltip" role="tooltip" hidden>
+      <p class="map-tooltip-heading"><strong data-tooltip-country></strong><span data-tooltip-count></span></p>
+      <p class="map-tooltip-label">Institution <span>Papers</span></p>
+      <ul data-tooltip-institutions></ul>
+      <p class="map-tooltip-note">A paper may involve several institutions.</p>
+    </div>
+  </div>
+  <div class="map-key" aria-label="Map colour legend">
+    <span><i class="map-level-0"></i>No mapped papers</span><span><i class="map-level-1"></i>1</span><span><i class="map-level-2"></i>2–3</span><span><i class="map-level-3"></i>4–7</span><span><i class="map-level-4"></i>8+ papers</span>
+  </div>
+  <div class="map-selection" hidden data-map-selection>
+    <p data-country-status aria-live="polite">All countries</p>
+    <button type="button" data-clear-country hidden>Clear country</button>
+    <a href="#publication-results">View publications <span aria-hidden="true">↓</span></a>
+  </div>
+  <details class="map-method">
+    <summary>Affiliations, sources &amp; counting</summary>
+    <p>Counts cover the {{ affiliations.papers.size }} papers and book chapters with verified affiliations, including preprints and credited consortium contributions. All authors’ affiliations are included. A paper counts once per country and once per institution, regardless of how many authors list it. Departments and campus locations are grouped under their parent institution; separately named research centres are retained. The country totals stay the same when searching or filtering the publication list.</p>
+    <p>Affiliations come from the linked paper versions. Where a country is omitted, the named institution’s location is used. Datasets and the single-author thesis are excluded. The ICML Topological Deep Learning Challenge report is also excluded because it lists contributor roles without institutional affiliations.</p>
+    <ul class="affiliation-sources">
+      {% for record in affiliations.papers %}
+        {% assign paper = site.publications | where: 'slug', record[0] | first %}
+        <li data-affiliation-source="{{ record[0] }}"><a href="{{ record[1].source_url }}">{{ paper.title }}</a><span>{{ record[1].source_label }} · {{ record[1].source_section }}</span>
+          {% for evidence in record[1].evidence %}<p><strong>{{ evidence.name }}:</strong> {{ evidence.institutions | join: '; ' }}.</p>{% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="map-credit">Affiliations checked {{ affiliations.checked_on | date: '%B %Y' }}. Map: <a href="{{ site.data.world_map.source.license_url }}">Natural Earth</a>, public domain.</p>
+  </details>
+  <script type="application/json" data-affiliation-data>{{ affiliations.papers | jsonify }}</script>
+</section>

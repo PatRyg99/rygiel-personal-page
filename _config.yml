@@ -14,6 +14,8 @@ author:
   avatar: /images/patryk-rygiel.png
   github: PatRyg99
   linkedin: patryk-rygiel-7b93811b9
+  instagram: patryk.rygiel
+  twitter: rygiel_patryk
   orcid: https://orcid.org/0009-0003-8539-5581
   googlescholar: https://scholar.google.com/citations?user=9OizHmQAAAAJ
   university: https://people.utwente.nl/p.t.rygiel
@@ -58,6 +60,7 @@ exclude:
   - assets/webfonts
   - images/themes
   - images/photography
+  - "*.vtu"
   - images/bio-photo.jpg
   - images/bio-photo-2.jpg
   - images/profile.png

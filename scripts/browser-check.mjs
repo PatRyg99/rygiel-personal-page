@@ -41,11 +41,11 @@ try {
     if (result.exceptionDetails) throw new Error(JSON.stringify(result.exceptionDetails));
     return result.result.value;
   };
-  const navigate = async route => {
+  const navigate = async (route, settledRoute = route) => {
     await call('Page.navigate', { url: base + route });
     for (let attempt = 0; attempt < 100; attempt++) {
       await evaluate(`[...document.images].forEach(image => image.loading = 'eager')`);
-      const ready = await evaluate(`location.href === ${JSON.stringify(base + route)} && document.readyState === 'complete' && [...document.images].every(i => !i.hasAttribute('src') || i.complete)`);
+      const ready = await evaluate(`location.href === ${JSON.stringify(base + settledRoute)} && document.readyState === 'complete' && [...document.images].every(i => !i.hasAttribute('src') || i.complete)`);
       if (ready) return;
       await new Promise(resolve => setTimeout(resolve, 50));
     }
@@ -65,6 +65,7 @@ try {
       assert.deepEqual(info.brokenImages, [], `Broken image: ${route}`);
       assert.ok(info.text > 100, `Empty content: ${route}`);
       if (route === '/' || route === '/publications/abgatr/') await screenshot(`${width}-${route === '/' ? 'home' : 'abgatr'}`);
+      if (route === '/publications/') await screenshot(`${width}-publications-map`);
       if (route === '/photography/') {
         assert.ok(await evaluate(`[...document.querySelectorAll('.photo-grid')].every(grid => { const boxes = [...grid.children].map(photo => photo.getBoundingClientRect()); return boxes.every((box, index) => !index || (Math.abs(box.top - boxes[index - 1].top) < 1 ? box.left > boxes[index - 1].left : box.top > boxes[index - 1].top)); })`), 'Gallery reads left to right across each row');
         await screenshot(`${width}-photography`);
@@ -77,6 +78,52 @@ try {
   }
   await navigate('/publications/');
   assert.equal(await evaluate(`document.querySelectorAll('[data-publication]').length`), 21);
+  assert.equal(await evaluate(`document.querySelectorAll('.world-map [data-country-select]').length`), 16, 'Every verified country is marked');
+  assert.equal(await evaluate(`document.querySelector('.world-map [data-country-select="NL"]').dataset.countryCount`), '15');
+  await evaluate(`document.querySelector('[data-map-view="407 25 172 108"]').click()`);
+  assert.equal(await evaluate(`document.querySelector('.world-map').getAttribute('viewBox')`), '407 25 172 108', 'Europe view enlarges the dense collaboration region');
+  await evaluate(`document.querySelector('.world-map').scrollIntoView({behavior:'instant',block:'center'});new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))`);
+  const germanyVisible = await evaluate(`(() => { const r=document.querySelector('.world-map [data-country-select="DE"]').getBoundingClientRect(); return {x:r.x+r.width/2,y:r.y+r.height/2}; })()`);
+  await call('Input.dispatchMouseEvent', { type:'mouseMoved', ...germanyVisible });
+  await evaluate(`new Promise(r=>requestAnimationFrame(r))`);
+  await screenshot('390-publications-map-hover');
+  assert.equal(await evaluate(`document.querySelector('.map-tooltip').hidden`), false, 'Hovering a country opens institution counts');
+  assert.equal(await evaluate(`document.querySelector('[data-tooltip-country]').textContent`), 'Germany');
+  assert.equal(await evaluate(`document.querySelector('[data-tooltip-count]').textContent`), '5 papers');
+  assert.equal(await evaluate(`[...document.querySelectorAll('[data-tooltip-institutions] li')].find(li=>li.querySelector('span').textContent==='Technical University of Munich').querySelector('strong').textContent`), '3', 'Institutions count distinct papers, not author occurrences');
+  const tooltipPoint = await evaluate(`(() => { const r=document.querySelector('.map-tooltip').getBoundingClientRect(); return {x:r.x+20,y:r.y+20}; })()`);
+  await call('Input.dispatchMouseEvent', {type:'mouseMoved', ...tooltipPoint});
+  await new Promise(resolve => setTimeout(resolve, 220));
+  assert.equal(await evaluate(`document.querySelector('.map-tooltip').hidden`), false, 'Institution popup remains readable when hovered');
+  await screenshot('390-publications-institutions');
+  await call('Input.dispatchKeyEvent', {type:'keyDown', key:'Escape', code:'Escape'});
+  assert.equal(await evaluate(`document.querySelector('.map-tooltip').hidden`), true);
+  await evaluate(`document.querySelector('.world-map [data-country-select="PL"]').focus()`);
+  assert.equal(await evaluate(`document.querySelector('[data-tooltip-country]').textContent`), 'Poland', 'Keyboard focus reveals institutions');
+  await call('Input.dispatchKeyEvent', {type:'keyDown', key:'Enter', code:'Enter'});
+  await call('Input.dispatchKeyEvent', {type:'keyUp', key:'Enter', code:'Enter'});
+  assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 5, 'Country selection filters publication list');
+  assert.ok(await evaluate(`location.search.includes('country=PL')`));
+  await evaluate(`document.querySelector('.world-map [data-country-select="NL"]').focus()`);
+  assert.equal(await evaluate(`[...document.querySelectorAll('[data-tooltip-institutions] li')].find(li=>li.querySelector('span').textContent==='University of Twente').querySelector('strong').textContent`), '15', 'Country and institution totals remain independent of archive filters');
+  await evaluate(`document.querySelector('[data-clear-country]').click()`);
+  assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 21);
+  await navigate('/publications/?country=DE&type=preprint', '/publications/?type=preprint&country=DE');
+  assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 2, 'Country URL and existing filters combine');
+  await evaluate(`document.querySelector('[data-publication-filters]').reset();new Promise(r=>setTimeout(r,30))`);
+  assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 21, 'Reset clears country and output-type filters');
+  await navigate('/publications/?country=ZZ', '/publications/');
+  assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 21, 'Unknown country does not hide the archive');
+  assert.equal(await evaluate(`location.search`), '');
+  await evaluate(`document.querySelector('[data-map-view="407 25 172 108"]').click();document.querySelector('.world-map').scrollIntoView({behavior:'instant',block:'center'});new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))`);
+  const netherlandsPoint = await evaluate(`(() => { const r=document.querySelector('.world-map [data-country-select="NL"]').getBoundingClientRect(); return {x:r.x+r.width/2,y:r.y+r.height/2}; })()`);
+  await call('Input.dispatchTouchEvent', {type:'touchStart', touchPoints:[netherlandsPoint]});
+  await call('Input.dispatchTouchEvent', {type:'touchEnd', touchPoints:[]});
+  await evaluate(`new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))`);
+  assert.equal(await evaluate(`document.querySelector('.map-tooltip').hidden`), false, 'Touch opens the institution popup');
+  assert.equal(await evaluate(`document.querySelector('[data-tooltip-country]').textContent`), 'Netherlands');
+  assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 15);
+  await navigate('/publications/');
   const publicationRoutes = await evaluate(`[...document.querySelectorAll('[data-publication] h3 a')].map(a=>new URL(a.href).pathname)`);
   for (const path of publicationRoutes) {
     await navigate(path.slice(new URL(base).pathname.replace(/\/$/, '').length));
@@ -100,6 +147,7 @@ try {
   assert.deepEqual(await evaluate(`[...document.querySelectorAll('.contact-emails a')].map(link=>link.getAttribute('href'))`), ['mailto:p.t.rygiel@utwente.nl', 'mailto:patryk.rygiel@mlinpl.org', 'mailto:patrygiel99@gmail.com']);
   assert.equal(await evaluate(`document.querySelectorAll('.monogram,nav a[href$="/cv/"]').length`), 0);
   assert.ok(await evaluate(`document.querySelector('.feature-image img').src.endsWith('abgatr-equivariance.png')`));
+  assert.equal(await evaluate(`document.querySelector('.feature a[href$="#aneumo-demo"]')?.href`), base + '/publications/abgatr/#aneumo-demo', 'Featured project links directly to the 3D viewer');
   assert.ok(await evaluate(`document.querySelector('.cv-download').hasAttribute('download')`));
   const cvResponse = await fetch(base + '/files/patryk-rygiel-cv.pdf');
   assert.ok(cvResponse.ok, 'Original CV download responds successfully');
@@ -117,6 +165,10 @@ try {
   await send('Browser.grantPermissions', { origin: new URL(base).origin, permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'] });
   await evaluate(`document.querySelector('[data-copy-citation]').click();new Promise(r=>setTimeout(r,200))`);
   assert.equal(await evaluate(`document.querySelector('[data-copy-citation]').textContent`), 'Copied');
+  await navigate('/publications/');
+  await evaluate(`document.querySelector('[data-publication-map]').scrollIntoView({behavior:'instant',block:'start'})`);
+  assert.equal(await evaluate(`document.documentElement.dataset.theme`), 'dark');
+  await screenshot('390-publications-map-dark');
   await navigate('/photography/');
   assert.equal(await evaluate(`document.querySelectorAll('[data-photo]').length`), 19, 'All selected photographs appear in the gallery');
   assert.deepEqual(await evaluate(`[...document.querySelectorAll('.photo-year-heading h2')].map(node=>node.textContent)`), ['2026']);
@@ -153,9 +205,12 @@ try {
   await navigate('/publications/');
   assert.equal(await evaluate(`document.querySelectorAll('[data-publication]:not([hidden])').length`), 21);
   assert.equal(await evaluate(`document.querySelector('[data-publication-filters]').hidden`), true);
+  assert.equal(await evaluate(`document.querySelectorAll('.world-map [data-country-select]').length`), 16, 'Country map remains visible without JavaScript');
+  assert.equal(await evaluate(`document.querySelector('.world-map [data-country-select="NL"] title').textContent`), 'Netherlands · 15 papers', 'Country counts are server-rendered');
+  assert.equal(await evaluate(`document.querySelectorAll('[data-affiliation-source]').length`), 18, 'Affiliation sources are available without JavaScript');
   await call('Emulation.setScriptExecutionDisabled', { value: false });
   assert.deepEqual(errors, [], 'Browser errors');
-  console.log('Browser checks passed: 6 pages at 3 widths, all 19 photographs, keyboard-accessible photo viewer and no-JavaScript gallery, figures on all 21 publications, original CV download, grouped activities, filters, title aliases, clipboard, dark theme, no-JavaScript archive.');
+  console.log('Browser checks passed: 6 pages at 3 widths, country map and institution hover counts, keyboard selection and country filters, all 19 photographs, photo viewer, figures on all 21 publications, CV download, activities, filters, clipboard, dark theme, and no-JavaScript content.');
   console.log(`Screenshots: ${tmpdir()}/rygiel-*.png`);
 } finally {
   try { await send('Browser.close'); } catch (_) { chrome.kill(); }

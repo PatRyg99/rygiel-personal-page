@@ -8,8 +8,11 @@
   <div class="profile-links">
     <a href="mailto:{{ site.author.email }}">{% include profile-icon.html name='email' %}Email</a>
     <a href="{{ site.author.googlescholar }}">{% include profile-icon.html name='scholar' %}Google Scholar</a>
-    <a href="https://github.com/{{ site.author.github }}">{% include profile-icon.html name='github' %}GitHub</a>
-    <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/">{% include profile-icon.html name='linkedin' %}LinkedIn</a>
     <a href="{{ site.author.orcid }}">{% include profile-icon.html name='orcid' %}ORCID</a>
+    <a href="https://github.com/{{ site.author.github }}">{% include profile-icon.html name='github' %}GitHub</a>
+    <hr class="profile-links-divider">
+    <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/">{% include profile-icon.html name='linkedin' %}LinkedIn</a>
+    {% if site.author.twitter %}<a href="https://x.com/{{ site.author.twitter }}">{% include profile-icon.html name='twitter' %}X</a>{% endif %}
+    {% if site.author.instagram %}<a href="https://www.instagram.com/{{ site.author.instagram }}/">{% include profile-icon.html name='instagram' %}Instagram</a>{% endif %}
   </div>
 </aside>

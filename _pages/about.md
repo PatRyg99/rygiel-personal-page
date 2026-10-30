@@ -22,7 +22,7 @@ redirect_from:
     <div class="feature-topline"><p class="eyebrow">Featured research <span class="eyebrow-dot">/</span> AB-GATr</p><span class="feature-year">2026</span></div>
     <h2 id="feature-title"><a href="{{ flagship.url | relative_url }}">When does equivariance help?</a></h2>
     <p>Learning fluid dynamics from geometry. We study how orientation and symmetry shape neural surrogate performance, and introduce a scalable geometric algebra transformer for coupled surface and volume predictions.</p>
-    <div class="resource-links"><a class="resource-link primary" href="{{ flagship.url | relative_url }}">Explore the project <span aria-hidden="true">↗</span></a><a class="resource-link" href="https://arxiv.org/abs/2605.18816">Read the paper <span aria-hidden="true">↗</span></a><a class="resource-link" href="https://github.com/PatRyg99/abgatr">Code <span aria-hidden="true">↗</span></a></div>
+    <div class="resource-links"><a class="resource-link primary" href="{{ flagship.url | relative_url }}">Explore the project <span aria-hidden="true">↗</span></a><a class="resource-link" href="{{ flagship.url | relative_url }}#aneumo-demo">3D viewer <span aria-hidden="true">↗</span></a><a class="resource-link" href="https://arxiv.org/abs/2605.18816">Read the paper <span aria-hidden="true">↗</span></a><a class="resource-link" href="https://github.com/PatRyg99/abgatr">Code <span aria-hidden="true">↗</span></a></div>
   </div>
 </section>
 <section class="content-section" aria-labelledby="research-title">

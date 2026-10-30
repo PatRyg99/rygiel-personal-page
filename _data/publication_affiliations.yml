@@ -1,0 +1,693 @@
+# Verified author affiliations; one paper counts at most once per country/institution.
+---
+checked_on: '2026-10-30'
+countries:
+- code: DK
+  name: Denmark
+- code: FI
+  name: Finland
+- code: FR
+  name: France
+- code: DE
+  name: Germany
+- code: GR
+  name: Greece
+- code: IT
+  name: Italy
+- code: NL
+  name: Netherlands
+- code: 'NO'
+  name: Norway
+- code: PL
+  name: Poland
+- code: PT
+  name: Portugal
+- code: RS
+  name: Serbia
+- code: ES
+  name: Spain
+- code: CH
+  name: Switzerland
+- code: TR
+  name: Türkiye
+- code: GB
+  name: United Kingdom
+- code: US
+  name: United States
+papers:
+  aaa-growth:
+    countries:
+    - NL
+    source_url: https://arxiv.org/html/2506.08729v2
+    source_label: arXiv v2, author affiliations
+    source_section: Author block before the abstract (PDF page 1)
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam Cardiovascular Sciences
+      - Amsterdam UMC
+      - University of Twente
+    notes: All four affiliation entries explicitly say The Netherlands. The journal
+      and preprint are one publication. The final journal PDF could not be downloaded
+      (403), so the accessible preprint is the auditable affiliation source.
+    institution_normalization: Departments and embedded university/hospital centres
+      are represented by their named parent institution. Amsterdam UMC locations are
+      one institution. Explicit Amsterdam cross-institutional research institutes
+      and MCML are retained separately. Each institution counts at most once per publication.
+  abgatr:
+    countries:
+    - NL
+    - DE
+    source_url: https://arxiv.org/html/2605.18816v2
+    source_label: arXiv v2, author affiliations
+    source_section: Author block before abstract (PDF page 1)
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam Cardiovascular Sciences
+      - Amsterdam UMC
+      - University of Twente
+    - code: DE
+      name: Germany
+      institutions:
+      - Munich Center for Machine Learning
+      - Technical University of Munich
+    notes: Version 2 lists Julian Suk at Technical University of Munich and MCML.
+      Countries are mapped from the explicitly named institutions; this author block
+      omits country strings. Manchester is not listed in the paper affiliations and
+      is not counted.
+    institution_normalization: Departments and embedded university/hospital centres
+      are represented by their named parent institution. Amsterdam UMC locations are
+      one institution. Explicit Amsterdam cross-institutional research institutes
+      and MCML are retained separately. Each institution counts at most once per publication.
+    institution_notes:
+    - Technical Medical Centre, Cardiovascular Health Technology Centre, and Digital
+      Society Institute are embedded University of Twente units and grouped under
+      University of Twente. Amsterdam UMV in the source is normalized to Amsterdam
+      UMC, an apparent source typo.
+  active-learning:
+    countries:
+    - NL
+    source_url: https://link.springer.com/chapter/10.1007/978-3-032-17734-6_11
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam Cardiovascular Sciences
+      - Amsterdam UMC
+      - University of Twente
+    notes: All four published author affiliations are in the Netherlands. Julian Suk
+      is affiliated to Twente in this paper; his later Munich role is not substituted.
+      Editor affiliations excluded.
+    sources:
+    - url: https://link.springer.com/chapter/10.1007/978-3-032-17734-6_11
+      section: Author information / Authors and Affiliations
+      version: Published proceedings version, first online 1 May 2026
+    - url: https://arxiv.org/html/2503.03453v1
+      section: Author block
+  ai-vascular-surgery:
+    countries:
+    - NL
+    source_url: https://sicve.it/wp-content/uploads/2024/11/SICVE-2024.pdf
+    source_label: SICVE 2024 book, contributor affiliations
+    source_section: Contributor list on PDF pages 8–11, cross-checked against chapter
+      4.3 author list on PDF page 131 (printed page 116)
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam UMC
+      - University of Twente
+    notes: Count only this chapter's eight authors, not authors of the rest of the
+      edited book. All eight contributor entries explicitly state the Netherlands.
+      Verified using the previously downloaded complete book PDF and its extracted
+      text in /private/tmp/fig-ai-vascular-surgery.txt.
+    institution_normalization: Departments and embedded university/hospital centres
+      are represented by their named parent institution. Amsterdam UMC locations are
+      one institution. Explicit Amsterdam cross-institutional research institutes
+      and MCML are retained separately. Each institution counts at most once per publication.
+  beyond-pixels:
+    countries:
+    - NL
+    - TR
+    source_url: https://link.springer.com/chapter/10.1007/978-3-032-09513-8_35
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - University of Twente
+    - code: TR
+      name: Türkiye
+      institutions:
+      - Istanbul Technical University
+    notes: Publisher writes Turkey; arXiv writes Türkiye. Both normalized to ISO TR.
+      Editor affiliations excluded.
+    sources:
+    - url: https://link.springer.com/chapter/10.1007/978-3-032-09513-8_35
+      section: Author information / Authors and Affiliations
+      version: Published proceedings version, first online 2 January 2026
+    - url: https://arxiv.org/html/2508.05168v1
+      section: Author block
+  centerlinepointnet:
+    countries:
+    - PL
+    source_url: https://link.springer.com/chapter/10.1007/978-3-031-43990-2_73
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: PL
+      name: Poland
+      institutions:
+      - Hemolens Diagnostics
+      - Wrocław University of Science and Technology
+    notes: Both author affiliation addresses explicitly state Wrocław, Poland.
+  core-outcomes-aaa:
+    countries:
+    - NL
+    - RS
+    - PT
+    - GB
+    - FI
+    - DE
+    - FR
+    - 'NO'
+    source_url: https://helda.helsinki.fi/server/api/core/bitstreams/1b0a25af-3d65-45df-95c6-9d2966b0e76b/content
+    source_label: Published article, University of Helsinki repository
+    repository_url: https://hdl.handle.net/10138/631547
+    source_section: Printed page 275 (PDF page 2), author affiliations 1–16; collaborator
+      affiliations on printed pages 286–288 (PDF pages 13–15)
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - ALLAI
+      - Amsterdam Cardiovascular Sciences
+      - Amsterdam Gastroenterology and Metabolism
+      - Amsterdam Public Health
+      - Amsterdam UMC
+      - Radboud University Medical Centre
+      - University of Amsterdam
+      - University of Twente
+    - code: RS
+      name: Serbia
+      institutions:
+      - University Clinical Center of Serbia
+      - University of Belgrade
+      - Vinča Institute of Nuclear Sciences
+    - code: PT
+      name: Portugal
+      institutions:
+      - São João University Hospital
+      - University of Porto
+    - code: GB
+      name: United Kingdom
+      institutions:
+      - University of Oxford
+    - code: FI
+      name: Finland
+      institutions:
+      - Helsinki University Hospital
+      - University of Helsinki
+    - code: DE
+      name: Germany
+      institutions:
+      - Asklepios Clinic Wandsbek
+      - Asklepios Medical School
+      - CCB Cardioangiologic Center Bethanien
+      - University of Mainz
+    - code: FR
+      name: France
+      institutions:
+      - CNRS
+      - Hospital of Antibes Juan-les-Pins
+      - Nice University Hospital
+      - Université Côte d’Azur
+    - code: 'NO'
+      name: Norway
+      institutions:
+      - Haukeland University Hospital
+      - University of Bergen
+    notes: Includes Patryk's credited VASCUL-AID consortium contribution, not primary-author
+      status. The full collaborator affiliation list adds institutions but no countries
+      beyond the eight named-author countries. Verified from complete published PDF
+      previously downloaded at /private/tmp/fig-core-outcomes-aaa.pdf and its extracted
+      text.
+    institution_normalization: Departments and embedded university/hospital centres
+      are represented by their named parent institution. Amsterdam UMC locations are
+      one institution. Explicit Amsterdam cross-institutional research institutes
+      and MCML are retained separately. Each institution counts at most once per publication.
+    institution_notes:
+    - All affiliations in the primary-author block and the complete VASCUL-AID and
+      expert-consensus collaborator block were inspected.
+    - University of Amsterdam is separately named for the Informatics Institute, not
+      inferred from an Amsterdam UMC location.
+    - Amsterdam Gastroenterology and Metabolism is explicitly named in M. P. Schijvent’s
+      affiliation.
+    - University Clinical Center of Serbia normalizes Clinical Center of Serbia and
+      University Clinical Center of Serbia as the same hospital.
+    - São João University Hospital normalizes Centro Hospitalar Universitário de São
+      João and Unidade de Saúde Local de São João as the same participating hospital
+      organization.
+    - Asklepios Clinic Wandsbek and Asklepios Medical School are both explicitly named;
+      both are retained.
+    - CNRS is explicitly named in affiliation 12 (Université Côte d’Azur, CNRS, UMR7370).
+    - RISE-Health is represented by the University of Porto; Institute 3IA Côte d’Azur
+      by Université Côte d’Azur; MMIV by Haukeland University Hospital; Technical
+      Medical Centre by University of Twente.
+    - F. Catarinella’s entry specifies only Chief Medical Information Officer, Hoofddorp.
+      D. Nio’s entry specifies only Department of Vascular Surgery, Haarlem. Their
+      countries are known, but no institution is invented.
+    - M. Loncaric’s first two entries name departments and Amsterdam without a parent
+      institution; their explicitly named University of Amsterdam and Amsterdam Cardiovascular
+      Sciences affiliations are counted.
+    institution_normalization_sources:
+    - https://www.etf.gov.pt/uls-de-sao-joao
+    - https://kcs.ac.rs/ukcs/osnovne-informacije/
+  coronary-ostia:
+    countries:
+    - PL
+    source_url: https://link.springer.com/chapter/10.1007/978-3-031-21014-3_33
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: PL
+      name: Poland
+      institutions:
+      - Hemolens Diagnostics
+      - Wrocław Medical University
+      - Wrocław University of Science and Technology
+    notes: All three author affiliations explicitly state Wrocław, Poland.
+  deep-vectorised:
+    countries:
+    - NL
+    - IT
+    source_url: https://arxiv.org/html/2410.11920v2
+    source_label: arXiv v2, author affiliations
+    source_section: Author block before the abstract
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - University of Twente
+    - code: IT
+      name: Italy
+      institutions:
+      - Centro Cardiologico Monzino IRCCS
+      - Politecnico di Milano
+      - University of Milan
+    notes: Uses the accessible preprint's full author block; every affiliation states
+      its country. Journal and preprint count as one paper.
+  eigenvector-grouping:
+    countries:
+    - PL
+    source_url: https://proceedings.mlr.press/v194/rygiel22a/rygiel22a.pdf
+    source_label: Published paper (PDF)
+    source_section: Page 1, author affiliations
+    evidence:
+    - code: PL
+      name: Poland
+      institutions:
+      - Hemolens Diagnostics
+      - Tooploox
+      - Wrocław University of Science and Technology
+    notes: The paper names institutions without country strings. Their Polish locations
+      are supported by the contemporary Coronary Ostia paper and Tooploox's official
+      contact addresses. Later foreign offices are not added.
+    location_sources:
+      PL:
+      - url: https://link.springer.com/chapter/10.1007/978-3-031-21014-3_33
+        institution: Hemolens Diagnostics and Wrocław University of Science and Technology
+        evidence: Wrocław, Poland, in the same authors' 2022 paper
+      - url: https://tooploox.com/contact-us
+        institution: Tooploox
+        evidence: Wrocław headquarters and Warsaw office, Poland
+  great:
+    countries:
+    - DE
+    - GB
+    - NL
+    source_url: https://link.springer.com/chapter/10.1007/978-3-032-06774-6_21
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: DE
+      name: Germany
+      institutions:
+      - Munich Center for Machine Learning
+      - Technical University of Munich
+    - code: GB
+      name: United Kingdom
+      institutions:
+      - Imperial College London
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Erasmus Medical Center
+      - University of Twente
+    notes: UK affiliation is Daniel Rueckert's Imperial affiliation; author block
+      has five institutions across three countries. Editor affiliations excluded.
+    sources:
+    - url: https://link.springer.com/chapter/10.1007/978-3-032-06774-6_21
+      section: Author information / Authors and Affiliations
+      version: Published proceedings version, first online 5 October 2025
+    - url: https://arxiv.org/html/2508.19030v1
+      section: Author block
+  hemodynamic-neural-field:
+    countries:
+    - FR
+    - NL
+    source_url: https://papers.miccai.org/miccai-2026-sat/paper/Off_Grid_026.pdf
+    source_label: Camera-ready paper (PDF)
+    source_section: Page 1, author affiliations 1–3
+    evidence:
+    - code: FR
+      name: France
+      institutions:
+      - CNRS
+      - Nantes Université
+      - École Centrale Nantes
+    - code: NL
+      name: Netherlands
+      institutions:
+      - University of Twente
+    notes: All three numbered affiliations explicitly state France or The Netherlands.
+    institution_notes:
+    - LS2N is represented by its named parent institutions Nantes Université, École
+      Centrale Nantes and CNRS.
+  mesh-benchmark:
+    countries:
+    - IT
+    - NL
+    source_url: https://arxiv.org/html/2501.09046v2
+    source_label: arXiv v2, author affiliations
+    published_source_url: https://re.public.polimi.it/retrieve/f436d57d-91dd-41af-a3a6-a9b7e6d1962c/2025_Nannini_cibm.pdf
+    source_section: Author block before abstract; same country set in indexed final
+      published PDF, page 1
+    evidence:
+    - code: IT
+      name: Italy
+      institutions:
+      - Centro Cardiologico Monzino IRCCS
+      - Politecnico di Milano
+      - University of Milan
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam UMC
+      - University of Amsterdam
+      - University of Twente
+    notes: Both countries explicitly appear in affiliations. The final published PDF
+      is indexed by search with the same country set, but direct downloads returned
+      403; the accessible full preprint provides the main audit source.
+    institution_normalization: Departments and embedded university/hospital centres
+      are represented by their named parent institution. Amsterdam UMC locations are
+      one institution. Explicit Amsterdam cross-institutional research institutes
+      and MCML are retained separately. Each institution counts at most once per publication.
+  neural-motion:
+    countries:
+    - IT
+    - NL
+    source_url: https://link.springer.com/chapter/10.1007/978-3-031-87756-8_37
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: IT
+      name: Italy
+      institutions:
+      - Fondazione Monasterio
+      - University of Pisa
+    - code: NL
+      name: Netherlands
+      institutions:
+      - University of Twente
+    notes: Four published author affiliations across Italy and the Netherlands. Editor
+      affiliations excluded.
+    sources:
+    - url: https://link.springer.com/chapter/10.1007/978-3-031-87756-8_37
+      section: Author information / Authors and Affiliations
+      version: Published proceedings version, first online 29 April 2025
+    - url: https://arxiv.org/html/2407.20728v1
+      section: Author block
+  sjogren:
+    countries:
+    - PL
+    - NL
+    source_url: https://link.springer.com/article/10.1007/s12021-025-09762-1#author-information
+    source_label: Published article, Authors and Affiliations
+    source_section: Author information → Authors and Affiliations (11 affiliation
+      entries)
+    evidence:
+    - code: PL
+      name: Poland
+      institutions:
+      - 4th Military Clinical Hospital, Wrocław
+      - Hetalox
+      - Pomeranian Medical University in Szczecin
+      - Wrocław Medical University
+      - Wrocław University of Science and Technology
+    - code: NL
+      name: Netherlands
+      institutions:
+      - University of Twente
+    notes: Patryk's affiliation is the University of Twente, Netherlands; every other
+      affiliation explicitly states Poland, including Miłosz Gajowczyk's city-only
+      Wroclaw affiliation.
+    institution_normalization: Departments and embedded university/hospital centres
+      are represented by their named parent institution. Amsterdam UMC locations are
+      one institution. Explicit Amsterdam cross-institutional research institutes
+      and MCML are retained separately. Each institution counts at most once per publication.
+    institution_notes:
+    - Miłosz Gajowczyk is affiliated only with Wroclaw, Poland; no institution is
+      inferred for this city-only affiliation. Medical University, Wroclaw and Wroclaw
+      Medical University are one institution.
+  topobench:
+    countries:
+    - CH
+    - DE
+    - DK
+    - ES
+    - FI
+    - GR
+    - IT
+    - NL
+    - PL
+    - PT
+    - US
+    source_url: https://data.mlr.press/assets/pdf/v02-20.pdf
+    source_label: Published paper (PDF)
+    source_section: Page 1, all 28 numbered author affiliations
+    evidence:
+    - code: IT
+      name: Italy
+      institutions:
+      - Istituto Italiano di Tecnologia
+      - Sapienza University of Rome
+    - code: US
+      name: United States
+      institutions:
+      - Atalaya Capital Management
+      - Columbia University
+      - Harvard University
+      - Northeastern University
+      - University of California, Santa Barbara
+      - University of Oregon
+      - University of Puget Sound
+      - University of Rochester
+      - University of South Florida
+      - University of Texas Rio Grande Valley
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Delft University of Technology
+      - Tilburg University
+      - University of Twente
+      - Vrije Universiteit Amsterdam
+    - code: CH
+      name: Switzerland
+      institutions:
+      - University of Fribourg
+    - code: PT
+      name: Portugal
+      institutions:
+      - Instituto Superior Técnico
+    - code: DE
+      name: Germany
+      institutions:
+      - Perelyn GmbH
+      - RWTH Aachen University
+    - code: DK
+      name: Denmark
+      institutions:
+      - University of Copenhagen
+    - code: ES
+      name: Spain
+      institutions:
+      - Barcelona Supercomputing Center
+      - Catalan Institution for Research and Advanced Studies
+      - Nostrum Biodiscovery
+      - Universitat Politècnica de Catalunya
+    - code: FI
+      name: Finland
+      institutions:
+      - Aalto University
+    - code: PL
+      name: Poland
+      institutions:
+      - Adam Mickiewicz University
+    - code: GR
+      name: Greece
+      institutions:
+      - PolyShape
+    notes: The published paper names all 28 institutions but omits countries. Countries
+      are resolved from the named institutions and supporting institutional/author
+      sources below. These are location mappings, not current-job substitutions. PolyShape
+      is Greece, supported by the author's dated experience since September 2023;
+      do not substitute his previous Manchester or other affiliations. Atalaya is
+      New York, supported by its acquirer's 2024 announcement and Theodore Long's
+      own affiliation profile. Nostrum's Spanish headquarters is supported by its
+      official contact/legal notice; its current Boston office does not add another
+      country, and US is independently represented by many author universities.
+    sources:
+    - url: https://data.mlr.press/assets/pdf/v02-20.pdf
+      section: Page 1, all 28 numbered author affiliations
+      version: Published DMLR version, August 2025
+    - url: https://arxiv.org/html/2406.06642v3
+      section: Author block
+    location_sources:
+      IT:
+      - url: https://dst.web.uniroma1.it/en/location
+        institution: Sapienza University of Rome
+        evidence: Rome university campus address
+      US:
+      - url: https://www.ucsb.edu/contact
+        institution: UC Santa Barbara
+        evidence: Santa Barbara, California
+      - url: https://www.blueowl.com/news/blue-owl-capital-significantly-expands-alternative-credit-and-asset-based-finance-capabilities
+        institution: Atalaya Capital Management
+        evidence: 16 July 2024 announcement identifies Atalaya as based and headquartered
+          in New York
+      - url: https://www.linkedin.com/in/theodore-long-43ab4815a
+        institution: Atalaya Capital Management
+        evidence: Author's own experience section places his Atalaya role in New York,
+          New York, United States
+      NL:
+      - url: https://www.utwente.nl/en/about-us/campus/contact-route/
+        institution: University of Twente
+        evidence: Enschede, The Netherlands
+      CH:
+      - url: https://www.unifr.ch/international/en/office/contact.html
+        institution: University of Fribourg
+        evidence: 1700 Fribourg, Switzerland
+      PT:
+      - url: https://tecnico.ulisboa.pt/pt/contactos/
+        institution: Instituto Superior Técnico
+        evidence: Lisbon campus addresses
+      - url: https://decivil.tecnico.ulisboa.pt/en/contacts
+        institution: Instituto Superior Técnico
+        evidence: Portugal stated in department address
+      DE:
+      - url: https://www.ihf.rwth-aachen.de/en/contact
+        institution: RWTH Aachen University
+        evidence: Germany in institute address
+      - url: https://www.perelyn.com/impressum
+        institution: Perelyn GmbH
+        evidence: Munich registered address
+      DK:
+      - url: https://international.ku.dk/contact/
+        institution: University of Copenhagen
+        evidence: Copenhagen university postal address
+      ES:
+      - url: https://ppc.bsc.es/contact.html
+        institution: Barcelona Supercomputing Center
+        evidence: Barcelona address
+      - url: https://www.nostrumbiodiscovery.com/about-us/contact/
+        institution: Nostrum Biodiscovery
+        evidence: Headquarters in Barcelona, Spain
+      - url: https://www.nostrumbiodiscovery.com/legal-notice/
+        institution: Nostrum Biodiscovery
+        evidence: Spanish company registered address in Barcelona
+      FI:
+      - url: https://www.aalto.fi/en/aalto-university/aalto-university-contact-information
+        institution: Aalto University
+        evidence: FI-00076 AALTO, FINLAND
+      PL:
+      - url: https://amu.edu.pl/en/main-page/contact
+        institution: Adam Mickiewicz University
+        evidence: Poznań, Poland
+      GR:
+      - url: https://www.theopapamarkou.com/
+        institution: PolyShape
+        evidence: Founder and CEO, PolyShape, September 2023–present, Athens, Greece
+  vessel-segmentation:
+    countries:
+    - NL
+    source_url: https://link.springer.com/chapter/10.1007/978-3-031-87756-8_27
+    source_label: Publisher author affiliations
+    source_section: Author information / Authors and Affiliations
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam Cardiovascular Sciences
+      - Amsterdam UMC
+      - University of Twente
+    notes: All three published author affiliations are in the Netherlands. Editor
+      affiliations excluded.
+    sources:
+    - url: https://link.springer.com/chapter/10.1007/978-3-031-87756-8_27
+      section: Author information / Authors and Affiliations
+      version: Published proceedings version, first online 29 April 2025
+    - url: https://arxiv.org/html/2403.15314v2
+      section: Author block
+  wall-shear-stress-aaa:
+    countries:
+    - NL
+    - DE
+    source_url: https://arxiv.org/html/2507.22817v1
+    source_label: arXiv v1, author affiliations
+    source_section: Author block before the abstract
+    evidence:
+    - code: NL
+      name: Netherlands
+      institutions:
+      - Amsterdam Cardiovascular Sciences
+      - Amsterdam UMC
+      - University of Twente
+    - code: DE
+      name: Germany
+      institutions:
+      - Munich Center for Machine Learning
+      - Technical University of Munich
+    notes: All seven affiliation entries explicitly state their country.
+excluded:
+  topological-learning-challenge:
+    countries: []
+    source_url: https://arxiv.org/pdf/2409.05211v1
+    source_label: Challenge report (PDF)
+    source_section: Page 1 author block and role footnotes; all 9 pages inspected
+      for institutional author affiliations
+    evidence: []
+    notes: The report labels authors only as challenge organizers, reviewers, contributors
+      and participants. It does not provide institutional affiliations. Correspondence
+      email domains and the Vienna conference location are not institutional affiliations
+      and are not used to infer countries. Exclude this work from affiliation-derived
+      country counts until a source with its institutional author affiliations is
+      available.
+    sources:
+    - url: https://arxiv.org/pdf/2409.05211v1
+      section: Page 1 author block and role footnotes; all 9 pages inspected for institutional
+        author affiliations
+    - url: https://arxiv.org/html/2409.05211v1
+      section: Author block
+    excluded_reason: The report lists contributor roles but no institutional author
+      affiliations.
+  aaa-100:
+    excluded_reason: Dataset; this map counts papers and book chapters.
+  ffr-thesis:
+    excluded_reason: Single-author thesis; excluded from co-publication counts.

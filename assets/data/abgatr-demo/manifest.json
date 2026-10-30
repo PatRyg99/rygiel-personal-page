@@ -1,0 +1,1242 @@
+{
+  "formatVersion": 2,
+  "units": "cm/s",
+  "fieldOrder": [
+    "GT",
+    "AB-GATr",
+    "AB-GATr-error",
+    "AB-UPT",
+    "AB-UPT-error",
+    "AB-UPT-180",
+    "AB-UPT-180-error",
+    "LaB-GATr",
+    "LaB-GATr-error",
+    "Transolver",
+    "Transolver-error",
+    "Transolver-180",
+    "Transolver-180-error"
+  ],
+  "datasets": [
+    {
+      "id": "aneumo",
+      "label": "ANEUMO",
+      "timeAveraged": false
+    },
+    {
+      "id": "synthbifcor",
+      "label": "SynthBifCor",
+      "timeAveraged": false
+    },
+    {
+      "id": "aaa-100",
+      "label": "AAA-100",
+      "timeAveraged": false,
+      "timeResolved": true,
+      "predictedTimeSteps": 21
+    }
+  ],
+  "models": [
+    {
+      "id": "AB-GATr",
+      "label": "AB-GATr",
+      "errorField": "AB-GATr-error"
+    },
+    {
+      "id": "AB-UPT",
+      "label": "AB-UPT",
+      "errorField": "AB-UPT-error"
+    },
+    {
+      "id": "AB-UPT-180",
+      "label": "AB-UPT (rotation-trained)",
+      "errorField": "AB-UPT-180-error"
+    },
+    {
+      "id": "LaB-GATr",
+      "label": "LaB-GATr",
+      "errorField": "LaB-GATr-error"
+    },
+    {
+      "id": "Transolver",
+      "label": "Transolver++",
+      "errorField": "Transolver-error"
+    },
+    {
+      "id": "Transolver-180",
+      "label": "Transolver++ (rotation-trained)",
+      "errorField": "Transolver-180-error"
+    }
+  ],
+  "fractions": [
+    0.08,
+    0.14,
+    0.2,
+    0.26,
+    0.32,
+    0.38,
+    0.44,
+    0.5,
+    0.56,
+    0.62,
+    0.68,
+    0.74,
+    0.8,
+    0.86,
+    0.92
+  ],
+  "samples": [
+    {
+      "id": "777",
+      "shell": "777/shell.bin.gz",
+      "slices": {
+        "x": [
+          "777/x-00.bin.gz",
+          "777/x-01.bin.gz",
+          "777/x-02.bin.gz",
+          "777/x-03.bin.gz",
+          "777/x-04.bin.gz",
+          "777/x-05.bin.gz",
+          "777/x-06.bin.gz",
+          "777/x-07.bin.gz",
+          "777/x-08.bin.gz",
+          "777/x-09.bin.gz",
+          "777/x-10.bin.gz",
+          "777/x-11.bin.gz",
+          "777/x-12.bin.gz",
+          "777/x-13.bin.gz",
+          "777/x-14.bin.gz"
+        ],
+        "y": [
+          "777/y-00.bin.gz",
+          "777/y-01.bin.gz",
+          "777/y-02.bin.gz",
+          "777/y-03.bin.gz",
+          "777/y-04.bin.gz",
+          "777/y-05.bin.gz",
+          "777/y-06.bin.gz",
+          "777/y-07.bin.gz",
+          "777/y-08.bin.gz",
+          "777/y-09.bin.gz",
+          "777/y-10.bin.gz",
+          "777/y-11.bin.gz",
+          "777/y-12.bin.gz",
+          "777/y-13.bin.gz",
+          "777/y-14.bin.gz"
+        ],
+        "z": [
+          "777/z-00.bin.gz",
+          "777/z-01.bin.gz",
+          "777/z-02.bin.gz",
+          "777/z-03.bin.gz",
+          "777/z-04.bin.gz",
+          "777/z-05.bin.gz",
+          "777/z-06.bin.gz",
+          "777/z-07.bin.gz",
+          "777/z-08.bin.gz",
+          "777/z-09.bin.gz",
+          "777/z-10.bin.gz",
+          "777/z-11.bin.gz",
+          "777/z-12.bin.gz",
+          "777/z-13.bin.gz",
+          "777/z-14.bin.gz"
+        ]
+      },
+      "velocityRange": [
+        0,
+        0.17951655652709872
+      ],
+      "errorRange": [
+        0,
+        0.1512427300885203
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.040811486542224884,
+        0.04343667812645435,
+        0.039908094331622124
+      ],
+      "scale": 132.26689056434384,
+      "sourceBounds": [
+        0.03636050224304199,
+        0.045262470841407776,
+        0.035876207053661346,
+        0.05099714919924736,
+        0.035028815269470215,
+        0.04478737339377403
+      ],
+      "source": {
+        "filename": "777-combined.vtu",
+        "sha256": "b3945cd992d1a5bcab95adfb91564330ac78189529a372a00607c27e64a6282d",
+        "pointCount": 220421,
+        "cellCount": 76994,
+        "excludedOrphanPoints": 14203
+      },
+      "fallbackSliceCount": 10,
+      "label": "777",
+      "dataset": "aneumo",
+      "timeAveraged": false
+    },
+    {
+      "id": "832",
+      "shell": "832/shell.bin.gz",
+      "slices": {
+        "x": [
+          "832/x-00.bin.gz",
+          "832/x-01.bin.gz",
+          "832/x-02.bin.gz",
+          "832/x-03.bin.gz",
+          "832/x-04.bin.gz",
+          "832/x-05.bin.gz",
+          "832/x-06.bin.gz",
+          "832/x-07.bin.gz",
+          "832/x-08.bin.gz",
+          "832/x-09.bin.gz",
+          "832/x-10.bin.gz",
+          "832/x-11.bin.gz",
+          "832/x-12.bin.gz",
+          "832/x-13.bin.gz",
+          "832/x-14.bin.gz"
+        ],
+        "y": [
+          "832/y-00.bin.gz",
+          "832/y-01.bin.gz",
+          "832/y-02.bin.gz",
+          "832/y-03.bin.gz",
+          "832/y-04.bin.gz",
+          "832/y-05.bin.gz",
+          "832/y-06.bin.gz",
+          "832/y-07.bin.gz",
+          "832/y-08.bin.gz",
+          "832/y-09.bin.gz",
+          "832/y-10.bin.gz",
+          "832/y-11.bin.gz",
+          "832/y-12.bin.gz",
+          "832/y-13.bin.gz",
+          "832/y-14.bin.gz"
+        ],
+        "z": [
+          "832/z-00.bin.gz",
+          "832/z-01.bin.gz",
+          "832/z-02.bin.gz",
+          "832/z-03.bin.gz",
+          "832/z-04.bin.gz",
+          "832/z-05.bin.gz",
+          "832/z-06.bin.gz",
+          "832/z-07.bin.gz",
+          "832/z-08.bin.gz",
+          "832/z-09.bin.gz",
+          "832/z-10.bin.gz",
+          "832/z-11.bin.gz",
+          "832/z-12.bin.gz",
+          "832/z-13.bin.gz",
+          "832/z-14.bin.gz"
+        ]
+      },
+      "velocityRange": [
+        0,
+        0.19809972254298128
+      ],
+      "errorRange": [
+        0,
+        0.1586994256955192
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.04503542371094227,
+        0.049725864082574844,
+        0.03895269334316254
+      ],
+      "scale": 156.09852679666957,
+      "sourceBounds": [
+        0.040923018008470535,
+        0.049147829413414,
+        0.04331965371966362,
+        0.05613207444548607,
+        0.033178579062223434,
+        0.04472680762410164
+      ],
+      "source": {
+        "filename": "832-combined.vtu",
+        "sha256": "d5de0926057e3ed7b65f3313f5a5f0426f09e27523a478eff49c31c0d446ed47",
+        "pointCount": 176608,
+        "cellCount": 61257,
+        "excludedOrphanPoints": 10679
+      },
+      "fallbackSliceCount": 3,
+      "label": "832",
+      "dataset": "aneumo",
+      "timeAveraged": false
+    },
+    {
+      "id": "845",
+      "shell": "845/shell.bin.gz",
+      "slices": {
+        "x": [
+          "845/x-00.bin.gz",
+          "845/x-01.bin.gz",
+          "845/x-02.bin.gz",
+          "845/x-03.bin.gz",
+          "845/x-04.bin.gz",
+          "845/x-05.bin.gz",
+          "845/x-06.bin.gz",
+          "845/x-07.bin.gz",
+          "845/x-08.bin.gz",
+          "845/x-09.bin.gz",
+          "845/x-10.bin.gz",
+          "845/x-11.bin.gz",
+          "845/x-12.bin.gz",
+          "845/x-13.bin.gz",
+          "845/x-14.bin.gz"
+        ],
+        "y": [
+          "845/y-00.bin.gz",
+          "845/y-01.bin.gz",
+          "845/y-02.bin.gz",
+          "845/y-03.bin.gz",
+          "845/y-04.bin.gz",
+          "845/y-05.bin.gz",
+          "845/y-06.bin.gz",
+          "845/y-07.bin.gz",
+          "845/y-08.bin.gz",
+          "845/y-09.bin.gz",
+          "845/y-10.bin.gz",
+          "845/y-11.bin.gz",
+          "845/y-12.bin.gz",
+          "845/y-13.bin.gz",
+          "845/y-14.bin.gz"
+        ],
+        "z": [
+          "845/z-00.bin.gz",
+          "845/z-01.bin.gz",
+          "845/z-02.bin.gz",
+          "845/z-03.bin.gz",
+          "845/z-04.bin.gz",
+          "845/z-05.bin.gz",
+          "845/z-06.bin.gz",
+          "845/z-07.bin.gz",
+          "845/z-08.bin.gz",
+          "845/z-09.bin.gz",
+          "845/z-10.bin.gz",
+          "845/z-11.bin.gz",
+          "845/z-12.bin.gz",
+          "845/z-13.bin.gz",
+          "845/z-14.bin.gz"
+        ]
+      },
+      "velocityRange": [
+        0,
+        0.23951076794584433
+      ],
+      "errorRange": [
+        0,
+        0.20228754814148137
+      ],
+      "defaultAxis": "z",
+      "defaultSlice": 7,
+      "center": [
+        0.024733219295740128,
+        0.03793654404580593,
+        0.033144705928862095
+      ],
+      "scale": 153.53917448703584,
+      "sourceBounds": [
+        0.018220223486423492,
+        0.031246215105056763,
+        0.03190711513161659,
+        0.04396597295999527,
+        0.029928026720881462,
+        0.03636138513684273
+      ],
+      "source": {
+        "filename": "845-combined.vtu",
+        "sha256": "07a2fe5c4395468cbd7725e01cf976828fa39b816b97c482faa6861f44f90ec2",
+        "pointCount": 121199,
+        "cellCount": 42608,
+        "excludedOrphanPoints": 8556
+      },
+      "fallbackSliceCount": 3,
+      "label": "845",
+      "dataset": "aneumo",
+      "timeAveraged": false
+    },
+    {
+      "id": "1815",
+      "label": "1815",
+      "dataset": "synthbifcor",
+      "shell": "1815/shell.bin.gz",
+      "slices": {
+        "x": [
+          "1815/x-00.bin.gz",
+          "1815/x-01.bin.gz",
+          "1815/x-02.bin.gz",
+          "1815/x-03.bin.gz",
+          "1815/x-04.bin.gz",
+          "1815/x-05.bin.gz",
+          "1815/x-06.bin.gz",
+          "1815/x-07.bin.gz",
+          "1815/x-08.bin.gz",
+          "1815/x-09.bin.gz",
+          "1815/x-10.bin.gz",
+          "1815/x-11.bin.gz",
+          "1815/x-12.bin.gz",
+          "1815/x-13.bin.gz",
+          "1815/x-14.bin.gz"
+        ],
+        "y": [
+          "1815/y-00.bin.gz",
+          "1815/y-01.bin.gz",
+          "1815/y-02.bin.gz",
+          "1815/y-03.bin.gz",
+          "1815/y-04.bin.gz",
+          "1815/y-05.bin.gz",
+          "1815/y-06.bin.gz",
+          "1815/y-07.bin.gz",
+          "1815/y-08.bin.gz",
+          "1815/y-09.bin.gz",
+          "1815/y-10.bin.gz",
+          "1815/y-11.bin.gz",
+          "1815/y-12.bin.gz",
+          "1815/y-13.bin.gz",
+          "1815/y-14.bin.gz"
+        ],
+        "z": [
+          "1815/z-00.bin.gz",
+          "1815/z-01.bin.gz",
+          "1815/z-02.bin.gz",
+          "1815/z-03.bin.gz",
+          "1815/z-04.bin.gz",
+          "1815/z-05.bin.gz",
+          "1815/z-06.bin.gz",
+          "1815/z-07.bin.gz",
+          "1815/z-08.bin.gz",
+          "1815/z-09.bin.gz",
+          "1815/z-10.bin.gz",
+          "1815/z-11.bin.gz",
+          "1815/z-12.bin.gz",
+          "1815/z-13.bin.gz",
+          "1815/z-14.bin.gz"
+        ]
+      },
+      "velocityRange": [
+        0,
+        28.64158809766424
+      ],
+      "errorRange": [
+        0,
+        2.3577956703267273
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.47461019456386566,
+        0.5471729934215546,
+        0.6026278883218765
+      ],
+      "scale": 5.090950911053642,
+      "sourceBounds": [
+        0.43033668398857117,
+        0.5188837051391602,
+        0.3507460355758667,
+        0.7435999512672424,
+        0.45008841156959534,
+        0.7551673650741577
+      ],
+      "source": {
+        "filename": "sample-1815-combined.vtu",
+        "sha256": "0dfd05ab21eb5fb6aab4aa7ebf78cd4bd9e55f679a046b98c1223de262abfbf3",
+        "pointCount": 100031,
+        "cellCount": 577504,
+        "excludedOrphanPoints": 0
+      },
+      "timeAveraged": false,
+      "fallbackSliceCount": 0
+    },
+    {
+      "id": "1847",
+      "label": "1847",
+      "dataset": "synthbifcor",
+      "shell": "1847/shell.bin.gz",
+      "slices": {
+        "x": [
+          "1847/x-00.bin.gz",
+          "1847/x-01.bin.gz",
+          "1847/x-02.bin.gz",
+          "1847/x-03.bin.gz",
+          "1847/x-04.bin.gz",
+          "1847/x-05.bin.gz",
+          "1847/x-06.bin.gz",
+          "1847/x-07.bin.gz",
+          "1847/x-08.bin.gz",
+          "1847/x-09.bin.gz",
+          "1847/x-10.bin.gz",
+          "1847/x-11.bin.gz",
+          "1847/x-12.bin.gz",
+          "1847/x-13.bin.gz",
+          "1847/x-14.bin.gz"
+        ],
+        "y": [
+          "1847/y-00.bin.gz",
+          "1847/y-01.bin.gz",
+          "1847/y-02.bin.gz",
+          "1847/y-03.bin.gz",
+          "1847/y-04.bin.gz",
+          "1847/y-05.bin.gz",
+          "1847/y-06.bin.gz",
+          "1847/y-07.bin.gz",
+          "1847/y-08.bin.gz",
+          "1847/y-09.bin.gz",
+          "1847/y-10.bin.gz",
+          "1847/y-11.bin.gz",
+          "1847/y-12.bin.gz",
+          "1847/y-13.bin.gz",
+          "1847/y-14.bin.gz"
+        ],
+        "z": [
+          "1847/z-00.bin.gz",
+          "1847/z-01.bin.gz",
+          "1847/z-02.bin.gz",
+          "1847/z-03.bin.gz",
+          "1847/z-04.bin.gz",
+          "1847/z-05.bin.gz",
+          "1847/z-06.bin.gz",
+          "1847/z-07.bin.gz",
+          "1847/z-08.bin.gz",
+          "1847/z-09.bin.gz",
+          "1847/z-10.bin.gz",
+          "1847/z-11.bin.gz",
+          "1847/z-12.bin.gz",
+          "1847/z-13.bin.gz",
+          "1847/z-14.bin.gz"
+        ]
+      },
+      "velocityRange": [
+        0,
+        29.433782599601905
+      ],
+      "errorRange": [
+        0,
+        2.2267962269872883
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.42063403129577637,
+        0.46002165973186493,
+        0.6542897969484329
+      ],
+      "scale": 4.942764965153691,
+      "sourceBounds": [
+        0.36107274889945984,
+        0.4801953136920929,
+        0.2881726324558258,
+        0.631870687007904,
+        0.45197388529777527,
+        0.8566057085990906
+      ],
+      "source": {
+        "filename": "sample-1847-combined.vtu",
+        "sha256": "fb60511039c8acb9b4a776afde0a5f42e778909d1db9e8a9a782f74919edf396",
+        "pointCount": 107370,
+        "cellCount": 620674,
+        "excludedOrphanPoints": 0
+      },
+      "timeAveraged": false,
+      "fallbackSliceCount": 0
+    },
+    {
+      "id": "1962",
+      "label": "1962",
+      "dataset": "synthbifcor",
+      "shell": "1962/shell.bin.gz",
+      "slices": {
+        "x": [
+          "1962/x-00.bin.gz",
+          "1962/x-01.bin.gz",
+          "1962/x-02.bin.gz",
+          "1962/x-03.bin.gz",
+          "1962/x-04.bin.gz",
+          "1962/x-05.bin.gz",
+          "1962/x-06.bin.gz",
+          "1962/x-07.bin.gz",
+          "1962/x-08.bin.gz",
+          "1962/x-09.bin.gz",
+          "1962/x-10.bin.gz",
+          "1962/x-11.bin.gz",
+          "1962/x-12.bin.gz",
+          "1962/x-13.bin.gz",
+          "1962/x-14.bin.gz"
+        ],
+        "y": [
+          "1962/y-00.bin.gz",
+          "1962/y-01.bin.gz",
+          "1962/y-02.bin.gz",
+          "1962/y-03.bin.gz",
+          "1962/y-04.bin.gz",
+          "1962/y-05.bin.gz",
+          "1962/y-06.bin.gz",
+          "1962/y-07.bin.gz",
+          "1962/y-08.bin.gz",
+          "1962/y-09.bin.gz",
+          "1962/y-10.bin.gz",
+          "1962/y-11.bin.gz",
+          "1962/y-12.bin.gz",
+          "1962/y-13.bin.gz",
+          "1962/y-14.bin.gz"
+        ],
+        "z": [
+          "1962/z-00.bin.gz",
+          "1962/z-01.bin.gz",
+          "1962/z-02.bin.gz",
+          "1962/z-03.bin.gz",
+          "1962/z-04.bin.gz",
+          "1962/z-05.bin.gz",
+          "1962/z-06.bin.gz",
+          "1962/z-07.bin.gz",
+          "1962/z-08.bin.gz",
+          "1962/z-09.bin.gz",
+          "1962/z-10.bin.gz",
+          "1962/z-11.bin.gz",
+          "1962/z-12.bin.gz",
+          "1962/z-13.bin.gz",
+          "1962/z-14.bin.gz"
+        ]
+      },
+      "velocityRange": [
+        0,
+        26.95475285987536
+      ],
+      "errorRange": [
+        0,
+        1.7768924675552524
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.3808848410844803,
+        0.3627175912261009,
+        0.6598388999700546
+      ],
+      "scale": 4.785528192272671,
+      "sourceBounds": [
+        0.26869040727615356,
+        0.493079274892807,
+        0.2311897724866867,
+        0.49424540996551514,
+        0.45087555050849915,
+        0.8688022494316101
+      ],
+      "source": {
+        "filename": "sample-1962-combined.vtu",
+        "sha256": "0b3e523c4356ca9fcb0b0a2aa541008823ca1ed4b27b5f792d62549be7862766",
+        "pointCount": 198795,
+        "cellCount": 1175029,
+        "excludedOrphanPoints": 0
+      },
+      "timeAveraged": false,
+      "fallbackSliceCount": 0
+    },
+    {
+      "id": "AAA021-T",
+      "label": "021",
+      "dataset": "aaa-100",
+      "timeSteps": 21,
+      "seriesEncoding": "xor-float32-v1",
+      "shell": "AAA021-T/shell.bin.gz",
+      "slices": {
+        "x": [
+          "AAA021-T/x-00.bin.gz",
+          "AAA021-T/x-01.bin.gz",
+          "AAA021-T/x-02.bin.gz",
+          "AAA021-T/x-03.bin.gz",
+          "AAA021-T/x-04.bin.gz",
+          "AAA021-T/x-05.bin.gz",
+          "AAA021-T/x-06.bin.gz",
+          "AAA021-T/x-07.bin.gz",
+          "AAA021-T/x-08.bin.gz",
+          "AAA021-T/x-09.bin.gz",
+          "AAA021-T/x-10.bin.gz",
+          "AAA021-T/x-11.bin.gz",
+          "AAA021-T/x-12.bin.gz",
+          "AAA021-T/x-13.bin.gz",
+          "AAA021-T/x-14.bin.gz"
+        ],
+        "y": [
+          "AAA021-T/y-00.bin.gz",
+          "AAA021-T/y-01.bin.gz",
+          "AAA021-T/y-02.bin.gz",
+          "AAA021-T/y-03.bin.gz",
+          "AAA021-T/y-04.bin.gz",
+          "AAA021-T/y-05.bin.gz",
+          "AAA021-T/y-06.bin.gz",
+          "AAA021-T/y-07.bin.gz",
+          "AAA021-T/y-08.bin.gz",
+          "AAA021-T/y-09.bin.gz",
+          "AAA021-T/y-10.bin.gz",
+          "AAA021-T/y-11.bin.gz",
+          "AAA021-T/y-12.bin.gz",
+          "AAA021-T/y-13.bin.gz",
+          "AAA021-T/y-14.bin.gz"
+        ],
+        "z": [
+          "AAA021-T/z-00.bin.gz",
+          "AAA021-T/z-01.bin.gz",
+          "AAA021-T/z-02.bin.gz",
+          "AAA021-T/z-03.bin.gz",
+          "AAA021-T/z-04.bin.gz",
+          "AAA021-T/z-05.bin.gz",
+          "AAA021-T/z-06.bin.gz",
+          "AAA021-T/z-07.bin.gz",
+          "AAA021-T/z-08.bin.gz",
+          "AAA021-T/z-09.bin.gz",
+          "AAA021-T/z-10.bin.gz",
+          "AAA021-T/z-11.bin.gz",
+          "AAA021-T/z-12.bin.gz",
+          "AAA021-T/z-13.bin.gz",
+          "AAA021-T/z-14.bin.gz"
+        ]
+      },
+      "series": {
+        "x": [
+          {
+            "gt": "AAA021-T/x-00-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-00-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-00-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-00-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-00-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-00-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-00-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-01-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-01-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-01-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-01-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-01-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-01-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-01-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-02-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-02-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-02-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-02-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-02-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-02-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-02-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-03-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-03-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-03-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-03-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-03-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-03-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-03-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-04-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-04-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-04-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-04-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-04-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-04-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-04-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-05-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-05-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-05-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-05-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-05-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-05-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-05-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-06-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-06-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-06-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-06-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-06-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-06-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-06-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-07-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-07-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-07-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-07-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-07-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-07-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-07-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-08-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-08-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-08-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-08-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-08-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-08-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-08-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-09-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-09-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-09-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-09-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-09-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-09-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-09-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-10-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-10-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-10-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-10-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-10-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-10-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-10-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-11-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-11-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-11-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-11-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-11-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-11-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-11-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-12-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-12-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-12-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-12-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-12-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-12-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-12-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-13-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-13-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-13-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-13-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-13-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-13-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-13-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/x-14-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/x-14-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/x-14-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/x-14-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/x-14-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/x-14-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/x-14-Transolver-180.series.gz"
+            }
+          }
+        ],
+        "y": [
+          {
+            "gt": "AAA021-T/y-00-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-00-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-00-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-00-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-00-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-00-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-00-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-01-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-01-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-01-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-01-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-01-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-01-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-01-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-02-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-02-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-02-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-02-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-02-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-02-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-02-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-03-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-03-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-03-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-03-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-03-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-03-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-03-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-04-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-04-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-04-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-04-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-04-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-04-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-04-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-05-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-05-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-05-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-05-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-05-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-05-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-05-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-06-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-06-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-06-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-06-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-06-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-06-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-06-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-07-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-07-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-07-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-07-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-07-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-07-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-07-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-08-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-08-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-08-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-08-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-08-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-08-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-08-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-09-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-09-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-09-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-09-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-09-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-09-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-09-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-10-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-10-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-10-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-10-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-10-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-10-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-10-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-11-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-11-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-11-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-11-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-11-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-11-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-11-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-12-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-12-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-12-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-12-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-12-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-12-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-12-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-13-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-13-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-13-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-13-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-13-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-13-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-13-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/y-14-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/y-14-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/y-14-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/y-14-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/y-14-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/y-14-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/y-14-Transolver-180.series.gz"
+            }
+          }
+        ],
+        "z": [
+          {
+            "gt": "AAA021-T/z-00-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-00-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-00-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-00-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-00-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-00-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-00-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-01-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-01-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-01-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-01-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-01-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-01-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-01-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-02-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-02-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-02-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-02-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-02-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-02-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-02-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-03-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-03-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-03-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-03-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-03-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-03-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-03-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-04-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-04-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-04-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-04-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-04-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-04-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-04-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-05-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-05-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-05-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-05-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-05-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-05-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-05-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-06-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-06-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-06-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-06-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-06-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-06-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-06-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-07-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-07-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-07-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-07-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-07-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-07-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-07-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-08-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-08-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-08-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-08-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-08-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-08-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-08-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-09-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-09-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-09-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-09-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-09-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-09-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-09-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-10-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-10-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-10-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-10-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-10-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-10-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-10-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-11-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-11-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-11-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-11-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-11-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-11-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-11-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-12-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-12-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-12-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-12-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-12-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-12-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-12-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-13-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-13-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-13-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-13-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-13-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-13-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-13-Transolver-180.series.gz"
+            }
+          },
+          {
+            "gt": "AAA021-T/z-14-GT.series.gz",
+            "models": {
+              "AB-GATr": "AAA021-T/z-14-AB-GATr.series.gz",
+              "AB-UPT": "AAA021-T/z-14-AB-UPT.series.gz",
+              "AB-UPT-180": "AAA021-T/z-14-AB-UPT-180.series.gz",
+              "LaB-GATr": "AAA021-T/z-14-LaB-GATr.series.gz",
+              "Transolver": "AAA021-T/z-14-Transolver.series.gz",
+              "Transolver-180": "AAA021-T/z-14-Transolver-180.series.gz"
+            }
+          }
+        ]
+      },
+      "velocityRange": [
+        0,
+        41.5202080812315
+      ],
+      "errorRange": [
+        0,
+        42.05986335424955
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.5081108510494232,
+        0.516481876373291,
+        0.5208450257778168
+      ],
+      "scale": 2.8852667642167895,
+      "sourceBounds": [
+        0.3725578188896179,
+        0.6436638832092285,
+        0.4182044267654419,
+        0.6147593259811401,
+        0.17425662279129028,
+        0.8674334287643433
+      ],
+      "fallbackSliceCount": 0,
+      "source": {
+        "filename": "AAA021-T-combined.vtu",
+        "sha256": "36e19827042cd6f1255211b7d6c0f6a297d915ed4f58b4e6d01af3c34053ec78",
+        "pointCount": 370796,
+        "cellCount": 2204458,
+        "excludedOrphanPoints": 0
+      },
+      "predictedTimeSteps": 21,
+      "timeAveraged": false
+    }
+  ],
+  "interpolation": "VTK plane cuts interpolate the supplied three-component arrays; the viewer displays their L2 magnitudes. Only source cells that cannot be directly contoured are tetrahedralized, with cell coverage and volume conservation checked.",
+  "sourceUnits": "Values are already cm/s, confirmed by the dataset owner; no scalar unit conversion is applied.",
+  "vtkVersion": "9.6.1"
+}

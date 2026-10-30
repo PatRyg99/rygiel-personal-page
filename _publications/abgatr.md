@@ -20,6 +20,7 @@ topics:
   - "surrogates"
 featured: true
 project_page: true
+stylesheet: /assets/css/aneumo-viewer.css
 summary: "When should a fluid surrogate preserve geometric symmetries? AB-GATr studies the role of equivariance and orientation distributions while predicting coupled surface and volume fields."
 bibtex_type: "misc"
 bibtex_key: "abgatr2026"
@@ -56,9 +57,15 @@ related_publications:
   <figcaption>Predictions under changes in vessel orientation. The comparison illustrates the consistency that explicit equivariance brings to this example. Figure 1, Rygiel et al., <a href="https://arxiv.org/abs/2605.18816v2">arXiv v2</a>, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. Select any figure to view it at full resolution.</figcaption>
 </figure>
 
+{% include aneumo-viewer.html %}
+
 ## Why geometry matters
 
-Computational fluid dynamics provides detailed physical simulations, but generating enough examples to train a neural surrogate is expensive. Symmetry offers a useful prior: changing the orientation of a vessel should transform its predicted flow consistently. Yet training datasets may have preferred orientations, making the benefit of that prior task-dependent.
+CFD training data is costly, making physical symmetries useful priors for neural surrogates. The incompressible Navier–Stokes operator respects **E(3) symmetry**—translations, rotations, and reflections—when external forces are absent or transform consistently. Velocity vectors rotate or reflect with the domain; pressure values remain unchanged at corresponding points.
+
+The solution map inherits this symmetry only when geometry, boundary conditions, and initial conditions transform together. Rotating a geometry while keeping its inflow direction fixed changes the physical problem.
+
+In **automotive aerodynamics**, a wind-tunnel setup fixes the incoming flow direction, making relative orientation physically meaningful. Vascular flows often lack this external reference, although canonical alignment can still provide statistical cues. We study how these differences affect the value of equivariance in [Sections 2.1–2.4 of the paper](https://arxiv.org/html/2605.18816v2#S2.SS1).
 
 ## The Anchored-Branched Geometric Algebra Transformer
 
@@ -92,5 +99,3 @@ The [official implementation](https://github.com/PatRyg99/abgatr) contains the m
 
 - **28 September 2026:** revised manuscript under the current title, with extended alignment analysis.
 - **12 May 2026:** first preprint, *Symmetry in the Wild: The Role of Equivariance in Neural Fluid Surrogates*.
-
-This page follows the [September 2026 revision](https://arxiv.org/abs/2605.18816v2). Figures by Patryk Rygiel, Julian Suk, Kak Khee Yeung, Christoph Brune, and Jelmer M. Wolterink are reproduced unchanged.
