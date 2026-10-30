@@ -20,11 +20,16 @@ topics:
   - "surrogates"
 featured: true
 feature_order: 3
-project_page: false
+project_page: true
+stylesheets:
+  - /assets/css/aneumo-viewer.css
+  - /assets/css/wss-viewer.css
 summary: "An equivariant neural surrogate estimates aneurysmal wall shear stress and is evaluated under changes in anatomy, boundary conditions, and mesh resolution."
 bibtex_type: "misc"
 bibtex_key: "wallshearstressaaa2025"
 resources:
+  - label: "3D viewer"
+    url: "/publications/wall-shear-stress-aaa/#wss-demo"
   - label: "DOI"
     url: "https://doi.org/10.48550/arXiv.2507.22817"
   - label: "AAA-100 dataset"
@@ -48,6 +53,8 @@ figure:
   width: 2047
   height: 1030
 ---
+
+{% include wss-viewer.html %}
 
 ## Generalization beyond a fixed vessel model
 

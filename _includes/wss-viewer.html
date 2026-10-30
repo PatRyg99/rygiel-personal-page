@@ -1,0 +1,45 @@
+<section class="aneumo-demo wss-demo" id="wss-demo" data-wss-demo data-manifest="{{ '/assets/data/wss-demo/manifest.json' | relative_url }}" aria-labelledby="wss-demo-title">
+  <div class="wss-header">
+  <div class="demo-heading"><p class="section-kicker">Interactive examples</p><h2 id="wss-demo-title">Generalisation challenges</h2></div>
+    <label class="wss-challenge" data-wss-challenge-controls hidden>Generalisation challenge<span class="demo-select"><select data-wss-challenge aria-label="Generalisation challenge"></select></span></label>
+    <div class="demo-toolbar" data-wss-camera-controls hidden><div class="demo-view-buttons" role="group" aria-label="Camera controls"><button type="button" data-wss-zoom="in" aria-label="Zoom in">+</button><button type="button" data-wss-zoom="out" aria-label="Zoom out">−</button><button type="button" data-wss-reset>Reset view</button><button type="button" data-wss-fullscreen hidden>Fullscreen</button></div></div>
+  </div>
+  <div class="demo-launch"><button type="button" class="demo-start" data-wss-start hidden>Load 3D viewer <span aria-hidden="true">↗</span></button><noscript><p>Enable JavaScript to use the interactive viewer.</p></noscript></div>
+  <p class="demo-status" data-wss-status role="status" aria-live="polite"></p>
+  <div class="demo-interface" data-wss-interface hidden>
+    <div class="wss-controlbar">
+    <div class="wss-controls">
+      <label>Display<span class="demo-select"><select data-wss-display aria-label="WSS display"><option value="glyphs">Arrow glyphs</option><option value="magnitude">Magnitude field</option></select></span></label>
+      <label>Arrow density<span class="demo-select"><select data-wss-density aria-label="Arrow density"><option value="0.036">Sparse</option><option value="0.024" selected>Standard</option><option value="0.015">Dense</option></select></span></label>
+      <label>Arrow size <output for="wss-size" data-wss-size-label>1×</output><input type="range" id="wss-size" data-wss-size min="0.5" max="2" step="0.1" value="1" aria-label="Arrow size"></label>
+    </div>
+    <div class="demo-time-controls">
+      <button type="button" data-wss-play aria-pressed="false" aria-label="Play heart cycle in a loop" title="Play"><svg class="demo-play-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 4v16l14-8z"/></svg><svg class="demo-pause-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg></button>
+      <label class="demo-time">Heart cycle <output data-wss-time-label for="wss-time">Time step 1 / 21</output><input type="range" id="wss-time" data-wss-time min="0" max="20" value="0" step="1" aria-label="Heart-cycle timestep"></label>
+      <label>Playback speed<span class="demo-select"><select data-wss-speed aria-label="Playback speed"><option value="0.5">Slow</option><option value="1" selected>Normal</option><option value="2">Fast</option></select></span></label>
+    </div>
+    </div>
+    <div class="wss-comparison">
+    {% assign wss_slots = 'left,right' | split: ',' %}
+    {% for geometry in wss_slots %}
+    <section class="wss-geometry" data-wss-slot="{{ forloop.index0 }}" data-wss-group aria-labelledby="wss-{{ geometry }}-title">
+      <h3 id="wss-{{ geometry }}-title" data-wss-case-title></h3>
+      <div class="demo-panels">
+        <section class="demo-panel" aria-labelledby="wss-{{ geometry }}-cfd-title"><div class="demo-panel-heading"><h4 id="wss-{{ geometry }}-cfd-title">CFD</h4><p class="sr-only" data-wss-field-label>Surface WSS vectors</p></div><div class="demo-viewport" data-wss-slot="{{ forloop.index0 }}" data-wss-view="gt"></div></section>
+        <section class="demo-panel" aria-labelledby="wss-{{ geometry }}-pred-title"><div class="demo-panel-heading"><h4 id="wss-{{ geometry }}-pred-title">LaB-GATr</h4><p class="sr-only" data-wss-field-label>Surface WSS vectors</p></div><div class="demo-viewport" data-wss-slot="{{ forloop.index0 }}" data-wss-view="prediction"></div></section>
+        <section class="demo-panel" aria-labelledby="wss-{{ geometry }}-error-title"><div class="demo-panel-heading"><h4 id="wss-{{ geometry }}-error-title">Absolute error</h4></div><div class="demo-viewport" data-wss-slot="{{ forloop.index0 }}" data-wss-view="error"></div></section>
+      </div>
+      <div class="demo-error-metrics" aria-label="Surface errors"><p><span>Current-step relative L₂</span><strong data-wss-step-error>—</strong></p><p><span>Overall relative L₂</span><strong data-wss-total-error>—</strong></p></div>
+    </section>
+    {% endfor %}
+    </div>
+    <div class="wss-footer">
+      <div class="wss-legends">
+        <div class="demo-legend"><p>WSS magnitude · CFD &amp; LaB-GATr <span data-wss-units></span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-wss-ticks="wss"></div></div>
+        <div class="demo-legend"><p title="Magnitude of the vector difference: ‖WSS prediction − WSS CFD‖₂">Absolute WSS error <span data-wss-units></span></p><div class="demo-colour-bar error-colours"></div><div class="demo-ticks" data-wss-ticks="error"></div></div>
+      </div>
+      <p class="demo-instructions" id="wss-controls-help">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan<span class="sr-only">. With a view focused, use arrow keys to rotate, plus and minus to zoom, and R to reset.</span></p>
+    </div>
+  </div>
+</section>
+<script src="{{ '/assets/js/wss-loader.js' | relative_url }}" defer></script>

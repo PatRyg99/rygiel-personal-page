@@ -61,6 +61,7 @@ exclude:
   - images/themes
   - images/photography
   - "*.vtu"
+  - "*.vtp"
   - images/bio-photo.jpg
   - images/bio-photo-2.jpg
   - images/profile.png

@@ -1,0 +1,548 @@
+{
+  "version": 2,
+  "vectorEncoding": "float32-byte-shuffle-gzip-lossless",
+  "ordering": "frame, CFD/prediction, point, xyz component",
+  "surfaceSampling": "all original vertices and triangles",
+  "timeSampling": "all original frames in numeric suffix order",
+  "metricWeighting": "unweighted vertices; all xyz components; whole-cycle norm pools all frames",
+  "samples": [
+    {
+      "id": "base",
+      "source": "AAA100_0_original.vtp",
+      "sourceSha256": "d39ba4b03905a3fb6f0fd291bbb9054e370bf353b7c5299c72626a26f5121d64",
+      "sourceBytes": 49820776,
+      "pointCount": 39148,
+      "triangleCount": 78292,
+      "frameCount": 21,
+      "sourceBounds": [
+        -0.37834441661834717,
+        0.36512070894241333,
+        -0.46357235312461853,
+        0.5555237531661987,
+        -1.2197803258895874,
+        1.295619249343872
+      ],
+      "geometry": {
+        "file": "base-geometry.bin.gz",
+        "bytes": 773867,
+        "uncompressedBytes": 1409296,
+        "sha256": "c398fadb56d99ac3b35358d4c403e8022bd4113144bcdefefbf0c7eff73295da"
+      },
+      "vectors": {
+        "file": "base-vectors.bin.gz",
+        "bytes": 15597561,
+        "uncompressedBytes": 19730608,
+        "sha256": "e5e1c7d967e03176b007d08cf5ebaf6836ee4479a2f88a5fca2dd1c33aa0fbbc"
+      },
+      "geometryMaximumCoordinateError": 4.225310590300069e-08,
+      "vectorsBitExact": true,
+      "instanceZeroEqualsMean": true,
+      "sharedGeometryWith": null,
+      "sourceFields": {
+        "gt": "wss_true_0_{frame:03}",
+        "prediction": "wss_pred_0_{frame:03}"
+      },
+      "frameReferenceNorms": [
+        175.58009666503656,
+        633.3396687580819,
+        995.5881363358386,
+        1447.1813020956495,
+        1766.685593276622,
+        1718.7936182194214,
+        1374.1379041488467,
+        936.2558518725375,
+        675.1616115259754,
+        564.274107348944,
+        401.659087243373,
+        294.56587534070303,
+        320.1613776472839,
+        357.227733306958,
+        329.162345175147,
+        249.6956254328865,
+        198.1100731977529,
+        182.50509243445933,
+        185.766467863163,
+        191.058522677336,
+        179.92613067128426
+      ],
+      "frameErrorNorms": [
+        123.18314129820044,
+        201.74389468838973,
+        343.4609723537428,
+        542.0411268415185,
+        718.6944248119934,
+        810.7306517595664,
+        757.655405121653,
+        589.255615381767,
+        436.0992429269478,
+        332.5639401533749,
+        253.1617925568839,
+        210.54543897990553,
+        191.3123398580395,
+        180.85895454779646,
+        172.21427526906547,
+        162.7147940523323,
+        154.48032914653578,
+        143.7878213910554,
+        138.58534109758102,
+        132.93584849120566,
+        130.1477148966122
+      ]
+    },
+    {
+      "id": "extended",
+      "source": "AAA100_0.vtp",
+      "sourceSha256": "d0586009f46265d2f516d6b2cdee371e3a1f3f3024994d5496502faa5dd22b18",
+      "sourceBytes": 62050813,
+      "pointCount": 48632,
+      "triangleCount": 97260,
+      "frameCount": 21,
+      "sourceBounds": [
+        -0.6727318167686462,
+        0.460841566324234,
+        -0.5127681493759155,
+        0.5115431547164917,
+        -1.3794763088226318,
+        1.4562427997589111
+      ],
+      "geometry": {
+        "file": "extended-geometry.bin.gz",
+        "bytes": 965938,
+        "uncompressedBytes": 1750720,
+        "sha256": "4446cb3517a3885dd0f83d0fadf635e33ae2b05e9b03330f678649ff26d63f82"
+      },
+      "vectors": {
+        "file": "extended-vectors.bin.gz",
+        "bytes": 19481196,
+        "uncompressedBytes": 24510544,
+        "sha256": "6eee77e93f6a10625d56495901b48dbfd818f721e899228b4bda0ca20bd5a03c"
+      },
+      "geometryMaximumCoordinateError": 4.2253759602317587e-08,
+      "vectorsBitExact": true,
+      "instanceZeroEqualsMean": true,
+      "sharedGeometryWith": null,
+      "sourceFields": {
+        "gt": "wss_true_0_{frame:03}",
+        "prediction": "wss_pred_0_{frame:03}"
+      },
+      "frameReferenceNorms": [
+        177.61301536616705,
+        693.7630965257929,
+        1085.410641814612,
+        1426.087595711237,
+        1685.7351473395727,
+        1623.163305366585,
+        1259.3502319567965,
+        912.4311591660787,
+        642.0647697709794,
+        571.1281393935084,
+        402.00285199318523,
+        283.32865166189964,
+        300.79613536342225,
+        348.6954975431391,
+        341.7232588668722,
+        264.9285212750368,
+        197.26120770871793,
+        174.8798211482492,
+        185.00270146322876,
+        191.49888195594679,
+        179.67167434952174
+      ],
+      "frameErrorNorms": [
+        151.07239102469617,
+        305.4246395283563,
+        504.035728735653,
+        803.0457554431789,
+        1009.7200283549167,
+        1091.7713272726096,
+        1000.7651299397457,
+        808.4082643501823,
+        589.5824484401929,
+        456.0314658506616,
+        367.12354817693296,
+        298.48041752871717,
+        271.8515921266447,
+        260.13251057419444,
+        244.40534751215418,
+        223.428706207824,
+        196.04682650506288,
+        175.3777081976416,
+        168.74690154106878,
+        162.74218032327013,
+        155.5370091642751
+      ]
+    },
+    {
+      "id": "boundary-1",
+      "source": "AAA100_1.vtp",
+      "sourceSha256": "549d78f994dd90900e6c0ea26e866de5cd560809fe64ef92167ac72df856a701",
+      "sourceBytes": 49770516,
+      "pointCount": 39148,
+      "triangleCount": 78292,
+      "frameCount": 21,
+      "sourceBounds": [
+        -0.37834441661834717,
+        0.36512070894241333,
+        -0.46357235312461853,
+        0.5555237531661987,
+        -1.2197803258895874,
+        1.295619249343872
+      ],
+      "geometry": {
+        "file": "base-geometry.bin.gz",
+        "bytes": 773867,
+        "uncompressedBytes": 1409296,
+        "sha256": "c398fadb56d99ac3b35358d4c403e8022bd4113144bcdefefbf0c7eff73295da"
+      },
+      "vectors": {
+        "file": "boundary-1-vectors.bin.gz",
+        "bytes": 15616794,
+        "uncompressedBytes": 19730608,
+        "sha256": "84c692343e0987fd5675164d838fc00414f17dd9810e479c6ab4a321f55f28ee"
+      },
+      "geometryMaximumCoordinateError": 4.225310590300069e-08,
+      "vectorsBitExact": true,
+      "instanceZeroEqualsMean": true,
+      "sharedGeometryWith": "base",
+      "sourceFields": {
+        "gt": "wss_true_0_{frame:03}",
+        "prediction": "wss_pred_0_{frame:03}"
+      },
+      "frameReferenceNorms": [
+        302.87351188149484,
+        939.9862976172964,
+        1494.4936574725587,
+        2109.161514228496,
+        2563.5247220034253,
+        2644.2262263417665,
+        2207.49550443073,
+        1503.5971982959497,
+        1033.3921667122852,
+        848.4319877684304,
+        616.370888900226,
+        487.1402930616165,
+        477.12160427652714,
+        520.3712443810757,
+        516.5428432987416,
+        429.0939982359476,
+        343.97300082224587,
+        307.98171811822345,
+        313.1017415553181,
+        315.00567957533656,
+        297.51486369880223
+      ],
+      "frameErrorNorms": [
+        249.3002650228598,
+        365.18804977619334,
+        587.9074117008712,
+        932.1268723564762,
+        1277.7888469032073,
+        1427.7356234699362,
+        1310.3867618358274,
+        1041.7967346762798,
+        730.973718855613,
+        576.6042180370964,
+        489.80000530531527,
+        437.3781845682243,
+        367.8998207462179,
+        336.9856166328342,
+        334.3471479790319,
+        341.7282035293304,
+        319.4472595189691,
+        291.2780293088544,
+        273.0935877772711,
+        257.3475303692947,
+        246.8432046579153
+      ]
+    },
+    {
+      "id": "p6-earlier",
+      "source": "P6_20011025_0000_0.vtp",
+      "sourceSha256": "914a91fb0cf1090827c29aaa2b8842616bcb80306b96aa24ec4edb541875f898",
+      "sourceBytes": 20606000,
+      "pointCount": 22326,
+      "triangleCount": 44648,
+      "frameCount": 21,
+      "sourceBounds": [
+        -0.31498703360557556,
+        0.33225205540657043,
+        -0.29197248816490173,
+        0.2676304876804352,
+        -1.0053313970565796,
+        1.093437910079956
+      ],
+      "geometry": {
+        "file": "p6-earlier-geometry.bin.gz",
+        "bytes": 438623,
+        "uncompressedBytes": 803704,
+        "sha256": "8b298d94fb8102024b81911c861fecc59f3ff347189e71a2ca69ea9a456d9087"
+      },
+      "vectors": {
+        "file": "p6-earlier-vectors.bin.gz",
+        "bytes": 8506948,
+        "uncompressedBytes": 11252320,
+        "sha256": "104aaa39e4e59bea57b2f5da9b9962a5df523b45f022f9840c9009bcadb0e4c3"
+      },
+      "geometryMaximumCoordinateError": 4.225344696351385e-08,
+      "vectorsBitExact": true,
+      "instanceZeroEqualsMean": null,
+      "sharedGeometryWith": null,
+      "sourceFields": {
+        "gt": "wss_true_mean_{frame:03}",
+        "prediction": "wss_pred_mean_{frame:03}"
+      },
+      "frameReferenceNorms": [
+        287.8121313823254,
+        716.796090855353,
+        1154.9312809652492,
+        1582.7834764894315,
+        1850.983269750748,
+        1815.993177969861,
+        1508.6422412582635,
+        1146.5447519193328,
+        940.068200293102,
+        856.4030408268587,
+        652.6377037024603,
+        530.9677750217465,
+        534.7857144756822,
+        542.6044393419653,
+        512.09045355194,
+        454.96534824810897,
+        392.86869044671806,
+        354.03464169690545,
+        332.4438699615817,
+        313.4971521915613,
+        295.6187015940749
+      ],
+      "frameErrorNorms": [
+        230.02443048359402,
+        240.29113228994322,
+        313.4566674598194,
+        463.73542509479904,
+        615.6174540271733,
+        712.766781137377,
+        755.8066999941173,
+        690.2875850574267,
+        605.6666027396838,
+        501.57681087788455,
+        435.14613035009836,
+        393.27186100707416,
+        383.14446104862685,
+        370.064172922454,
+        370.32714668357187,
+        368.1570284676086,
+        342.1065983426392,
+        313.7236296633072,
+        290.0335395221121,
+        264.2563603804706,
+        237.55676285010702
+      ]
+    },
+    {
+      "id": "p6-later",
+      "source": "P6_20101202_0000_0.vtp",
+      "sourceSha256": "4f51260c7844f25786656a0811897f144d07171243920abd494ba69780546db0",
+      "sourceBytes": 26141605,
+      "pointCount": 28542,
+      "triangleCount": 57080,
+      "frameCount": 21,
+      "sourceBounds": [
+        -0.34038758277893066,
+        0.46106648445129395,
+        -0.35679197311401367,
+        0.39092445373535156,
+        -0.9831806421279907,
+        1.2434364557266235
+      ],
+      "geometry": {
+        "file": "p6-later-geometry.bin.gz",
+        "bytes": 554920,
+        "uncompressedBytes": 1027480,
+        "sha256": "bdb404dd51c9807477675f89d72444a7c09f7cea256fe0556431824f8bed2b39"
+      },
+      "vectors": {
+        "file": "p6-later-vectors.bin.gz",
+        "bytes": 10869808,
+        "uncompressedBytes": 14385184,
+        "sha256": "7ac5e9e3f49065a8edebf974a8da42690c39b9a5b67cb2c41789f5a1665a1643"
+      },
+      "geometryMaximumCoordinateError": 4.2252310095136636e-08,
+      "vectorsBitExact": true,
+      "instanceZeroEqualsMean": null,
+      "sharedGeometryWith": null,
+      "sourceFields": {
+        "gt": "wss_true_mean_{frame:03}",
+        "prediction": "wss_pred_mean_{frame:03}"
+      },
+      "frameReferenceNorms": [
+        256.08392399755564,
+        627.6730396608531,
+        1021.1726312681257,
+        1410.8760756294628,
+        1712.9615751386266,
+        1742.0402394860555,
+        1562.002352216199,
+        1274.4080180584958,
+        1075.451683366145,
+        897.6307070614037,
+        713.1756044187625,
+        569.066848348751,
+        504.0048629978207,
+        459.7922667809353,
+        410.52911778839785,
+        346.85738151500914,
+        298.9218858439337,
+        285.4910224458678,
+        286.00337181150246,
+        278.6128840987188,
+        263.50852427801647
+      ],
+      "frameErrorNorms": [
+        210.1822762395724,
+        224.1463493253405,
+        315.1949259337283,
+        477.9137569318381,
+        649.2244709068591,
+        782.4341104427956,
+        844.0588597889201,
+        858.084951184557,
+        738.536328721526,
+        574.5640751048049,
+        476.9711236901681,
+        394.41621712225935,
+        327.34964519331965,
+        289.27205685016986,
+        263.0142286590492,
+        249.63662636046914,
+        239.8947756367691,
+        237.46285316872724,
+        235.41736182236795,
+        228.39652488506414,
+        215.8323863658503
+      ]
+    }
+  ],
+  "challenges": [
+    {
+      "id": "topology",
+      "samples": [
+        "base",
+        "extended"
+      ],
+      "displayRangePopulation": {
+        "wss": 3686760,
+        "error": 1843380
+      },
+      "displayRanges": {
+        "wss": [
+          0,
+          16.969301307505823
+        ],
+        "error": [
+          0,
+          9.003180490712367
+        ]
+      }
+    },
+    {
+      "id": "boundary-conditions",
+      "samples": [
+        "base",
+        "boundary-1"
+      ],
+      "displayRangePopulation": {
+        "wss": 3288432,
+        "error": 1644216
+      },
+      "displayRanges": {
+        "wss": [
+          0,
+          24.689536954096955
+        ],
+        "error": [
+          0,
+          10.665213703585287
+        ]
+      }
+    },
+    {
+      "id": "remodelling",
+      "samples": [
+        "p6-earlier",
+        "p6-later"
+      ],
+      "displayRangePopulation": {
+        "wss": 2136456,
+        "error": 1068228
+      },
+      "displayRanges": {
+        "wss": [
+          0,
+          21.94999919656354
+        ],
+        "error": [
+          0,
+          11.528626992188611
+        ]
+      }
+    }
+  ],
+  "displayRangeDefinition": "99th percentile pooled over each challenge's two cases and all frames; WSS includes CFD and prediction",
+  "assets": [
+    {
+      "file": "base-geometry.bin.gz",
+      "bytes": 773867,
+      "uncompressedBytes": 1409296,
+      "sha256": "c398fadb56d99ac3b35358d4c403e8022bd4113144bcdefefbf0c7eff73295da"
+    },
+    {
+      "file": "base-vectors.bin.gz",
+      "bytes": 15597561,
+      "uncompressedBytes": 19730608,
+      "sha256": "e5e1c7d967e03176b007d08cf5ebaf6836ee4479a2f88a5fca2dd1c33aa0fbbc"
+    },
+    {
+      "file": "extended-geometry.bin.gz",
+      "bytes": 965938,
+      "uncompressedBytes": 1750720,
+      "sha256": "4446cb3517a3885dd0f83d0fadf635e33ae2b05e9b03330f678649ff26d63f82"
+    },
+    {
+      "file": "extended-vectors.bin.gz",
+      "bytes": 19481196,
+      "uncompressedBytes": 24510544,
+      "sha256": "6eee77e93f6a10625d56495901b48dbfd818f721e899228b4bda0ca20bd5a03c"
+    },
+    {
+      "file": "boundary-1-vectors.bin.gz",
+      "bytes": 15616794,
+      "uncompressedBytes": 19730608,
+      "sha256": "84c692343e0987fd5675164d838fc00414f17dd9810e479c6ab4a321f55f28ee"
+    },
+    {
+      "file": "p6-earlier-geometry.bin.gz",
+      "bytes": 438623,
+      "uncompressedBytes": 803704,
+      "sha256": "8b298d94fb8102024b81911c861fecc59f3ff347189e71a2ca69ea9a456d9087"
+    },
+    {
+      "file": "p6-earlier-vectors.bin.gz",
+      "bytes": 8506948,
+      "uncompressedBytes": 11252320,
+      "sha256": "104aaa39e4e59bea57b2f5da9b9962a5df523b45f022f9840c9009bcadb0e4c3"
+    },
+    {
+      "file": "p6-later-geometry.bin.gz",
+      "bytes": 554920,
+      "uncompressedBytes": 1027480,
+      "sha256": "bdb404dd51c9807477675f89d72444a7c09f7cea256fe0556431824f8bed2b39"
+    },
+    {
+      "file": "p6-later-vectors.bin.gz",
+      "bytes": 10869808,
+      "uncompressedBytes": 14385184,
+      "sha256": "7ac5e9e3f49065a8edebf974a8da42690c39b9a5b67cb2c41789f5a1665a1643"
+    }
+  ],
+  "generatedBytes": 72805655
+}

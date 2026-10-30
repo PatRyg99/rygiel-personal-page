@@ -8,8 +8,9 @@ local/
 # Keep original photos local; the website uses images/gallery/.
 /images/photography/
 
-# Original simulation volumes; the demo uses prepared assets/data/abgatr-demo/ files.
+# Original simulation meshes; viewers use prepared assets/data/ files.
 *.vtu
+*.vtp
 
 # Keep Gemfile.lock tracked for reproducible site builds.
 

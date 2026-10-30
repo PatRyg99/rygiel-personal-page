@@ -20,6 +20,7 @@
   <script src="{{ '/assets/js/theme-init.js' | relative_url }}"></script>
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   {% if page.stylesheet %}<link rel="stylesheet" href="{{ page.stylesheet | relative_url }}">{% endif %}
+  {% for stylesheet in page.stylesheets %}<link rel="stylesheet" href="{{ stylesheet | relative_url }}">{% endfor %}
   {% include structured-data.html %}
   {% if page.collection == 'publications' %}
     <meta name="citation_title" content="{{ page.title | escape }}">

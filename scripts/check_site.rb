@@ -121,7 +121,7 @@ end
 %w[Patryk_Rygiel_CV.pdf _planning files/paper1.pdf images/photography portfolio teaching year-archive markdown].each do |private_path|
   errors << "Unexpected template/private output: #{private_path}" if File.exist?(File.join(site, private_path))
 end
-errors << 'Original simulation volumes must not be published' if Dir[File.join(site, '**/*.vtu')].any?
+errors << 'Original simulation meshes must not be published' if Dir[File.join(site, '**/*.{vtu,vtp}')].any?
 demo_root = File.join(site, 'assets/data/abgatr-demo')
 demo = JSON.parse(File.read(File.join(demo_root, 'manifest.json')))
 metrics = JSON.parse(File.read(File.join(demo_root, 'metrics.json')))
@@ -234,6 +234,33 @@ references.each do |sample_id, reference|
     actual = record.fetch('models').fetch(model)['volumeRelativeL2']
     errors << "L2 ratio differs from supplied reference: #{sample_id}/#{model}" unless actual.is_a?(Numeric) && (actual / 100.0).round(6) == expected
   end
+end
+wss_root = File.join(site, 'assets/data/wss-demo')
+wss = JSON.parse(File.read(File.join(wss_root, 'manifest.json')))
+errors << 'WSS viewer must convert dyn/cm² to Pa' unless wss['version'] == 2 && wss['units'] == 'Pa' && wss['sourceUnits'] == 'dyn/cm²' && wss['unitScale'] == 0.1
+errors << 'WSS examples must use LaB-GATr' unless wss['model'] == 'LaB-GATr'
+expected_challenges = { 'topology' => %w[base extended], 'boundary-conditions' => %w[base boundary-1], 'remodelling' => %w[p6-earlier p6-later] }
+errors << 'WSS generalisation challenges are incomplete' unless wss.fetch('challenges').map { |challenge| challenge['id'] }.sort == expected_challenges.keys.sort
+wss['challenges'].each do |challenge|
+  cases = challenge['cases'].map { |item| item['sample'] }
+  valid = cases == expected_challenges[challenge['id']] && cases.all? { |id| wss['samples'].any? { |sample| sample['id'] == id } } &&
+    %w[wss error].all? { |key| challenge['displayRanges'][key][0] == 0 && challenge['displayRanges'][key][1].is_a?(Numeric) && challenge['displayRanges'][key][1] > 0 }
+  errors << "Invalid WSS challenge: #{challenge['id']}" unless valid
+end
+wss['samples'].each do |sample|
+  %w[geometry vectors].each do |key|
+    errors << "Missing WSS #{key}: #{sample['id']}" unless File.file?(File.join(wss_root, sample.fetch(key)))
+  end
+  valid = sample['frameCount'] == 21 && sample['metrics']['relativeL2'].length == 21 &&
+    sample['metrics']['relativeL2'].all? { |value| value.is_a?(Numeric) && value.finite? && value >= 0 } &&
+    sample['metrics']['relativeL2AllFrames'].is_a?(Numeric)
+  errors << "Incomplete WSS heart-cycle metrics: #{sample['id']}" unless valid
+end
+wss_page = Nokogiri::HTML(File.read(File.join(site, 'publications/wall-shear-stress-aaa/index.html')))
+errors << 'WSS viewer is missing from its publication page' unless wss_page.at_css('[data-wss-demo]')
+errors << 'WSS challenge selector is missing' unless wss_page.at_css('[data-wss-challenge]')
+%w[wss-viewer.js wss-loader.js wss-codec.js viewer-palettes.js].each do |asset|
+  errors << "Missing WSS viewer module: #{asset}" unless File.file?(File.join(site, 'assets/js', asset))
 end
 %w[three.module.min.js three.core.min.js OrbitControls.js LICENSE].each do |asset|
   errors << "Missing local viewer dependency: #{asset}" unless File.file?(File.join(site, 'assets/js/vendor/three', asset))

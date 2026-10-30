@@ -29,7 +29,9 @@ python3 scripts/prepare_aneumo.py
 python3 scripts/prepare_viewer_metrics.py
 ```
 
-When adding photographs, run `ruby -EUTF-8 scripts/prepare_photography.rb` (ImageMagick required). Commit the generated files in `assets/data/abgatr-demo/` and `images/gallery/`. Original `.vtu` files and `images/photography/` stay local and are excluded from Git and the published site.
+For the surface WSS viewer, run `python3 scripts/prepare_wss.py`. It prepares the topology, boundary-condition, and longitudinal-remodelling comparisons from the `.vtp` files, with all 21 timesteps and surface errors. Challenge pairs, labels, and fixed color limits are defined in the generated manifest. Run `python3 scripts/test_wss_assets.py` and `node scripts/check_wss_assets.mjs` to verify the source data and browser decoder.
+
+When adding photographs, run `ruby -EUTF-8 scripts/prepare_photography.rb` (ImageMagick required). Commit the generated files in `assets/data/abgatr-demo/`, `assets/data/wss-demo/`, and `images/gallery/`. Original `.vtu`/`.vtp` files and `images/photography/` stay local and are excluded from Git and the published site.
 
 ## Repository layout
 
@@ -47,8 +49,10 @@ When adding photographs, run `ruby -EUTF-8 scripts/prepare_photography.rb` (Imag
 | `_data/world_map.json` | Map geometry. |
 | `_layouts/`, `_includes/` | Shared page templates and components. |
 | `_includes/aneumo-viewer.html` | Viewer controls, default case, slice, zoom, and colour-scale caps. |
+| `_includes/wss-viewer.html` | Surface WSS viewer controls and comparison panels. |
 | `assets/css/`, `assets/js/` | Styles, interactions, and the 3D viewer. |
 | `assets/data/abgatr-demo/` | Prepared geometry, scalar fields, manifest, audit, and error metrics. |
+| `assets/data/wss-demo/` | Full-resolution surface meshes, lossless WSS vectors, heart-cycle metrics, and source audit. |
 | `images/research/`, `images/gallery/` | Publication figures and optimized photographs. |
 | `files/patryk-rygiel-cv.pdf` | Downloadable CV PDF. |
 | `scripts/` | Asset preparation, publication synchronization, and validation tools. |
