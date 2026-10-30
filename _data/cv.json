@@ -88,18 +88,23 @@
       "items": [
         {
           "title": "Young Talent Research Grant",
+          "organization_url": "https://aneurysm-nl.nl/",
           "organization": "Aneurysm-NL",
           "period": "2026",
           "description": "AI-supported in-silico observational study of aneurysmal hemodynamics."
         },
         {
           "title": "Snellius computing grant · EINF-16639",
+          "title_link_text": "Snellius",
+          "title_link_url": "https://www.surf.nl/en/services/compute/snellius-the-national-supercomputer",
           "organization": "Dutch Research Council (NWO)",
           "period": "2025",
           "description": "Development of data-efficient geometrical neural surrogates for complex physics simulations."
         },
         {
           "title": "Snellius computing grant · EINF-10199",
+          "title_link_text": "Snellius",
+          "title_link_url": "https://www.surf.nl/en/services/compute/snellius-the-national-supercomputer",
           "organization": "Dutch Research Council (NWO)",
           "period": "2024",
           "description": "Longitudinal Study of Hemodynamic in Abdominal Aortic Aneurysms."

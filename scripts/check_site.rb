@@ -124,6 +124,11 @@ end
 errors << 'Original simulation volumes must not be published' if Dir[File.join(site, '**/*.vtu')].any?
 demo_root = File.join(site, 'assets/data/abgatr-demo')
 demo = JSON.parse(File.read(File.join(demo_root, 'manifest.json')))
+metrics = JSON.parse(File.read(File.join(demo_root, 'metrics.json')))
+errors << 'Unexpected viewer error metric definition' unless metrics['version'] == 4 &&
+  metrics['definition'] == '100 * norm(GT - prediction) / norm(GT)' &&
+  metrics['zeroReferencePolicy'] == 'include zero-GT prediction errors'
+errors << 'Viewer error metrics must cover exactly the published samples' unless metrics.fetch('samples').keys.sort == demo['samples'].map { |sample| sample['id'] }.sort
 errors << 'Demo velocity units must be cm/s' unless demo['units'] == 'cm/s'
 demo_datasets = { 'aneumo' => %w[777 832 845], 'synthbifcor' => %w[1815 1847 1962], 'aaa-100' => %w[AAA021-T AAA048-T AAA090-T] }
 errors << 'Demo datasets are incomplete' unless demo['datasets'].map { |dataset| dataset['id'] }.sort == demo_datasets.keys.sort
@@ -139,6 +144,74 @@ errors << 'AAA-100 must identify its time-resolved data' unless aaa && aaa['time
   errors << "Obsolete static AAA geometry is still published: #{old_sample}" if File.directory?(File.join(demo_root, old_sample))
 end
 demo['samples'].each do |sample|
+  record = metrics.fetch('samples').fetch(sample['id'])
+  frames = sample.fetch('timeSteps', 1)
+  errors << "Stale error metrics: #{sample['id']}" unless record['sourceSha256'] == sample['source']['sha256'] && record['frameCount'] == frames
+  errors << "Incomplete error metric models: #{sample['id']}" unless record.fetch('models').keys.sort == demo['models'].map { |model| model['id'] }.sort
+  check_metric = lambda do |values, counts, scope, expected_frames = frames|
+    valid_counts = counts.is_a?(Array) && counts.length == expected_frames && counts.all? { |count| count.is_a?(Integer) && count >= 0 }
+    valid_values = values.is_a?(Array) && values.length == expected_frames && valid_counts && values.each_with_index.all? do |value, index|
+      counts[index].zero? ? value.nil? : value.is_a?(Numeric) && value.finite? && value >= 0
+    end
+    errors << "Invalid relative error percentages or reference counts: #{sample['id']}/#{scope}" unless valid_values
+  end
+  counts = record.fetch('counts').fetch('volume')
+  reference_norms = record.fetch('volumeReferenceNorms')
+  valid_norms = lambda do |values|
+    values.is_a?(Array) && values.length == frames && values.all? { |value| value.is_a?(Numeric) && value.finite? && value >= 0 }
+  end
+  reference_valid = valid_norms.call(reference_norms) && reference_norms.each_with_index.all? { |value, index| counts[index].zero? ? value.zero? : value.positive? }
+  errors << "Invalid reference L2 norms: #{sample['id']}" unless reference_valid
+  norm = ->(values) { values.reduce(0.0) { |total, value| Math.hypot(total, value) } }
+  close = ->(actual, expected) { actual.is_a?(Numeric) && actual.finite? && (actual - expected).abs <= 1e-12 * [1, expected].max }
+  errors << "Incorrect space-time reference count: #{sample['id']}" unless record.dig('counts', 'volumeAllFrames') == counts.sum
+  record.fetch('models').each do |model, values|
+    check_metric.call(values['volume'], counts, "#{model}/volume")
+    check_metric.call([values['volumeRelativeL2']], [counts.sum], "#{model}/space-time", 1)
+    error_norms = values.fetch('volumeErrorNorms')
+    errors_valid = valid_norms.call(error_norms)
+    errors << "Invalid error L2 norms: #{sample['id']}/#{model}" unless errors_valid
+    if reference_valid && errors_valid
+      reference_norms.each_with_index do |reference, index|
+        next if reference.zero?
+        expected = 100 * error_norms[index] / reference
+        errors << "Incorrect per-frame L2 ratio: #{sample['id']}/#{model}/#{index}" unless close.call(values['volume'][index], expected)
+      end
+      reference = norm.call(reference_norms)
+      expected = reference.positive? ? 100 * norm.call(error_norms) / reference : nil
+      matches = expected.nil? ? values['volumeRelativeL2'].nil? : close.call(values['volumeRelativeL2'], expected)
+      errors << "Incorrect full-volume L2 ratio: #{sample['id']}/#{model}" unless matches
+    end
+    %w[x y z].each do |axis|
+      slices = values.fetch('slices').fetch(axis)
+      slice_counts = record.fetch('counts').fetch('slices').fetch(axis)
+      errors << "Incomplete relative error slices: #{sample['id']}/#{model}/#{axis}" unless slices.length == sample['slices'][axis].length && slice_counts.length == slices.length
+      slice_reference_norms = record.fetch('sliceReferenceNorms').fetch(axis)
+      slice_error_norms = values.fetch('sliceErrorNorms').fetch(axis)
+      aggregates = values.fetch('slicesRelativeL2').fetch(axis)
+      errors << "Incomplete slice norm provenance: #{sample['id']}/#{model}/#{axis}" unless [slice_reference_norms, slice_error_norms, aggregates].all? { |entries| entries.length == slices.length }
+      slices.each_with_index do |slice, index|
+        label = "#{sample['id']}/#{model}/#{axis}/#{index}"
+        check_metric.call(slice, slice_counts[index], label)
+        check_metric.call([aggregates[index]], [slice_counts[index].sum], "#{label}/space-time", 1)
+        references = slice_reference_norms[index]
+        residuals = slice_error_norms[index]
+        slice_reference_valid = valid_norms.call(references) && references.each_with_index.all? { |value, frame| slice_counts[index][frame].zero? ? value.zero? : value.positive? }
+        unless slice_reference_valid && valid_norms.call(residuals)
+          errors << "Invalid slice norm provenance: #{label}"
+          next
+        end
+        references.each_with_index do |reference, frame|
+          next if reference.zero?
+          errors << "Incorrect slice L2 ratio: #{label}/#{frame}" unless close.call(slice[frame], 100 * residuals[frame] / reference)
+        end
+        reference = norm.call(references)
+        expected = reference.positive? ? 100 * norm.call(residuals) / reference : nil
+        matches = expected.nil? ? aggregates[index].nil? : close.call(aggregates[index], expected)
+        errors << "Incorrect full-cycle slice L2 ratio: #{label}" unless matches
+      end
+    end
+  end
   assets = [sample['shell']] + sample['slices'].values.flatten
   if sample['dataset'] == 'aaa-100'
     errors << 'AAA-100 needs all 21 timesteps' unless sample['timeSteps'] == 21 && !sample['timeAveraged'] && %w[xor-float32-v1 uint16-delta-v1].include?(sample['seriesEncoding'])
@@ -153,6 +226,15 @@ demo['samples'].each do |sample|
   end
   assets.each { |asset| errors << "Missing prepared geometry: #{asset}" unless asset && File.file?(File.join(demo_root, asset)) }
 end
+references = JSON.parse(File.read(File.join(root, 'scripts/fixtures/aaa-relative-l2.json'))).fetch('samples')
+references.each do |sample_id, reference|
+  record = metrics.fetch('samples').fetch(sample_id)
+  errors << "AAA reference source changed: #{sample_id}" unless record['sourceSha256'] == reference['sourceSha256']
+  reference.fetch('ratios').each do |model, expected|
+    actual = record.fetch('models').fetch(model)['volumeRelativeL2']
+    errors << "L2 ratio differs from supplied reference: #{sample_id}/#{model}" unless actual.is_a?(Numeric) && (actual / 100.0).round(6) == expected
+  end
+end
 %w[three.module.min.js three.core.min.js OrbitControls.js LICENSE].each do |asset|
   errors << "Missing local viewer dependency: #{asset}" unless File.file?(File.join(site, 'assets/js/vendor/three', asset))
 end
@@ -163,4 +245,5 @@ if errors.any?
   abort "Site validation failed with #{errors.uniq.size} issues."
 end
 puts "Verified #{papers.size} publication pages, complete BibTeX exports, #{html_files.size} HTML routes, all internal links/anchors, metadata, and template exclusions."
+puts 'Viewer metrics match all 18 supplied AAA reference ratios to six decimal places.'
 puts "Built site: #{(site_bytes / 1024.0**2).round(2)} MiB; #{((1_000_000_000 - site_bytes) / 1024.0**2).round(2)} MiB available within the Pages budget."

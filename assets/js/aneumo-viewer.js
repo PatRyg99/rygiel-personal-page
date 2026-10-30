@@ -75,18 +75,23 @@ function coloredGeometry(packet, field, range, palette, existing) {
 
 export async function createViewer(root) {
   const manifestURL = new URL(root.dataset.manifest, location.href);
-  const response = await fetch(manifestURL);
+  const [response, metricsResponse] = await Promise.all([
+    fetch(manifestURL), fetch(new URL(root.dataset.metrics, location.href)),
+  ]);
   if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
-  const manifest = await response.json();
+  if (!metricsResponse.ok) throw new Error(`Error metrics HTTP ${metricsResponse.status}`);
+  const [manifest, metrics] = await Promise.all([response.json(), metricsResponse.json()]);
   if (![1, 2].includes(manifest.formatVersion) || manifest.units !== 'cm/s' || !manifest.datasets?.length || !manifest.samples?.length || !manifest.models?.length) throw new Error('Unsupported demo data');
-  return new AneumoViewer(root, manifest, manifestURL);
+  if (metrics.version !== 4 || metrics.definition !== '100 * norm(GT - prediction) / norm(GT)' || metrics.zeroReferencePolicy !== 'include zero-GT prediction errors' || !metrics.samples) throw new Error('Unsupported error metrics');
+  return new AneumoViewer(root, manifest, manifestURL, metrics);
 }
 
 class AneumoViewer {
-  constructor(root, manifest, manifestURL) {
+  constructor(root, manifest, manifestURL, metrics) {
     this.root = root;
     this.manifest = manifest;
     this.manifestURL = manifestURL;
+    this.metrics = metrics;
     this.views = [];
     this.cache = new Map();
     this.cacheBytes = 0;
@@ -423,12 +428,36 @@ class AneumoViewer {
     this.root.querySelector('[data-demo-prediction-title]').textContent = label;
     this.root.querySelector('[data-demo-prediction-subtitle]').textContent = rotated ? 'Prediction · rotation-trained' : 'Prediction';
     this.root.querySelector('[data-demo-error-subtitle]').textContent = `${label}${rotated ? ' (rot.)' : ''} vs CFD`;
+    this.updateErrorMetrics(model);
     const ticks = (selector, range, clipped) => this.root.querySelectorAll(selector).forEach(node => {
       node.replaceChildren(...[range[0], (range[0] + range[1]) / 2, range[1]].map((value, index) => { const tick = document.createElement('span'); tick.textContent = `${clipped && index === 2 ? '≥' : ''}${number(value)}`; return tick; }));
     });
     ticks('[data-demo-velocity-ticks]', velocityRange, velocityRange[1] < this.loadedSample.velocityRange[1]);
     ticks('[data-demo-error-ticks]', errorRange, errorRange[1] < this.loadedSample.errorRange[1]);
     this.requestRender();
+  }
+
+  updateErrorMetrics(model) {
+    const sample = this.loadedSample;
+    const metrics = this.metrics.samples[sample.id];
+    const current = metrics?.sourceSha256 === sample.source.sha256 && metrics.frameCount === (sample.timeSteps || 1);
+    const record = current ? metrics.models?.[model.id] : null;
+    const temporal = sample.timeSteps > 1;
+    const frame = temporal ? this.timeStep : 0;
+    const slice = record?.slices?.[this.loadedAxis]?.[this.loadedDepth]?.[frame];
+    const volume = record?.volumeRelativeL2;
+    for (const [scope, value] of [['slice', slice], ['volume', volume]]) {
+      const node = this.root.querySelector(`[data-demo-${scope}-relative-error]`);
+      const available = Number.isFinite(value) && value >= 0;
+      node.textContent = available ? `${value.toFixed(2)}%` : '—';
+      node.dataset.value = available ? String(value) : '';
+      const domain = temporal
+        ? scope === 'slice' ? `slice vertices at timestep ${frame + 1} of ${sample.timeSteps}` : `volume vertices across ${sample.timeSteps} timesteps`
+        : `${scope} vertices`;
+      node.title = available
+        ? `100 × ‖CFD − prediction‖₂ / ‖CFD‖₂. Both norms include all vector components of ${domain}, from the original VTU vectors. Prediction errors at zero-GT points are included.`
+        : 'No valid relative error is available for this selection.';
+    }
   }
 
   describe() {

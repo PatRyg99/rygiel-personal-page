@@ -68,6 +68,42 @@ try {
   const select = async (selector,value) => evaluate(`document.querySelector(${JSON.stringify(selector)}).value=${JSON.stringify(value)};document.querySelector(${JSON.stringify(selector)}).dispatchEvent(new Event('change',{bubbles:true}))`);
   const pause = async () => { await evaluate(`if(document.querySelector('[data-demo-play]').getAttribute('aria-pressed')==='true')document.querySelector('[data-demo-play]').click()`);await frame(); };
   const timestep = async value => { await evaluate(`document.querySelector('[data-demo-time]').value=${JSON.stringify(String(value))};document.querySelector('[data-demo-time]').dispatchEvent(new Event('input',{bubbles:true}))`);await frame(); };
+  let metrics;
+  const verifyMetrics = async () => {
+    const state = await evaluate(`(() => {
+      const value = key => document.querySelector('[data-demo-'+key+']').value;
+      return {sample:value('sample'),model:value('model'),axis:value('axis'),depth:Number(value('depth')),frame:Number(value('time')),
+        values:['slice','volume'].map(scope=>{const node=document.querySelector('[data-demo-'+scope+'-relative-error]');return {raw:node.dataset.value,text:node.textContent,title:node.title,hidden:node.closest('p').hidden};})};
+    })()`);
+    const sample = metrics.samples[state.sample];
+    const record = sample.models[state.model];
+    const temporal = sample.frameCount > 1;
+    const step = temporal ? state.frame : 0;
+    const expected = [record.slices[state.axis][state.depth][step], record.volumeRelativeL2];
+    const referenceNorms = [[sample.sliceReferenceNorms[state.axis][state.depth][step]], sample.volumeReferenceNorms];
+    const errorNorms = [[record.sliceErrorNorms[state.axis][state.depth][step]], record.volumeErrorNorms];
+    state.values.forEach((value, index) => {
+      const referenceNorm = Math.hypot(...referenceNorms[index]);
+      const global = 100 * Math.hypot(...errorNorms[index]) / referenceNorm;
+      assert.ok(referenceNorm ? Math.abs(global-expected[index])<=1e-12*Math.max(1,global) : expected[index] === null,'Each metric uses one norm ratio over all selected space-time components');
+      assert.equal(value.hidden, false, 'All datasets show both slice and volume errors');
+      if (expected[index] === null) {
+        assert.equal(value.raw, '');assert.equal(value.text, '—');
+      } else {
+        assert.equal(Number(value.raw), expected[index], `${state.sample}/${state.model}: metric follows displayed vectors`);
+        assert.equal(value.text, `${expected[index].toFixed(2)}%`, 'Error percentages have exactly two decimal places');
+        assert.match(value.title, /100 × ‖CFD − prediction‖₂ \/ ‖CFD‖₂/);
+        assert.match(value.title, /Both norms include all vector components/);
+        assert.match(value.title, /original VTU vectors/);
+        assert.match(value.title, /zero-GT points are included/);
+        if (temporal) {
+          if (index === 0) assert.ok(value.title.includes(`at timestep ${step + 1} of 21`), 'Slice metric describes the displayed timestep');
+          else assert.match(value.title, /across 21 timesteps/);
+        }
+      }
+    });
+    return expected;
+  };
   const snapshot = () => evaluate(`(() => [...document.querySelectorAll('.demo-viewport canvas')].map(canvas => {
     const gl=canvas.getContext('webgl2'), width=canvas.width, height=canvas.height;
     const pixels=new Uint8Array(width*height*4);gl.readPixels(0,0,width,height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
@@ -92,6 +128,10 @@ try {
   assert.equal(requests.filter(url=>url.endsWith('.series.gz')).length,2,'Initial load fetches only CFD and the selected model series');
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('.demo-pause-icon')).display`),'block');
   await pause();
+  metrics = await evaluate(`fetch(document.querySelector('[data-aneumo-demo]').dataset.metrics).then(r=>r.json())`);
+  assert.equal(metrics.version, 4, 'Metrics include global slice and volume norms over the full heart cycle');
+  assert.equal(await evaluate(`document.querySelector('[data-demo-metric-cycle]')`),null,'Full heart cycle note is removed');
+  await verifyMetrics();
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('.demo-pause-icon')).display`),'none');
   assert.equal(await evaluate(`document.querySelector('[data-demo-play]').textContent.trim()`),'','Playback button uses icons');
   assert.match(await evaluate(`document.querySelector('[data-demo-play]').getAttribute('aria-label')`),/^Play/);
@@ -160,21 +200,28 @@ try {
       const scales=await evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>node.textContent)`);
       for(const model of ['AB-GATr','AB-UPT','AB-UPT-180','LaB-GATr','Transolver','Transolver-180']) {
         await select('[data-demo-model]',model);await ready();
+        await verifyMetrics();
         const views=await snapshot();
         assert.deepEqual(views.map(view=>view.field),['GT',model,model+'-error']);
         assert.equal(views[0].hash,reference[0].hash,`${sample}: model changes preserve CFD`);
         assert.deepEqual(await evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>node.textContent)`),scales);
+        if(dataset==='aaa-100') {
+          for(const step of [10,20,0]) {await timestep(step);await verifyMetrics();}
+        }
       }
       await select('[data-demo-model]','AB-GATr');await ready();
+      const volumeError=(await verifyMetrics())[1];
       await screenshot(`${sample}-default`);
       for (const axis of ['x','y','z']) {
         await select('[data-demo-axis]',axis);await ready();
+        assert.equal((await verifyMetrics())[1],volumeError,'Volume error stays fixed when the slice axis changes');
         assert.ok((await snapshot()).every(view=>view.colored>10),`Interior fields visible for ${sample}/${axis}`);
       }
       for(const depth of [0,14,7]) {
         await evaluate(`document.querySelector('[data-demo-depth]').value='${depth}';document.querySelector('[data-demo-depth]').dispatchEvent(new Event('input',{bubbles:true}))`);
         await waitFor(`document.querySelector('[data-demo-status]').textContent.includes('slice at ${depth===0?'8':depth===14?'92':'50'}%') && document.querySelector('[data-aneumo-demo]').dataset.state==='ready'`,'Slice did not update');
         await frame();
+        assert.equal((await verifyMetrics())[1],volumeError,'Volume error stays fixed when the slice depth changes');
         assert.deepEqual(await evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>node.textContent)`),scales);
       }
       console.log(`Verified ${dataset} sample ${sample}: all models, axes and depth changes.`);
@@ -182,14 +229,20 @@ try {
   }
   const cycleScales=await evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>node.textContent)`);
   const cycleStart=await snapshot();
+  const cycleVolume=(await verifyMetrics())[1];
+  const sliceErrors=new Set();
   const hashes=[new Set(),new Set(),new Set()];
   for(let step=0;step<21;step++) {
     await timestep(step);
+    const [sliceError,volumeError]=await verifyMetrics();
+    assert.equal(volumeError,cycleVolume,'AAA volume error stays fixed across all 21 timesteps');
+    sliceErrors.add(sliceError);
     assert.deepEqual(await evaluate(`[...document.querySelectorAll('.demo-viewport canvas')].map(canvas=>canvas.dataset.timeStep)`),Array(3).fill(String(step)),'All three panels show the same timestep');
     (await snapshot()).forEach((view,index)=>hashes[index].add(view.hash));
     assert.deepEqual(await evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>node.textContent)`),cycleScales,'Scales are fixed across the full heart cycle');
   }
   assert.ok(hashes.every(values=>values.size>5),'CFD, prediction, and supplied error change through the cycle');
+  assert.ok(sliceErrors.size>1,'AAA slice error follows the displayed timestep');
   await select('[data-demo-speed]','0.5');
   await evaluate(`document.querySelector('[data-demo-play]').click()`);
   await waitFor(`document.querySelector('[data-demo-view="gt"] canvas').dataset.timeStep==='0'`,'Playback did not wrap from timestep 21 to 1');
@@ -204,6 +257,8 @@ try {
   await screenshot(`${temporalSamples.at(-1)}-time-11`);
   await evaluate(`document.documentElement.dataset.theme='dark';document.querySelector('[data-aneumo-demo]').scrollIntoView({behavior:'instant',block:'start'})`);await frame();
   await screenshot(`${temporalSamples.at(-1)}-controls-dark`);
+  await evaluate(`document.querySelector('.demo-error-metrics').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
+  await screenshot('relative-errors-desktop-dark');
   await evaluate(`document.documentElement.dataset.theme='light'`);
   await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-color-scheme',value:'light'},{name:'prefers-reduced-motion',value:'reduce'}]});
   await select('[data-demo-sample]','AAA021-T');await ready();
@@ -212,6 +267,10 @@ try {
   await evaluate(`document.querySelector('[data-aneumo-demo]').scrollIntoView({behavior:'instant',block:'start'})`);await frame();
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Time controls fit on mobile');
   await screenshot('AAA021-mobile-time-controls');
+  await evaluate(`document.querySelector('.demo-error-metrics').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
+  assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Error percentages fit on mobile');
+  await verifyMetrics();
+  await screenshot('relative-errors-mobile');
   await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-color-scheme',value:'light'},{name:'prefers-reduced-motion',value:'no-preference'}]});
   // Rapid requests across datasets must not leave stale geometry or an averaging label.
   await select('[data-demo-dataset]','aaa-100');await select('[data-demo-dataset]','synthbifcor');await ready();
@@ -301,7 +360,7 @@ try {
     await call('Fetch.disable');
   }
   assert.deepEqual(errors,[],'No browser exceptions or failed asset requests');
-  console.log(`AB-GATr browser checks passed: 3 datasets, ${Object.values(datasets).flat().length} cases, 6 models, 21 synchronized AAA timesteps, looping and scrubbing, reduced motion, model-specific loading, 3 slicing axes, fixed scales, synchronized cameras, mobile/dark layouts, stale-request handling and retry.`);
+  console.log(`AB-GATr browser checks passed: 3 datasets, ${Object.values(datasets).flat().length} cases, 6 models, 21 synchronized AAA timesteps, slice and volume error percentages, looping and scrubbing, reduced motion, model-specific loading, 3 slicing axes, fixed scales, synchronized cameras, mobile/dark layouts, stale-request handling and retry.`);
   console.log(`Screenshots: ${tmpdir()}/rygiel-demo-*.png`);
 } finally {
   try { await send('Browser.close'); } catch (_) { chrome.kill(); }

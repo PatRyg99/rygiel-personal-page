@@ -1,0 +1,38 @@
+{
+  "description": "User-supplied global L2 ratios over each complete AAA volume and all 21 time frames, including zero-GT prediction errors. Values are ratios before multiplying by 100, rounded to six decimal places.",
+  "samples": {
+    "AAA021-T": {
+      "sourceSha256": "36e19827042cd6f1255211b7d6c0f6a297d915ed4f58b4e6d01af3c34053ec78",
+      "ratios": {
+        "Transolver": 0.757701,
+        "Transolver-180": 1.002699,
+        "AB-GATr": 0.442408,
+        "AB-UPT": 0.544763,
+        "AB-UPT-180": 0.464278,
+        "LaB-GATr": 0.495955
+      }
+    },
+    "AAA048-T": {
+      "sourceSha256": "c7dd6ec4de9a3429e652512b8e8253577eb944a39ed341ae49dd1725ea8f5a3e",
+      "ratios": {
+        "Transolver": 0.718740,
+        "Transolver-180": 0.861831,
+        "AB-GATr": 0.344790,
+        "AB-UPT": 0.535451,
+        "AB-UPT-180": 0.382752,
+        "LaB-GATr": 0.357443
+      }
+    },
+    "AAA090-T": {
+      "sourceSha256": "e762183841bf8c00bc436cf95cf78600f840264796835cd9261d6136d151d0ef",
+      "ratios": {
+        "Transolver": 0.803993,
+        "Transolver-180": 0.912541,
+        "AB-GATr": 0.385533,
+        "AB-UPT": 0.688379,
+        "AB-UPT-180": 0.497537,
+        "LaB-GATr": 0.471319
+      }
+    }
+  }
+}

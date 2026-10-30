@@ -50,6 +50,9 @@ redirect_from:
 <section id="grants" class="content-section" aria-labelledby="grants-title">
   <div class="section-heading"><h2 id="grants-title">Research grants</h2></div>
   <ul class="news-list">
-    {% for grant in grants.items %}<li><time datetime="{{ grant.period }}">{{ grant.period }}</time><span><strong>{{ grant.title }}</strong><br>{{ grant.organization }} · {{ grant.description }}</span></li>{% endfor %}
+    {% for grant in grants.items %}
+    {% capture grant_name_link %}<a href="{{ grant.title_link_url | escape }}">{{ grant.title_link_text }}</a>{% endcapture %}
+    <li><time datetime="{{ grant.period }}">{{ grant.period }}</time><span><strong>{% if grant.title_link_url %}{{ grant.title | replace_first: grant.title_link_text, grant_name_link }}{% else %}{{ grant.title }}{% endif %}</strong><br>{% if grant.organization_url %}<a href="{{ grant.organization_url | escape }}">{{ grant.organization }}</a>{% else %}{{ grant.organization }}{% endif %} · {{ grant.description }}</span></li>
+    {% endfor %}
   </ul>
 </section>
