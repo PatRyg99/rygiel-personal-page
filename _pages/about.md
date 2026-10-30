@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 <section class="hero">
-  <p class="eyebrow">Geometric deep learning · Scientific machine learning · Neural surrogates</p>
+  <p class="eyebrow">Geometric deep learning · Scientific machine learning · Neural surrogates · Cardiovascular modelling</p>
   <h1>Geometric deep learning<br>for science and health.</h1>
   <p class="intro">I am a PhD candidate at the <a href="https://www.utwente.nl/en/eemcs/mia/">University of Twente</a>, working on geometric deep learning for science and health. I develop neural surrogates for complex physical simulations, with a focus on cardiovascular blood flow, generalization, and learning from limited data.</p>
   <p class="bio-secondary">My research is part of the EU Horizon project <a href="https://vascul-aid.eu/">VASCUL-AID</a>, supervised by <a href="https://scholar.google.com/citations?user=xzlXuWoAAAAJ">Dr. Jelmer Wolterink</a>, <a href="https://scholar.google.com/citations?user=QkD3WhsAAAAJ">Prof. Dr. Christoph Brune</a>, and <a href="https://www.amsterdamumc.org/en/research/researchers/kak-khee-yeung">Prof. Dr. Kak Khee Yeung</a>. I collaborate with Amsterdam UMC and TU Delft, and am a visiting PhD researcher at <a href="https://cimim.org/people/">CIMIM, University of Manchester</a>, with <a href="https://scholar.google.com/citations?user=9fGrB0sAAAAJ">Prof. Dr. Alejandro Frangi</a>.</p>

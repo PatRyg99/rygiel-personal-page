@@ -1,6 +1,6 @@
 // Local browser smoke check. Requires Chrome and a running Jekyll server.
 import { spawn } from 'node:child_process';
-import { writeFile, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
@@ -11,6 +11,7 @@ const chrome = spawn(browserPath, ['--headless=new', '--use-angle=swiftshader', 
 const pending = new Map();
 const errors = [];
 const requests = [];
+let referenceMode = false;
 let nextId = 0, buffer = '';
 chrome.stdio[4].on('data', chunk => {
   buffer += chunk.toString();
@@ -24,6 +25,15 @@ chrome.stdio[4].on('data', chunk => {
     if (message.method === 'Runtime.exceptionThrown') errors.push(message.params.exceptionDetails.text);
     if (message.method === 'Network.responseReceived' && message.params.response.status >= 400) errors.push(`${message.params.response.status}: ${message.params.response.url}`);
     if (message.method === 'Network.requestWillBeSent') requests.push(message.params.request.url);
+    if (message.method === 'Fetch.requestPaused') {
+      const request = message.params;
+      const relative = new URL(request.request.url).pathname.match(/\/abgatr-demo\/(AAA\d+-T\/[\w.+-]+\.u16\.series\.gz)$/)?.[1];
+      if (referenceMode && relative) {
+        readFile(join(process.env.VIEWER_BASELINE, relative.replace('.u16.series.gz', '.series.gz')))
+          .then(body => send('Fetch.fulfillRequest', {requestId:request.requestId,responseCode:200,responseHeaders:[{name:'Content-Type',value:'application/octet-stream'}],body:body.toString('base64')},message.sessionId))
+          .catch(error => { errors.push(error.message);send('Fetch.failRequest',{requestId:request.requestId,errorReason:'Failed'},message.sessionId).catch(()=>{}); });
+      } else send('Fetch.continueRequest',{requestId:request.requestId},message.sessionId).catch(error=>errors.push(error.message));
+    }
   }
 });
 const send = (method, params = {}, sessionId) => new Promise((resolve, reject) => {
@@ -76,7 +86,9 @@ try {
   await evaluate(`document.querySelector('[data-demo-start]').click()`);
   await ready();
   assert.equal(await evaluate(`document.querySelector('[data-demo-dataset]').value`),'aaa-100','AAA-100 is the default dataset');
-  assert.equal(await evaluate(`document.querySelector('[data-demo-sample]').value`),'AAA021-T');
+  assert.equal(await evaluate(`document.querySelector('[data-demo-sample]').value`),'AAA090-T');
+  assert.equal(await evaluate(`document.querySelector('[data-demo-axis]').value`),'x');
+  assert.equal(await evaluate(`document.querySelector('[data-demo-depth-label]').textContent`),'74%');
   assert.equal(requests.filter(url=>url.endsWith('.series.gz')).length,2,'Initial load fetches only CFD and the selected model series');
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('.demo-pause-icon')).display`),'block');
   await pause();
@@ -125,7 +137,9 @@ try {
   await evaluate(`document.querySelector('[data-demo-wall]').click()`);await frame();
   assert.ok((await snapshot()).every((view,index)=>view.hash!==initial[index].hash),'Translucent walls can be hidden');
   await evaluate(`document.querySelector('[data-demo-wall]').click()`);await frame();
-  const datasets = {aneumo:['777','832','845'],synthbifcor:['1815','1847','1962'],'aaa-100':['AAA021-T']};
+  const temporalSamples = await evaluate(`fetch(document.querySelector('[data-aneumo-demo]').dataset.manifest).then(r=>r.json()).then(m=>m.samples.filter(s=>s.dataset==='aaa-100').map(s=>s.id))`);
+  assert.ok(['AAA021-T','AAA048-T','AAA090-T'].every(id=>temporalSamples.includes(id)));
+  const datasets = {aneumo:['777','832','845'],synthbifcor:['1815','1847','1962'],'aaa-100':temporalSamples};
   assert.deepEqual(await evaluate(`[...document.querySelector('[data-demo-dataset]').options].map(option=>option.value)`),Object.keys(datasets));
   for (const [dataset,samples] of Object.entries(datasets)) {
     const beforeDataset = requests.length;
@@ -133,7 +147,7 @@ try {
     assert.deepEqual(await evaluate(`[...document.querySelector('[data-demo-sample]').options].map(option=>option.value)`),samples);
     assert.equal(await evaluate(`document.querySelector('[data-demo-time-controls]').hidden`),dataset!=='aaa-100');
     if(dataset==='aaa-100') {
-      assert.deepEqual(await evaluate(`[...document.querySelector('[data-demo-sample]').options].map(option=>option.textContent)`),['021']);
+      assert.deepEqual(await evaluate(`[...document.querySelector('[data-demo-sample]').options].map(option=>option.textContent)`),samples.map(id=>id.match(/^AAA(\d+)-T$/)[1]));
       assert.equal(await evaluate(`document.querySelector('[data-demo-time]').max`),'20');
       assert.equal(await evaluate(`document.querySelector('[data-demo-play]').getAttribute('aria-pressed')`),'true','Temporal case starts looping');
       assert.ok(requests.slice(beforeDataset).filter(url=>url.endsWith('.series.gz')).length<=2,'Only CFD and the selected model time series load, unless already cached');
@@ -187,7 +201,10 @@ try {
   await timestep(10);await select('[data-demo-model]','AB-UPT');await ready();
   assert.equal(await evaluate(`document.querySelector('[data-demo-time]').value`),'10','Changing models retains the selected timestep');
   assert.deepEqual(await evaluate(`[...document.querySelectorAll('.demo-viewport canvas')].map(canvas=>canvas.dataset.timeStep)`),['10','10','10']);
-  await screenshot('AAA021-time-11');
+  await screenshot(`${temporalSamples.at(-1)}-time-11`);
+  await evaluate(`document.documentElement.dataset.theme='dark';document.querySelector('[data-aneumo-demo]').scrollIntoView({behavior:'instant',block:'start'})`);await frame();
+  await screenshot(`${temporalSamples.at(-1)}-controls-dark`);
+  await evaluate(`document.documentElement.dataset.theme='light'`);
   await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-color-scheme',value:'light'},{name:'prefers-reduced-motion',value:'reduce'}]});
   await select('[data-demo-sample]','AAA021-T');await ready();
   assert.equal(await evaluate(`document.querySelector('[data-demo-play]').getAttribute('aria-pressed')`),'false','Reduced motion disables autoplay');
@@ -240,7 +257,51 @@ try {
   await evaluate(`window.fetch=window.originalFetch;delete window.originalFetch;document.querySelector('[data-demo-start]').click()`);await ready();
   assert.ok((await snapshot()).every(view=>view.colored>100),'Retry restores real geometry');
   assert.deepEqual(errors,[],'No browser exceptions or failed asset requests');
-  console.log('AB-GATr browser checks passed: 3 datasets, 7 cases, 6 models, 21 synchronized AAA timesteps, looping and scrubbing, reduced motion, model-specific loading, 3 slicing axes, fixed scales, synchronized cameras, mobile/dark layouts, stale-request handling and retry.');
+  if (process.env.VIEWER_BASELINE) {
+    await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+    await call('Network.setCacheDisabled',{cacheDisabled:true});
+    await call('Fetch.enable',{patterns:[{urlPattern:'*.u16.series.gz',requestStage:'Request'}]});
+    const pixels = () => evaluate(`(() => [...document.querySelectorAll('.demo-viewport canvas')].map(canvas => {
+      const gl=canvas.getContext('webgl2'),data=new Uint8Array(canvas.width*canvas.height*4);
+      gl.readPixels(0,0,canvas.width,canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,data);
+      let text='';for(let i=0;i<data.length;i+=32768)text+=String.fromCharCode(...data.subarray(i,i+32768));return btoa(text);
+    }))()`);
+    const references = new Map();
+    let maxDifference=0,totalDifference=0,channels=0,comparisons=0;
+    for (const mode of [true,false]) {
+      referenceMode=mode;
+      await call('Page.navigate',{url:base+'/publications/abgatr/'});
+      await waitFor(`document.readyState==='complete' && document.querySelector('[data-demo-start]') && !document.querySelector('[data-demo-start]').hidden`,'Precision comparison page did not load');
+      await evaluate(`document.querySelector('[data-demo-start]').click()`);await ready();await pause();
+      for (const sample of temporalSamples) {
+        await select('[data-demo-sample]',sample);await ready();
+        for (const model of ['AB-GATr','AB-UPT','AB-UPT-180','LaB-GATr','Transolver','Transolver-180']) {
+          await select('[data-demo-model]',model);await ready();
+          for (const step of [0,10,20]) {
+            await timestep(step);
+            const key=`${sample}/${model}/${step}`;
+            const current=(await pixels()).map(value=>Buffer.from(value,'base64'));
+            if (mode) {references.set(key,current);continue;}
+            const previous=references.get(key);
+            current.forEach((data,panel)=>{
+              assert.equal(data.length,previous[panel].length);
+              for(let i=0;i<data.length;i++) {
+                const difference=Math.abs(data[i]-previous[panel][i]);
+                maxDifference=Math.max(maxDifference,difference);totalDifference+=difference;channels++;
+              }
+            });
+            comparisons++;
+          }
+        }
+      }
+    }
+    assert.ok(maxDifference<=2,`Rendered channels differ by ${maxDifference}/255`);
+    assert.ok(totalDifference/channels<0.01,'Rendered mean color difference is too large');
+    console.log(`Compared ${comparisons*3} rendered panels with original float32 fields: maximum channel difference ${maxDifference}/255; mean ${(totalDifference/channels).toFixed(6)}/255.`);
+    await call('Fetch.disable');
+  }
+  assert.deepEqual(errors,[],'No browser exceptions or failed asset requests');
+  console.log(`AB-GATr browser checks passed: 3 datasets, ${Object.values(datasets).flat().length} cases, 6 models, 21 synchronized AAA timesteps, looping and scrubbing, reduced motion, model-specific loading, 3 slicing axes, fixed scales, synchronized cameras, mobile/dark layouts, stale-request handling and retry.`);
   console.log(`Screenshots: ${tmpdir()}/rygiel-demo-*.png`);
 } finally {
   try { await send('Browser.close'); } catch (_) { chrome.kill(); }

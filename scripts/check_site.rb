@@ -125,11 +125,13 @@ errors << 'Original simulation volumes must not be published' if Dir[File.join(s
 demo_root = File.join(site, 'assets/data/abgatr-demo')
 demo = JSON.parse(File.read(File.join(demo_root, 'manifest.json')))
 errors << 'Demo velocity units must be cm/s' unless demo['units'] == 'cm/s'
-demo_datasets = { 'aneumo' => %w[777 832 845], 'synthbifcor' => %w[1815 1847 1962], 'aaa-100' => %w[AAA021-T] }
+demo_datasets = { 'aneumo' => %w[777 832 845], 'synthbifcor' => %w[1815 1847 1962], 'aaa-100' => %w[AAA021-T AAA048-T AAA090-T] }
 errors << 'Demo datasets are incomplete' unless demo['datasets'].map { |dataset| dataset['id'] }.sort == demo_datasets.keys.sort
 demo_datasets.each do |dataset, ids|
   samples = demo['samples'].select { |sample| sample['dataset'] == dataset }
-  errors << "Demo samples are incomplete: #{dataset}" unless samples.map { |sample| sample['id'] }.sort == ids.sort
+  actual_ids = samples.map { |sample| sample['id'] }
+  valid = dataset == 'aaa-100' ? (ids - actual_ids).empty? && actual_ids.all? { |id| id.match?(/\AAAA\d+-T\z/) } : actual_ids.sort == ids.sort
+  errors << "Demo samples are incomplete: #{dataset}" unless valid && actual_ids.uniq == actual_ids
 end
 aaa = demo['datasets'].find { |dataset| dataset['id'] == 'aaa-100' }
 errors << 'AAA-100 must identify its time-resolved data' unless aaa && aaa['timeResolved'] && !aaa['timeAveraged']
@@ -139,7 +141,7 @@ end
 demo['samples'].each do |sample|
   assets = [sample['shell']] + sample['slices'].values.flatten
   if sample['dataset'] == 'aaa-100'
-    errors << 'AAA-100 needs all 21 timesteps' unless sample['timeSteps'] == 21 && !sample['timeAveraged'] && sample['seriesEncoding'] == 'xor-float32-v1'
+    errors << 'AAA-100 needs all 21 timesteps' unless sample['timeSteps'] == 21 && !sample['timeAveraged'] && %w[xor-float32-v1 uint16-delta-v1].include?(sample['seriesEncoding'])
     %w[x y z].each do |axis|
       entries = sample.fetch('series').fetch(axis)
       errors << "Temporal slices differ from geometry: #{axis}" unless entries.length == sample['slices'][axis].length
@@ -154,8 +156,11 @@ end
 %w[three.module.min.js three.core.min.js OrbitControls.js LICENSE].each do |asset|
   errors << "Missing local viewer dependency: #{asset}" unless File.file?(File.join(site, 'assets/js/vendor/three', asset))
 end
+site_bytes = Dir[File.join(site, '**/*')].sum { |path| File.file?(path) ? File.size(path) : 0 }
+errors << 'Built site exceeds the conservative 1,000,000,000-byte GitHub Pages budget' if site_bytes > 1_000_000_000
 if errors.any?
   warn errors.uniq.join("\n")
   abort "Site validation failed with #{errors.uniq.size} issues."
 end
 puts "Verified #{papers.size} publication pages, complete BibTeX exports, #{html_files.size} HTML routes, all internal links/anchors, metadata, and template exclusions."
+puts "Built site: #{(site_bytes / 1024.0**2).round(2)} MiB; #{((1_000_000_000 - site_bytes) / 1024.0**2).round(2)} MiB available within the Pages budget."

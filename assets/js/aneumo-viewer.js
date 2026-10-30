@@ -1,3 +1,4 @@
+import { decodeGeometry, decodeTimeSeries } from './aneumo-codec.js';
 import * as THREE from './vendor/three/three.module.min.js';
 import { OrbitControls } from './vendor/three/OrbitControls.js';
 
@@ -43,42 +44,13 @@ const ERROR_COLORS = (
   '#a91601 #a71401 #a41301 #a11201 #9e1001 #9b0f01 #980e01 #950d01 #920b01 #8e0a01 #8b0902 #880802 #850702 #810602 #7e0502 #7a0403'
 ).split(' ').map(color => new THREE.Color(color));
 const number = value => value === 0 ? '0' : Number(value.toPrecision(3)).toString();
+const colourRange = (range, fraction) => {
+  const requested = Number(fraction);
+  const cap = Number.isFinite(requested) && requested > 0 && requested <= 1 ? requested : 1;
+  return [range[0], range[0] + (range[1] - range[0]) * cap];
+};
 
-// Prepared files retain a common coordinate frame and a scalar array per source vector field.
-export function decodeGeometry(buffer, fieldOrder) {
-  const header = new DataView(buffer);
-  if (buffer.byteLength < 16 || header.getUint32(0, true) !== 0x414E4531) throw new Error('Invalid geometry header');
-  const vertices = header.getUint32(4, true), indexCount = header.getUint32(8, true), fieldCount = header.getUint32(12, true);
-  const expected = 16 + vertices * 12 + indexCount * 4 + vertices * fieldCount * 4;
-  if (expected !== buffer.byteLength || indexCount % 3 || (fieldCount !== 0 && fieldCount !== fieldOrder.length)) throw new Error('Invalid geometry dimensions');
-  const positions = new Float32Array(buffer, 16, vertices * 3);
-  const indices = new Uint32Array(buffer, 16 + vertices * 12, indexCount);
-  if (!positions.every(Number.isFinite) || !indices.every(index => index < vertices)) throw new Error('Invalid mesh coordinates');
-  const fields = new Map();
-  let offset = 16 + vertices * 12 + indexCount * 4;
-  for (let index = 0; index < fieldCount; index++) {
-    const values = new Float32Array(buffer, offset, vertices);
-    if (!values.every(value => Number.isFinite(value) && value >= 0)) throw new Error('Invalid field magnitude');
-    fields.set(fieldOrder[index], values);
-    offset += vertices * 4;
-  }
-  return { positions, indices, fields, vertices };
-}
-
-// Temporal packets share slice geometry; XOR deltas losslessly encode float32 fields.
-export function decodeTimeSeries(buffer) {
-  if (buffer.byteLength < 16) throw new Error('Invalid time-series header');
-  const header = new DataView(buffer);
-  if (header.getUint32(0, true) !== 0x41545331) throw new Error('Invalid time-series header');
-  const vertices = header.getUint32(4, true), frameCount = header.getUint32(8, true), fieldCount = header.getUint32(12, true);
-  const stride = vertices * fieldCount;
-  if (!vertices || frameCount < 2 || ![1, 2].includes(fieldCount) || buffer.byteLength !== 16 + stride * frameCount * 4) throw new Error('Invalid time-series dimensions');
-  const bits = new Uint32Array(buffer, 16);
-  for (let index = stride; index < bits.length; index++) bits[index] ^= bits[index - stride];
-  const values = new Float32Array(buffer, 16);
-  if (!values.every(value => Number.isFinite(value) && value >= 0)) throw new Error('Invalid time-series magnitude');
-  return { vertices, frameCount, fieldCount, values };
-}
+export { decodeGeometry, decodeTimeSeries } from './aneumo-codec.js';
 
 function coloredGeometry(packet, field, range, palette, existing) {
   const values = packet.fields.get(field);
@@ -261,7 +233,8 @@ class AneumoViewer {
     const samples = this.manifest.samples.filter(sample => sample.dataset === this.datasetSelect.value);
     if (!samples.length) throw new Error('No samples for this dataset');
     this.sampleSelect.replaceChildren(...samples.map(sample => new Option(sample.label || sample.id, sample.id)));
-    this.sample = samples[0];
+    this.sample = samples.find(sample => sample.id === this.root.dataset.defaultSample) || samples[0];
+    this.sampleSelect.value = this.sample.id;
   }
 
   sampleLabel(sample) {
@@ -274,11 +247,14 @@ class AneumoViewer {
     this.timeStep = 0;
     this.playing = Boolean(this.sample.timeSteps && !this.reducedMotion.matches);
     this.syncTimeControls();
-    this.axisSelect.value = this.sample.defaultAxis;
+    const preferred = this.sample.id === this.root.dataset.defaultSample;
+    const preferredAxis = this.root.dataset.defaultAxis;
+    this.axisSelect.value = preferred && this.sample.slices[preferredAxis]?.some(Boolean) ? preferredAxis : this.sample.defaultAxis;
     [...this.axisSelect.options].forEach(option => { option.disabled = !this.sample.slices[option.value]?.some(Boolean); });
     this.depth.min = 0;
     this.depth.max = this.manifest.fractions.length - 1;
-    this.setDepth(this.sample.defaultSlice);
+    const preferredDepth = preferred ? this.manifest.fractions.indexOf(Number(this.root.dataset.defaultDepth)) : -1;
+    this.setDepth(preferredDepth >= 0 ? preferredDepth : this.sample.defaultSlice);
   }
 
   setDepth(value, previous = value) {
@@ -342,8 +318,9 @@ class AneumoViewer {
     }
     if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
     const packet = decode(buffer);
-    this.cache.set(path, { packet, bytes: buffer.byteLength });
-    this.cacheBytes += buffer.byteLength;
+    const retainedBytes = packet.values ? packet.values.byteLength : buffer.byteLength;
+    this.cache.set(path, { packet, bytes: retainedBytes });
+    this.cacheBytes += retainedBytes;
     while (this.cacheBytes > 64 * 1024 * 1024 && this.cache.size > 1) {
       const oldest = this.cache.keys().next().value;
       this.cacheBytes -= this.cache.get(oldest).bytes;
@@ -368,7 +345,7 @@ class AneumoViewer {
     this.interface.setAttribute('aria-busy', 'true');
     this.status.textContent = `Loading ${this.sampleLabel(sample)}, ${axis.toUpperCase()} slice at ${Math.round(this.manifest.fractions[depth] * 100)}%…`;
     try {
-      if (sample.timeSteps && sample.seriesEncoding !== 'xor-float32-v1') throw new Error('Unsupported time-series encoding');
+      if (sample.timeSteps && !['xor-float32-v1', 'uint16-delta-v1'].includes(sample.seriesEncoding)) throw new Error('Unsupported time-series encoding');
       const series = sample.timeSteps ? sample.series[axis][depth] : null;
       const [shell, slice, gtSeries, modelSeries] = await Promise.all([
         this.geometry(sample.shell, controller.signal), this.geometry(sample.slices[axis][depth], controller.signal),
@@ -421,6 +398,8 @@ class AneumoViewer {
   updateFields() {
     const model = this.loadedSample.timeSteps ? this.loadedModel : this.manifest.models.find(model => model.id === this.modelSelect.value);
     const fields = ['GT', model.id, model.errorField];
+    const velocityRange = colourRange(this.loadedSample.velocityRange, this.root.dataset.velocityMaxFraction);
+    const errorRange = colourRange(this.loadedSample.errorRange, this.root.dataset.errorMaxFraction);
     if (this.loadedSample.timeSteps) {
       const values = (series, field) => {
         const start = (this.timeStep * series.fieldCount + field) * series.vertices;
@@ -433,7 +412,7 @@ class AneumoViewer {
     this.views.forEach((view, index) => {
       const sameGeometry = view.slice?.geometry.getAttribute('position').array === this.packet.positions;
       if (view.slice && !sameGeometry) { view.scene.remove(view.slice); view.slice.geometry.dispose(); view.slice = null; }
-      const geometry = coloredGeometry(this.packet, fields[index], index === 2 ? this.loadedSample.errorRange : this.loadedSample.velocityRange, index === 2 ? ERROR_COLORS : SPEED_COLORS, view.slice?.geometry);
+      const geometry = coloredGeometry(this.packet, fields[index], index === 2 ? errorRange : velocityRange, index === 2 ? ERROR_COLORS : SPEED_COLORS, view.slice?.geometry);
       if (!view.slice) { view.slice = new THREE.Mesh(geometry, view.fieldMaterial); view.scene.add(view.slice); }
       view.renderer.domElement.dataset.field = fields[index];
       if (this.loadedSample.timeSteps) view.renderer.domElement.dataset.timeStep = this.timeStep;
@@ -444,11 +423,11 @@ class AneumoViewer {
     this.root.querySelector('[data-demo-prediction-title]').textContent = label;
     this.root.querySelector('[data-demo-prediction-subtitle]').textContent = rotated ? 'Prediction · rotation-trained' : 'Prediction';
     this.root.querySelector('[data-demo-error-subtitle]').textContent = `${label}${rotated ? ' (rot.)' : ''} vs CFD`;
-    const ticks = (selector, range) => this.root.querySelectorAll(selector).forEach(node => {
-      node.replaceChildren(...[range[0], (range[0] + range[1]) / 2, range[1]].map(value => { const tick = document.createElement('span'); tick.textContent = number(value); return tick; }));
+    const ticks = (selector, range, clipped) => this.root.querySelectorAll(selector).forEach(node => {
+      node.replaceChildren(...[range[0], (range[0] + range[1]) / 2, range[1]].map((value, index) => { const tick = document.createElement('span'); tick.textContent = `${clipped && index === 2 ? '≥' : ''}${number(value)}`; return tick; }));
     });
-    ticks('[data-demo-velocity-ticks]', this.loadedSample.velocityRange);
-    ticks('[data-demo-error-ticks]', this.loadedSample.errorRange);
+    ticks('[data-demo-velocity-ticks]', velocityRange, velocityRange[1] < this.loadedSample.velocityRange[1]);
+    ticks('[data-demo-error-ticks]', errorRange, errorRange[1] < this.loadedSample.errorRange[1]);
     this.requestRender();
   }
 
@@ -478,7 +457,9 @@ class AneumoViewer {
     if (!this.views.length) return;
     const direction = this.axisSelect.value;
     const normal = new THREE.Vector3(...(direction === 'x' ? [1, 0, 0] : direction === 'y' ? [0, -1, 0] : [0, 0, 1]));
-    const distance = (this.radius || 1.2) / Math.sin(THREE.MathUtils.degToRad(17)) / Math.min(1, this.views[0].camera.aspect) * 1.08;
+    const preferredZoom = this.sample.id === this.root.dataset.defaultSample ? Number(this.root.dataset.defaultZoom) : 1;
+    const zoom = Number.isFinite(preferredZoom) && preferredZoom > 0 ? preferredZoom : 1;
+    const distance = (this.radius || 1.2) / Math.sin(THREE.MathUtils.degToRad(17)) / Math.min(1, this.views[0].camera.aspect) * 1.08 / zoom;
     this.syncing = true;
     this.views.forEach(view => {
       view.camera.position.copy(normal).multiplyScalar(distance);

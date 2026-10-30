@@ -642,7 +642,7 @@
       "label": "021",
       "dataset": "aaa-100",
       "timeSteps": 21,
-      "seriesEncoding": "xor-float32-v1",
+      "seriesEncoding": "uint16-delta-v1",
       "shell": "AAA021-T/shell.bin.gz",
       "slices": {
         "x": [
@@ -700,502 +700,502 @@
       "series": {
         "x": [
           {
-            "gt": "AAA021-T/x-00-GT.series.gz",
+            "gt": "AAA021-T/x-00-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-00-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-00-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-00-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-00-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-00-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-00-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-00-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-01-GT.series.gz",
+            "gt": "AAA021-T/x-01-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-01-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-01-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-01-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-01-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-01-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-01-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-01-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-02-GT.series.gz",
+            "gt": "AAA021-T/x-02-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-02-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-02-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-02-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-02-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-02-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-02-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-02-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-03-GT.series.gz",
+            "gt": "AAA021-T/x-03-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-03-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-03-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-03-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-03-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-03-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-03-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-03-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-04-GT.series.gz",
+            "gt": "AAA021-T/x-04-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-04-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-04-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-04-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-04-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-04-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-04-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-04-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-05-GT.series.gz",
+            "gt": "AAA021-T/x-05-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-05-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-05-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-05-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-05-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-05-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-05-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-05-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-06-GT.series.gz",
+            "gt": "AAA021-T/x-06-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-06-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-06-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-06-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-06-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-06-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-06-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-06-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-07-GT.series.gz",
+            "gt": "AAA021-T/x-07-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-07-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-07-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-07-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-07-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-07-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-07-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-07-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-08-GT.series.gz",
+            "gt": "AAA021-T/x-08-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-08-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-08-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-08-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-08-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-08-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-08-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-08-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-09-GT.series.gz",
+            "gt": "AAA021-T/x-09-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-09-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-09-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-09-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-09-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-09-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-09-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-09-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-10-GT.series.gz",
+            "gt": "AAA021-T/x-10-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-10-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-10-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-10-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-10-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-10-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-10-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-10-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-11-GT.series.gz",
+            "gt": "AAA021-T/x-11-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-11-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-11-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-11-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-11-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-11-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-11-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-11-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-12-GT.series.gz",
+            "gt": "AAA021-T/x-12-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-12-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-12-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-12-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-12-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-12-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-12-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-12-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-13-GT.series.gz",
+            "gt": "AAA021-T/x-13-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-13-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-13-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-13-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-13-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-13-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-13-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-13-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/x-14-GT.series.gz",
+            "gt": "AAA021-T/x-14-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/x-14-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/x-14-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/x-14-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/x-14-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/x-14-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/x-14-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/x-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/x-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/x-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/x-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/x-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/x-14-Transolver-180.u16.series.gz"
             }
           }
         ],
         "y": [
           {
-            "gt": "AAA021-T/y-00-GT.series.gz",
+            "gt": "AAA021-T/y-00-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-00-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-00-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-00-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-00-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-00-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-00-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-00-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-01-GT.series.gz",
+            "gt": "AAA021-T/y-01-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-01-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-01-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-01-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-01-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-01-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-01-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-01-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-02-GT.series.gz",
+            "gt": "AAA021-T/y-02-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-02-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-02-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-02-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-02-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-02-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-02-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-02-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-03-GT.series.gz",
+            "gt": "AAA021-T/y-03-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-03-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-03-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-03-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-03-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-03-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-03-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-03-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-04-GT.series.gz",
+            "gt": "AAA021-T/y-04-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-04-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-04-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-04-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-04-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-04-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-04-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-04-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-05-GT.series.gz",
+            "gt": "AAA021-T/y-05-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-05-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-05-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-05-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-05-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-05-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-05-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-05-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-06-GT.series.gz",
+            "gt": "AAA021-T/y-06-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-06-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-06-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-06-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-06-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-06-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-06-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-06-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-07-GT.series.gz",
+            "gt": "AAA021-T/y-07-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-07-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-07-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-07-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-07-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-07-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-07-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-07-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-08-GT.series.gz",
+            "gt": "AAA021-T/y-08-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-08-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-08-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-08-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-08-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-08-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-08-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-08-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-09-GT.series.gz",
+            "gt": "AAA021-T/y-09-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-09-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-09-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-09-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-09-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-09-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-09-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-09-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-10-GT.series.gz",
+            "gt": "AAA021-T/y-10-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-10-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-10-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-10-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-10-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-10-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-10-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-10-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-11-GT.series.gz",
+            "gt": "AAA021-T/y-11-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-11-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-11-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-11-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-11-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-11-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-11-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-11-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-12-GT.series.gz",
+            "gt": "AAA021-T/y-12-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-12-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-12-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-12-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-12-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-12-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-12-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-12-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-13-GT.series.gz",
+            "gt": "AAA021-T/y-13-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-13-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-13-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-13-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-13-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-13-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-13-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-13-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/y-14-GT.series.gz",
+            "gt": "AAA021-T/y-14-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/y-14-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/y-14-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/y-14-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/y-14-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/y-14-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/y-14-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/y-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/y-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/y-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/y-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/y-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/y-14-Transolver-180.u16.series.gz"
             }
           }
         ],
         "z": [
           {
-            "gt": "AAA021-T/z-00-GT.series.gz",
+            "gt": "AAA021-T/z-00-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-00-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-00-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-00-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-00-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-00-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-00-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-00-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-01-GT.series.gz",
+            "gt": "AAA021-T/z-01-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-01-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-01-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-01-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-01-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-01-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-01-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-01-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-02-GT.series.gz",
+            "gt": "AAA021-T/z-02-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-02-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-02-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-02-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-02-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-02-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-02-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-02-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-03-GT.series.gz",
+            "gt": "AAA021-T/z-03-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-03-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-03-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-03-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-03-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-03-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-03-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-03-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-04-GT.series.gz",
+            "gt": "AAA021-T/z-04-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-04-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-04-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-04-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-04-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-04-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-04-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-04-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-05-GT.series.gz",
+            "gt": "AAA021-T/z-05-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-05-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-05-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-05-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-05-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-05-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-05-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-05-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-06-GT.series.gz",
+            "gt": "AAA021-T/z-06-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-06-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-06-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-06-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-06-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-06-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-06-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-06-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-07-GT.series.gz",
+            "gt": "AAA021-T/z-07-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-07-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-07-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-07-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-07-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-07-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-07-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-07-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-08-GT.series.gz",
+            "gt": "AAA021-T/z-08-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-08-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-08-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-08-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-08-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-08-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-08-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-08-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-09-GT.series.gz",
+            "gt": "AAA021-T/z-09-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-09-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-09-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-09-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-09-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-09-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-09-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-09-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-10-GT.series.gz",
+            "gt": "AAA021-T/z-10-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-10-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-10-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-10-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-10-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-10-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-10-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-10-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-11-GT.series.gz",
+            "gt": "AAA021-T/z-11-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-11-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-11-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-11-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-11-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-11-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-11-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-11-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-12-GT.series.gz",
+            "gt": "AAA021-T/z-12-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-12-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-12-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-12-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-12-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-12-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-12-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-12-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-13-GT.series.gz",
+            "gt": "AAA021-T/z-13-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-13-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-13-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-13-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-13-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-13-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-13-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-13-Transolver-180.u16.series.gz"
             }
           },
           {
-            "gt": "AAA021-T/z-14-GT.series.gz",
+            "gt": "AAA021-T/z-14-GT.u16.series.gz",
             "models": {
-              "AB-GATr": "AAA021-T/z-14-AB-GATr.series.gz",
-              "AB-UPT": "AAA021-T/z-14-AB-UPT.series.gz",
-              "AB-UPT-180": "AAA021-T/z-14-AB-UPT-180.series.gz",
-              "LaB-GATr": "AAA021-T/z-14-LaB-GATr.series.gz",
-              "Transolver": "AAA021-T/z-14-Transolver.series.gz",
-              "Transolver-180": "AAA021-T/z-14-Transolver-180.series.gz"
+              "AB-GATr": "AAA021-T/z-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA021-T/z-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA021-T/z-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA021-T/z-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA021-T/z-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA021-T/z-14-Transolver-180.u16.series.gz"
             }
           }
         ]
@@ -1233,7 +1233,1218 @@
         "excludedOrphanPoints": 0
       },
       "predictedTimeSteps": 21,
-      "timeAveraged": false
+      "timeAveraged": false,
+      "scalarStorage": {
+        "bits": 16,
+        "range": "One maximum per field and slice, shared across all frames",
+        "maxAbsoluteErrorCmPerSecond": 0.00031280517578125
+      }
+    },
+    {
+      "id": "AAA048-T",
+      "label": "048",
+      "dataset": "aaa-100",
+      "timeSteps": 21,
+      "seriesEncoding": "uint16-delta-v1",
+      "shell": "AAA048-T/shell.bin.gz",
+      "slices": {
+        "x": [
+          "AAA048-T/x-00.bin.gz",
+          "AAA048-T/x-01.bin.gz",
+          "AAA048-T/x-02.bin.gz",
+          "AAA048-T/x-03.bin.gz",
+          "AAA048-T/x-04.bin.gz",
+          "AAA048-T/x-05.bin.gz",
+          "AAA048-T/x-06.bin.gz",
+          "AAA048-T/x-07.bin.gz",
+          "AAA048-T/x-08.bin.gz",
+          "AAA048-T/x-09.bin.gz",
+          "AAA048-T/x-10.bin.gz",
+          "AAA048-T/x-11.bin.gz",
+          "AAA048-T/x-12.bin.gz",
+          "AAA048-T/x-13.bin.gz",
+          "AAA048-T/x-14.bin.gz"
+        ],
+        "y": [
+          "AAA048-T/y-00.bin.gz",
+          "AAA048-T/y-01.bin.gz",
+          "AAA048-T/y-02.bin.gz",
+          "AAA048-T/y-03.bin.gz",
+          "AAA048-T/y-04.bin.gz",
+          "AAA048-T/y-05.bin.gz",
+          "AAA048-T/y-06.bin.gz",
+          "AAA048-T/y-07.bin.gz",
+          "AAA048-T/y-08.bin.gz",
+          "AAA048-T/y-09.bin.gz",
+          "AAA048-T/y-10.bin.gz",
+          "AAA048-T/y-11.bin.gz",
+          "AAA048-T/y-12.bin.gz",
+          "AAA048-T/y-13.bin.gz",
+          "AAA048-T/y-14.bin.gz"
+        ],
+        "z": [
+          "AAA048-T/z-00.bin.gz",
+          "AAA048-T/z-01.bin.gz",
+          "AAA048-T/z-02.bin.gz",
+          "AAA048-T/z-03.bin.gz",
+          "AAA048-T/z-04.bin.gz",
+          "AAA048-T/z-05.bin.gz",
+          "AAA048-T/z-06.bin.gz",
+          "AAA048-T/z-07.bin.gz",
+          "AAA048-T/z-08.bin.gz",
+          "AAA048-T/z-09.bin.gz",
+          "AAA048-T/z-10.bin.gz",
+          "AAA048-T/z-11.bin.gz",
+          "AAA048-T/z-12.bin.gz",
+          "AAA048-T/z-13.bin.gz",
+          "AAA048-T/z-14.bin.gz"
+        ]
+      },
+      "series": {
+        "x": [
+          {
+            "gt": "AAA048-T/x-00-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-00-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-01-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-01-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-02-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-02-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-03-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-03-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-04-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-04-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-05-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-05-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-06-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-06-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-07-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-07-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-08-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-08-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-09-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-09-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-10-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-10-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-11-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-11-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-12-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-12-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-13-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-13-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/x-14-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/x-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/x-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/x-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/x-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/x-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/x-14-Transolver-180.u16.series.gz"
+            }
+          }
+        ],
+        "y": [
+          {
+            "gt": "AAA048-T/y-00-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-00-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-01-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-01-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-02-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-02-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-03-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-03-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-04-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-04-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-05-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-05-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-06-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-06-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-07-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-07-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-08-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-08-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-09-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-09-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-10-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-10-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-11-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-11-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-12-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-12-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-13-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-13-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/y-14-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/y-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/y-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/y-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/y-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/y-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/y-14-Transolver-180.u16.series.gz"
+            }
+          }
+        ],
+        "z": [
+          {
+            "gt": "AAA048-T/z-00-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-00-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-01-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-01-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-02-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-02-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-03-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-03-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-04-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-04-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-05-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-05-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-06-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-06-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-07-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-07-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-08-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-08-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-09-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-09-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-10-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-10-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-11-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-11-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-12-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-12-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-13-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-13-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA048-T/z-14-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA048-T/z-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA048-T/z-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA048-T/z-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA048-T/z-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA048-T/z-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA048-T/z-14-Transolver-180.u16.series.gz"
+            }
+          }
+        ]
+      },
+      "velocityRange": [
+        0,
+        57.39575777515179
+      ],
+      "errorRange": [
+        0,
+        55.18424871247644
+      ],
+      "defaultAxis": "x",
+      "defaultSlice": 7,
+      "center": [
+        0.48018379509449005,
+        0.5201640427112579,
+        0.5127643644809723
+      ],
+      "scale": 3.288442177172758,
+      "sourceBounds": [
+        0.35857149958610535,
+        0.6017960906028748,
+        0.38700664043426514,
+        0.6533214449882507,
+        0.2086690068244934,
+        0.8168597221374512
+      ],
+      "fallbackSliceCount": 0,
+      "source": {
+        "filename": "AAA048-T-combined.vtu",
+        "sha256": "c7dd6ec4de9a3429e652512b8e8253577eb944a39ed341ae49dd1725ea8f5a3e",
+        "pointCount": 343415,
+        "cellCount": 2046500,
+        "excludedOrphanPoints": 0
+      },
+      "predictedTimeSteps": 21,
+      "timeAveraged": false,
+      "scalarStorage": {
+        "bits": 16,
+        "range": "One maximum per field and slice, shared across all frames",
+        "maxAbsoluteErrorCmPerSecond": 0.0003986358642578125
+      }
+    },
+    {
+      "id": "AAA090-T",
+      "label": "090",
+      "dataset": "aaa-100",
+      "timeSteps": 21,
+      "seriesEncoding": "uint16-delta-v1",
+      "shell": "AAA090-T/shell.bin.gz",
+      "slices": {
+        "x": [
+          "AAA090-T/x-00.bin.gz",
+          "AAA090-T/x-01.bin.gz",
+          "AAA090-T/x-02.bin.gz",
+          "AAA090-T/x-03.bin.gz",
+          "AAA090-T/x-04.bin.gz",
+          "AAA090-T/x-05.bin.gz",
+          "AAA090-T/x-06.bin.gz",
+          "AAA090-T/x-07.bin.gz",
+          "AAA090-T/x-08.bin.gz",
+          "AAA090-T/x-09.bin.gz",
+          "AAA090-T/x-10.bin.gz",
+          "AAA090-T/x-11.bin.gz",
+          "AAA090-T/x-12.bin.gz",
+          "AAA090-T/x-13.bin.gz",
+          "AAA090-T/x-14.bin.gz"
+        ],
+        "y": [
+          "AAA090-T/y-00.bin.gz",
+          "AAA090-T/y-01.bin.gz",
+          "AAA090-T/y-02.bin.gz",
+          "AAA090-T/y-03.bin.gz",
+          "AAA090-T/y-04.bin.gz",
+          "AAA090-T/y-05.bin.gz",
+          "AAA090-T/y-06.bin.gz",
+          "AAA090-T/y-07.bin.gz",
+          "AAA090-T/y-08.bin.gz",
+          "AAA090-T/y-09.bin.gz",
+          "AAA090-T/y-10.bin.gz",
+          "AAA090-T/y-11.bin.gz",
+          "AAA090-T/y-12.bin.gz",
+          "AAA090-T/y-13.bin.gz",
+          "AAA090-T/y-14.bin.gz"
+        ],
+        "z": [
+          "AAA090-T/z-00.bin.gz",
+          "AAA090-T/z-01.bin.gz",
+          "AAA090-T/z-02.bin.gz",
+          "AAA090-T/z-03.bin.gz",
+          "AAA090-T/z-04.bin.gz",
+          "AAA090-T/z-05.bin.gz",
+          "AAA090-T/z-06.bin.gz",
+          "AAA090-T/z-07.bin.gz",
+          "AAA090-T/z-08.bin.gz",
+          "AAA090-T/z-09.bin.gz",
+          "AAA090-T/z-10.bin.gz",
+          "AAA090-T/z-11.bin.gz",
+          "AAA090-T/z-12.bin.gz",
+          "AAA090-T/z-13.bin.gz",
+          "AAA090-T/z-14.bin.gz"
+        ]
+      },
+      "series": {
+        "x": [
+          {
+            "gt": "AAA090-T/x-00-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-00-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-01-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-01-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-02-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-02-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-03-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-03-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-04-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-04-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-05-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-05-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-06-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-06-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-07-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-07-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-08-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-08-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-09-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-09-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-10-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-10-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-11-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-11-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-12-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-12-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-13-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-13-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/x-14-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/x-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/x-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/x-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/x-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/x-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/x-14-Transolver-180.u16.series.gz"
+            }
+          }
+        ],
+        "y": [
+          {
+            "gt": "AAA090-T/y-00-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-00-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-01-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-01-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-02-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-02-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-03-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-03-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-04-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-04-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-05-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-05-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-06-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-06-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-07-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-07-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-08-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-08-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-09-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-09-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-10-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-10-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-11-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-11-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-12-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-12-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-13-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-13-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/y-14-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/y-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/y-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/y-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/y-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/y-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/y-14-Transolver-180.u16.series.gz"
+            }
+          }
+        ],
+        "z": [
+          {
+            "gt": "AAA090-T/z-00-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-00-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-00-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-00-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-00-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-00-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-00-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-01-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-01-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-01-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-01-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-01-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-01-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-01-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-02-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-02-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-02-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-02-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-02-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-02-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-02-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-03-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-03-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-03-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-03-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-03-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-03-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-03-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-04-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-04-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-04-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-04-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-04-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-04-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-04-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-05-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-05-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-05-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-05-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-05-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-05-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-05-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-06-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-06-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-06-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-06-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-06-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-06-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-06-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-07-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-07-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-07-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-07-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-07-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-07-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-07-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-08-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-08-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-08-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-08-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-08-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-08-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-08-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-09-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-09-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-09-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-09-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-09-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-09-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-09-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-10-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-10-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-10-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-10-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-10-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-10-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-10-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-11-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-11-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-11-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-11-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-11-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-11-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-11-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-12-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-12-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-12-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-12-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-12-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-12-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-12-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-13-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-13-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-13-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-13-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-13-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-13-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-13-Transolver-180.u16.series.gz"
+            }
+          },
+          {
+            "gt": "AAA090-T/z-14-GT.u16.series.gz",
+            "models": {
+              "AB-GATr": "AAA090-T/z-14-AB-GATr.u16.series.gz",
+              "AB-UPT": "AAA090-T/z-14-AB-UPT.u16.series.gz",
+              "AB-UPT-180": "AAA090-T/z-14-AB-UPT-180.u16.series.gz",
+              "LaB-GATr": "AAA090-T/z-14-LaB-GATr.u16.series.gz",
+              "Transolver": "AAA090-T/z-14-Transolver.u16.series.gz",
+              "Transolver-180": "AAA090-T/z-14-Transolver-180.u16.series.gz"
+            }
+          }
+        ]
+      },
+      "velocityRange": [
+        0,
+        112.25807601130708
+      ],
+      "errorRange": [
+        0,
+        116.46991678169698
+      ],
+      "defaultAxis": "y",
+      "defaultSlice": 7,
+      "center": [
+        0.4690474271774292,
+        0.5103222131729126,
+        0.5388336032629013
+      ],
+      "scale": 3.518999062475797,
+      "sourceBounds": [
+        0.34956473112106323,
+        0.5885301232337952,
+        0.40033531188964844,
+        0.6203091144561768,
+        0.25466188788414,
+        0.8230053186416626
+      ],
+      "fallbackSliceCount": 0,
+      "source": {
+        "filename": "AAA090-T-combined.vtu",
+        "sha256": "e762183841bf8c00bc436cf95cf78600f840264796835cd9261d6136d151d0ef",
+        "pointCount": 303331,
+        "cellCount": 1805804,
+        "excludedOrphanPoints": 0
+      },
+      "predictedTimeSteps": 21,
+      "timeAveraged": false,
+      "scalarStorage": {
+        "bits": 16,
+        "range": "One maximum per field and slice, shared across all frames",
+        "maxAbsoluteErrorCmPerSecond": 0.0008792877197265625
+      }
     }
   ],
   "interpolation": "VTK plane cuts interpolate the supplied three-component arrays; the viewer displays their L2 magnitudes. Only source cells that cannot be directly contoured are tetrahedralized, with cell coverage and volume conservation checked.",

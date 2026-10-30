@@ -1125,9 +1125,16 @@ nav a:hover {
   padding:35px 0 40px;
   border-top:1px solid var(--line);
   display:flex;
+  flex-wrap:wrap;
   justify-content:space-between;
   gap:30px;
   align-items:end;
+}
+
+.site-footer>div:first-child {
+  flex:1 0 340px;
+  min-width:0;
+  max-width:100%;
 }
 
 .site-footer>div>a {
@@ -1152,6 +1159,7 @@ nav a:hover {
 
 .contact-emails li {
   display:flex;
+  flex-wrap:wrap;
   align-items:baseline;
   gap:12px;
   margin:5px 0;
@@ -1163,7 +1171,7 @@ nav a:hover {
 }
 
 .contact-emails a {
-  overflow-wrap:anywhere;
+  white-space:nowrap;
 }
 
 .footer-meta {

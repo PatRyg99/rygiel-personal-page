@@ -5,7 +5,8 @@ Requires Python 3 and VTK (tested with 9.6.1); NumPy is not required.
 Run from any directory: python3 scripts/prepare_aneumo.py
 Optional positional arguments replace the default source selection.
 Unchanged, validated cases are reused even if their original VTUs are absent;
---force requires the raw inputs and rebuilds every requested case.
+--force requires the raw inputs and rebuilds every requested case. Temporal
+fields use range-mapped uint16 storage by default; --lossless retains float32.
 
 Raw velocities are in cm/s, as confirmed by the dataset owner. No unit
 conversion is applied. Error values are the L2 magnitude of the supplied
@@ -24,6 +25,12 @@ files start with uint32 magic=0x41545331, vertex_count, frame_count, field_count
 then frame-major, field-major float32 magnitude bits. Frame zero is stored
 verbatim; each later frame is bitwise XOR against the previous original frame.
 The XOR transform is lossless and reversed before interpreting floats.
+Compact series use magic=0x41545333 with the same four header words, followed
+by one float64 maximum per field and byte-shuffled uint16 temporal deltas. Each field
+uses one range across all 21 frames. Decoding multiplies by maximum/65535;
+rounding is bounded by half a quantization step plus float32 reconstruction.
+Geometry and color-scale ranges are never quantized. The audit records the
+actual maximum error against the original prepared float32 fields.
 One common transform places the longest source
 bounding-box side at length 2; scalar values are never scaled.
 
@@ -55,6 +62,9 @@ import vtk
 ROOT = Path(__file__).resolve().parent.parent
 MAGIC = 0x414E4531
 SERIES_MAGIC = 0x41545331
+COMPACT_SERIES_MAGIC = 0x41545333
+LOSSLESS_ENCODING = "xor-float32-v1"
+COMPACT_ENCODING = "uint16-delta-v1"
 CELL_IDS = "_aneumo_source_cell_id"
 FIELD_ORDER = [
     "GT", "AB-GATr", "AB-GATr-error", "AB-UPT", "AB-UPT-error",
@@ -77,7 +87,7 @@ DATASETS = [
 DEFAULT_SOURCES = [
     "777-combined.vtu", "832-combined.vtu", "845-combined.vtu",
     "sample-1815-combined.vtu", "sample-1847-combined.vtu", "sample-1962-combined.vtu",
-    "AAA021-T-combined.vtu",
+    "AAA021-T-combined.vtu", "AAA048-T-combined.vtu", "AAA090-T-combined.vtu",
 ]
 
 
@@ -97,7 +107,7 @@ def identify_source(path):
     match = re.fullmatch(r"AAA(\d+)-T-combined\.vtu", name)
     if match:
         return {"id": "AAA" + match[1] + "-T", "label": match[1], "dataset": "aaa-100",
-                "timeSteps": 21, "seriesEncoding": "xor-float32-v1"}
+                "timeSteps": 21}
     match = re.fullmatch(r"AAA(\d+)-combined\.vtu", name)
     if match:
         return {"id": "AAA" + match[1], "label": match[1], "dataset": "aaa-100"}
@@ -172,7 +182,7 @@ def cached_source(path, output, previous, previous_audit, source_hash):
             filename = sample["slices"][details["axis"]][details["index"]]
             validate_geometry_file(output / filename, 0 if temporal else len(FIELD_ORDER), details)
         if temporal:
-            require(sample.get("seriesEncoding") == "xor-float32-v1", "Unsupported cached series encoding")
+            require(sample.get("seriesEncoding") in (LOSSLESS_ENCODING, COMPACT_ENCODING), "Unsupported cached series encoding")
             require(len(audit["series"]) == len(FRACTIONS) * 3 * (len(MODEL_LABELS) + 1),
                     "Incomplete cached temporal series audit")
             for details in audit["series"]:
@@ -605,30 +615,125 @@ class TemporalInterpolator:
         return raw
 
 
-def validate_series_file(path, vertices, fields, frames, expected_digest=None):
-    raw = gzip.decompress(path.read_bytes())
-    require(len(raw) == 16 + vertices * fields * frames * 4, f"Invalid series length: {path}")
-    require(struct.unpack_from("<4I", raw) == (SERIES_MAGIC, vertices, frames, fields),
-            f"Invalid series header: {path}")
-    stride, previous = vertices * fields * 4, 0
-    decoded_digest = hashlib.sha256()
-    for frame in range(frames):
-        encoded = raw[16 + frame * stride:16 + (frame + 1) * stride]
-        original = int.from_bytes(encoded, "little") ^ previous
-        previous = original
-        decoded = original.to_bytes(stride, "little")
-        decoded_digest.update(decoded)
-        values = array.array("f")
-        values.frombytes(decoded)
+def little_bytes(values):
+    if sys.byteorder == "little":
+        return values.tobytes()
+    copy = array.array(values.typecode, values)
+    copy.byteswap()
+    return copy.tobytes()
+
+
+def decode_series_bytes(raw):
+    require(len(raw) >= 16, "Truncated series header")
+    magic, vertices, frames, fields = struct.unpack_from("<4I", raw)
+    require(vertices > 0 and frames >= 2 and fields in (1, 2), "Invalid series dimensions")
+    count = vertices * frames * fields
+    values = array.array("f")
+    if magic == SERIES_MAGIC:
+        require(len(raw) == 16 + count * 4, "Invalid float32 series length")
+        stride, previous = vertices * fields * 4, 0
+        for frame in range(frames):
+            encoded = raw[16 + frame * stride:16 + (frame + 1) * stride]
+            previous ^= int.from_bytes(encoded, "little")
+            values.frombytes(previous.to_bytes(stride, "little"))
         if sys.byteorder != "little":
             values.byteswap()
-        require(all(math.isfinite(value) and value >= 0 for value in values),
-                f"Invalid temporal scalar: {path}")
-    require(expected_digest is None or decoded_digest.hexdigest() == expected_digest,
-            f"Temporal XOR round-trip mismatch: {path}")
+    elif magic == COMPACT_SERIES_MAGIC:
+        offset = 16 + fields * 8
+        require(len(raw) == offset + count * 2, "Invalid uint16 series length")
+        maxima = struct.unpack_from("<" + "d" * fields, raw, 16)
+        require(all(math.isfinite(value) and value >= 0 for value in maxima), "Invalid quantization range")
+        low, high = memoryview(raw)[offset:offset + count], memoryview(raw)[offset + count:]
+        stride = vertices * fields
+        previous = array.array("H", [0]) * stride
+        for frame in range(frames):
+            for field, maximum in enumerate(maxima):
+                start = (frame * fields + field) * vertices
+                step = maximum / 65535
+                for i in range(start, start + vertices):
+                    slot = i - frame * stride
+                    code = ((low[i] | high[i] << 8) + previous[slot]) & 65535
+                    previous[slot] = code
+                    values.append(code * step)
+    else:
+        raise ValueError("Unsupported time-series header")
+    require(all(math.isfinite(value) and value >= 0 for value in values), "Invalid temporal scalar")
+    return vertices, frames, fields, values
+
+
+def validate_series_file(path, vertices, fields, frames, expected_digest=None):
+    decoded_vertices, decoded_frames, decoded_fields, values = decode_series_bytes(gzip.decompress(path.read_bytes()))
+    require((decoded_vertices, decoded_frames, decoded_fields) == (vertices, frames, fields),
+            f"Invalid series dimensions: {path}")
+    digest = hashlib.sha256(little_bytes(values)).hexdigest()
+    require(expected_digest is None or digest == expected_digest, f"Temporal round-trip mismatch: {path}")
     return {"vertices": vertices, "fields": fields, "frames": frames,
             "bytes": path.stat().st_size, "sha256": file_hash(path),
-            "decodedSha256": decoded_digest.hexdigest()}
+            "decodedSha256": digest}
+
+
+def compact_temporal_source(output, sample, audit):
+    """Compact legacy fields; retain geometry, every frame, and the display scales."""
+    if sample.get("seriesEncoding") == COMPACT_ENCODING:
+        return []
+    obsolete, records, replacements = [], [], {}
+    total_before = total_after = 0
+    for old in audit["series"]:
+        path = output / old["path"]
+        vertices, frames, fields, reference = decode_series_bytes(gzip.decompress(path.read_bytes()))
+        original_digest = hashlib.sha256(little_bytes(reference)).hexdigest()
+        require(original_digest == old["decodedSha256"], "Original series checksum mismatch")
+        maxima = [max(max(reference[(frame * fields + field) * vertices:(frame * fields + field + 1) * vertices])
+                      for frame in range(frames)) for field in range(fields)]
+        codes = array.array("H")
+        for frame in range(frames):
+            for field, maximum in enumerate(maxima):
+                start = (frame * fields + field) * vertices
+                factor = 65535 / maximum if maximum else 0
+                codes.extend(int(value * factor + .5) for value in reference[start:start + vertices])
+        stride = vertices * fields
+        deltas = array.array("H", ((code - codes[i - stride]) & 65535 if i >= stride else code for i, code in enumerate(codes)))
+        packed = little_bytes(deltas)
+        encoded = struct.pack("<4I", COMPACT_SERIES_MAGIC, vertices, frames, fields)
+        encoded += struct.pack("<" + "d" * fields, *maxima) + packed[0::2] + packed[1::2]
+        _, _, _, reconstructed = decode_series_bytes(encoded)
+        errors = [0.0] * fields
+        for frame in range(frames):
+            for field in range(fields):
+                start = (frame * fields + field) * vertices
+                error = max(abs(a - b) for a, b in zip(reference[start:start + vertices], reconstructed[start:start + vertices]))
+                errors[field] = max(errors[field], error)
+        bounds = [maximum / 131070 + maximum * 2**-24 for maximum in maxima]
+        require(all(error <= bound + 1e-12 for error, bound in zip(errors, bounds)), "Quantization error exceeds its bound")
+        relative = old["path"].removesuffix(".series.gz") + ".u16.series.gz"
+        target = output / relative
+        temporary = target.with_suffix(target.suffix + ".tmp")
+        temporary.write_bytes(gzip.compress(encoded, compresslevel=9, mtime=0))
+        stats = validate_series_file(temporary, vertices, fields, frames, hashlib.sha256(little_bytes(reconstructed)).hexdigest())
+        temporary.replace(target)
+        records.append({"path": relative, **stats, "originalDecodedSha256": original_digest,
+                        "originalBytes": old["bytes"], "fieldMaxima": maxima,
+                        "maxAbsoluteErrorByField": errors, "absoluteErrorBounds": bounds})
+        total_before += old["bytes"]
+        total_after += stats["bytes"]
+        replacements[old["path"]] = relative
+        obsolete.append(path)
+        if len(records) % 45 == 0:
+            print(f"{sample['id']}: compacted {len(records)}/{len(audit['series'])} series", flush=True)
+    for entries in sample["series"].values():
+        for entry in entries:
+            entry["gt"] = replacements[entry["gt"]]
+            entry["models"] = {model: replacements[path] for model, path in entry["models"].items()}
+    sample["seriesEncoding"] = COMPACT_ENCODING
+    sample["scalarStorage"] = {"bits": 16, "range": "One maximum per field and slice, shared across all frames",
+                               "maxAbsoluteErrorCmPerSecond": max(max(record["maxAbsoluteErrorByField"]) for record in records)}
+    audit["series"] = records
+    audit["compression"] = {"encoding": COMPACT_ENCODING, "originalSeriesBytes": total_before,
+                             "compactSeriesBytes": total_after, "geometryUnchanged": True,
+                             "maxAbsoluteErrorCmPerSecond": sample["scalarStorage"]["maxAbsoluteErrorCmPerSecond"]}
+    print(f"{sample['id']}: {total_before / 1024**2:.2f} → {total_after / 1024**2:.2f} MiB; "
+          f"maximum rounding {sample['scalarStorage']['maxAbsoluteErrorCmPerSecond']:.8f} cm/s", flush=True)
+    return obsolete
 
 
 def prepare_temporal_source(path, output, source_hash):
@@ -672,7 +777,7 @@ def prepare_temporal_source(path, output, source_hash):
     require(not run(surface), "Temporal original shell extraction failed")
     shell_path = f"{sample_id}/shell.bin.gz"
     shell_stats = write_geometry(output / shell_path, surface.GetOutput(), center, scale, [])
-    sample = add_temporal_metadata({**identity, "shell": shell_path,
+    sample = add_temporal_metadata({**identity, "seriesEncoding": LOSSLESS_ENCODING, "shell": shell_path,
         "slices": {axis: [] for axis in "xyz"}, "series": {axis: [] for axis in "xyz"},
         "velocityRange": [0, 0], "errorRange": [0, 0],
         "defaultAxis": "x", "defaultSlice": 7, "center": center, "scale": scale,
@@ -813,24 +918,29 @@ def main():
     parser.add_argument("sources", type=Path, nargs="*")
     parser.add_argument("--output", type=Path, default=ROOT / "assets/data/abgatr-demo")
     parser.add_argument("--force", action="store_true", help="Regenerate even unchanged, validated cases")
+    parser.add_argument("--lossless", action="store_true", help="Keep original float32 temporal scalars instead of compact uint16 storage")
     args = parser.parse_args()
-    sources = args.sources or [ROOT / name for name in DEFAULT_SOURCES]
+    previous = previous_audit = {}
+    try:
+        previous = json.loads((args.output / "manifest.json").read_text())
+        previous_audit = json.loads((args.output / "audit.json").read_text())
+    except (OSError, ValueError):
+        pass
+    defaults = [ROOT / name for name in DEFAULT_SOURCES]
+    defaults += [ROOT / sample["source"]["filename"] for sample in previous.get("samples", []) if sample.get("timeSteps")]
+    defaults += sorted(ROOT.glob("AAA[0-9]*-T-combined.vtu"))
+    sources = args.sources or list(dict.fromkeys(defaults))
     requested_ids = [identify_source(path)["id"] for path in sources]
     require(len(requested_ids) == len(set(requested_ids)), "Duplicate sample IDs in requested sources")
     vtk.vtkLogger.SetStderrVerbosity(vtk.vtkLogger.VERBOSITY_OFF)
     args.output.mkdir(parents=True, exist_ok=True)
-    previous = previous_audit = {}
-    if not args.force:
-        try:
-            previous = json.loads((args.output / "manifest.json").read_text())
-            previous_audit = json.loads((args.output / "audit.json").read_text())
-        except (OSError, ValueError):
-            previous = previous_audit = {}
-    samples, audits = [], []
+    samples, audits, obsolete = [], [], []
     for path in sources:
         stored = next((s for s in previous.get("samples", []) if s["id"] == identify_source(path)["id"]), None)
         source_hash = file_hash(path) if path.is_file() else stored.get("source", {}).get("sha256") if stored else None
-        reused = cached_source(path, args.output, previous, previous_audit, source_hash)
+        reused = None if args.force else cached_source(path, args.output, previous, previous_audit, source_hash)
+        if reused and args.lossless and reused[0].get("seriesEncoding") == COMPACT_ENCODING:
+            reused = None
         if reused:
             sample, audit = reused
             count = 46 + len(audit.get("series", []))
@@ -842,6 +952,8 @@ def main():
                 sample, audit = prepare_temporal_source(path, args.output, source_hash)
             else:
                 sample, audit = prepare_source(path, args.output, source_hash)
+        if sample.get("timeSteps") and not args.lossless:
+            obsolete += compact_temporal_source(args.output, sample, audit)
         samples.append(sample)
         audits.append(audit)
         gc.collect()
@@ -861,6 +973,14 @@ def main():
         temporary = args.output / ("." + filename + ".tmp")
         temporary.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
         temporary.replace(args.output / filename)
+    # Remove only replaced temporal derivatives after the complete manifest is ready.
+    referenced = {path for sample in samples for entries in sample.get("series", {}).values()
+                  for entry in entries for path in [entry["gt"], *entry["models"].values()]}
+    obsolete += [args.output / record["path"] for audit in previous_audit.get("samples", [])
+                 if audit["id"] in requested_ids for record in audit.get("series", []) if record["path"] not in referenced]
+    for path in set(obsolete):
+        if path.relative_to(args.output).as_posix() not in referenced:
+            path.unlink(missing_ok=True)
     # Old averaged AAA derivatives are obsolete only after the new manifest is complete.
     retained = {sample["id"] for sample in samples}
     for old_id in ("AAA021", "AAA048", "AAA090"):
