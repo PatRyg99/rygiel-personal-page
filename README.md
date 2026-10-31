@@ -29,7 +29,7 @@ python3 scripts/prepare_aneumo.py
 python3 scripts/prepare_viewer_metrics.py
 ```
 
-For the surface WSS viewer, run `python3 scripts/prepare_wss.py`. It prepares the topology, boundary-condition, and longitudinal-remodelling comparisons from the `.vtp` files, with all 21 timesteps and surface errors. Challenge pairs, labels, and fixed color limits are defined in the generated manifest. Run `python3 scripts/test_wss_assets.py` and `node scripts/check_wss_assets.mjs` to verify the source data and browser decoder.
+For the surface WSS viewer, run `python3 scripts/prepare_wss.py`. It prepares the topology, boundary-condition, and longitudinal-remodelling comparisons from the `.vtp` files, with all 21 timesteps and surface errors. Challenge pairs, labels, and default color limits are defined in the generated manifest. Run `python3 scripts/test_wss_assets.py` and `node scripts/check_wss_assets.mjs` to verify the source data and browser decoder.
 
 When adding photographs, run `ruby -EUTF-8 scripts/prepare_photography.rb` (ImageMagick required). Commit the generated files in `assets/data/abgatr-demo/`, `assets/data/wss-demo/`, and `images/gallery/`. Original `.vtu`/`.vtp` files and `images/photography/` stay local and are excluded from Git and the published site.
 

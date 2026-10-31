@@ -135,6 +135,67 @@ try {
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('.demo-pause-icon')).display`),'none');
   assert.equal(await evaluate(`document.querySelector('[data-demo-play]').textContent.trim()`),'','Playback button uses icons');
   assert.match(await evaluate(`document.querySelector('[data-demo-play]').getAttribute('aria-label')`),/^Play/);
+  const colourScales = () => evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>[...node.children].map(tick=>tick.textContent))`);
+  const setMaximum = async (field, value) => {
+    await evaluate(`(() => {const input=document.querySelector('[data-demo-colour-max="${field}"]');input.value=${JSON.stringify(String(value))};input.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+    await frame();
+  };
+  const defaultScales = await colourScales();
+  assert.deepEqual(defaultScales,Array(3).fill(['0','20','≥40']),'AAA-100 defaults to 40 cm/s for both colorbars');
+  const beforeLimits = await snapshot();
+  const beforeLimitMetrics = await verifyMetrics();
+  const beforeLimitRequests = requests.length;
+  await setMaximum('velocity',12.5);
+  const velocityAdjusted = await snapshot();
+  assert.ok(velocityAdjusted.slice(0,2).every((view,index)=>view.hash!==beforeLimits[index].hash),'Velocity maximum recolors CFD and prediction');
+  assert.equal(velocityAdjusted[2].hash,beforeLimits[2].hash,'Velocity maximum leaves the error map unchanged');
+  await setMaximum('error',7.5);
+  const adjusted = await snapshot();
+  assert.equal(adjusted[0].hash,velocityAdjusted[0].hash,'Error maximum leaves CFD unchanged');
+  assert.equal(adjusted[1].hash,velocityAdjusted[1].hash,'Error maximum leaves prediction unchanged');
+  assert.notEqual(adjusted[2].hash,velocityAdjusted[2].hash,'Error maximum recolors the error map');
+  const customScales = [['0','6.25','≥12.5'],['0','6.25','≥12.5'],['0','3.75','≥7.5']];
+  assert.deepEqual(await colourScales(),customScales,'CFD and prediction share the chosen velocity range');
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('[data-demo-colour-slider]')].map(slider=>slider.valueAsNumber)`),[12.5,7.5],'Sliders reflect exact editable maxima');
+  assert.deepEqual(await verifyMetrics(),beforeLimitMetrics,'Display clipping leaves L2 metrics unchanged');
+  assert.equal(requests.length,beforeLimitRequests,'Adjusting display limits fetches no assets');
+  for (const [field,value] of [['velocity',30],['error',25]]) {
+    await evaluate(`(() => {const slider=document.querySelector('[data-demo-colour-slider="${field}"]');slider.value='${value}';slider.dispatchEvent(new Event('input',{bubbles:true}));})()`);await frame();
+    assert.equal(await evaluate(`document.querySelector('[data-demo-colour-max="${field}"]').valueAsNumber`),value,'Sliders update the editable maxima');
+  }
+  assert.deepEqual(await colourScales(),[['0','15','≥30'],['0','15','≥30'],['0','12.5','≥25']],'Sliders recolor both velocity views and the error view');
+  await setMaximum('velocity',12.5);await setMaximum('error',7.5);
+  for (const invalid of ['',0,-1,'1e999']) {
+    await setMaximum('velocity',invalid);
+    assert.equal(await evaluate(`document.querySelector('[data-demo-colour-max="velocity"]').getAttribute('aria-invalid')`),'true');
+    assert.deepEqual(await colourScales(),customScales,'Invalid maxima preserve the last valid scale');
+  }
+  await setMaximum('velocity',12.5);
+  assert.equal(await evaluate(`document.querySelector('[data-demo-colour-validation]').textContent`),'');
+  await timestep(10);
+  await select('[data-demo-model]','LaB-GATr');await ready();
+  await select('[data-demo-axis]','y');await ready();
+  assert.deepEqual(await colourScales(),customScales,'Chosen limits stay fixed across timesteps, models and slices');
+  await select('[data-demo-sample]','AAA021-T');await ready();await pause();
+  assert.notDeepEqual(await colourScales(),customScales,'A different sample uses its own limits');
+  await select('[data-demo-dataset]','aneumo');await ready();
+  assert.notDeepEqual(await colourScales(),customScales,'A different dataset uses its own limits');
+  await select('[data-demo-dataset]','aaa-100');await ready();await pause();
+  assert.deepEqual(await colourScales(),customScales,'Returning to a sample restores its chosen limits');
+  await evaluate(`document.querySelector('[data-demo-colour-reset="velocity"]').click()`);await frame();
+  assert.deepEqual(await colourScales(),[['0','20','≥40'],['0','20','≥40'],['0','3.75','≥7.5']],'Resetting velocity preserves the chosen error maximum');
+  await evaluate(`document.querySelector('[data-demo-colour-reset="error"]').click()`);await frame();
+  assert.deepEqual(await colourScales(),defaultScales,'Reset restores the sample default clipping');
+  await select('[data-demo-model]','AB-GATr');await ready();
+  for (const width of [900,768]) {
+    await call('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:false});await frame();
+    await evaluate(`document.querySelector('[data-aneumo-demo]').scrollIntoView({behavior:'instant',block:'start'})`);await frame();
+    const tops = await evaluate(`['dataset','sample','model'].map(field=>document.querySelector('[data-demo-'+field+']').getBoundingClientRect().top)`);
+    assert.ok(tops.every(top=>Math.abs(top-tops[0])<1),'Dataset, Sample and Model stay on one row on tablets');
+    assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Compact controls fit on tablets');
+    await screenshot(`AAA090-compact-${width}`);
+  }
+  await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});await frame();
   await select('[data-demo-dataset]','aneumo');await ready();
   await evaluate(`document.querySelector('[data-aneumo-demo]').scrollIntoView({behavior:'instant',block:'start'})`);
   await frame();
@@ -198,6 +259,7 @@ try {
       const reference=await snapshot();
       assert.ok(reference.every(view=>view.colored>10),`Initial fields visible for ${sample}`);
       const scales=await evaluate(`[...document.querySelectorAll('[data-demo-velocity-ticks],[data-demo-error-ticks]')].map(node=>node.textContent)`);
+      if(dataset==='aaa-100') assert.deepEqual(scales,Array(3).fill('020≥40'),'Every AAA-100 sample defaults to 40 cm/s');
       for(const model of ['AB-GATr','AB-UPT','AB-UPT-180','LaB-GATr','Transolver','Transolver-180']) {
         await select('[data-demo-model]',model);await ready();
         await verifyMetrics();
@@ -259,6 +321,8 @@ try {
   await screenshot(`${temporalSamples.at(-1)}-controls-dark`);
   await evaluate(`document.querySelector('.demo-error-metrics').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
   await screenshot('relative-errors-desktop-dark');
+  await evaluate(`document.querySelector('[data-demo-colour-controls]').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
+  await screenshot('colour-sliders-desktop-dark');
   await evaluate(`document.documentElement.dataset.theme='light'`);
   await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-color-scheme',value:'light'},{name:'prefers-reduced-motion',value:'reduce'}]});
   await select('[data-demo-sample]','AAA021-T');await ready();
@@ -267,6 +331,9 @@ try {
   await evaluate(`document.querySelector('[data-aneumo-demo]').scrollIntoView({behavior:'instant',block:'start'})`);await frame();
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Time controls fit on mobile');
   await screenshot('AAA021-mobile-time-controls');
+  await evaluate(`document.querySelector('[data-demo-colour-controls]').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
+  assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Colorbar sliders fit beneath CFD on mobile');
+  await screenshot('colour-sliders-mobile');
   await evaluate(`document.querySelector('.demo-error-metrics').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Error percentages fit on mobile');
   await verifyMetrics();

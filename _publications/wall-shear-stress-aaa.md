@@ -19,7 +19,7 @@ topics:
   - "geometry"
   - "surrogates"
 featured: true
-feature_order: 3
+feature_order: 2
 project_page: true
 stylesheets:
   - /assets/css/aneumo-viewer.css

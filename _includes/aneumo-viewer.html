@@ -1,4 +1,4 @@
-<section class="aneumo-demo" id="aneumo-demo" data-aneumo-demo data-default-dataset="aaa-100" data-default-sample="AAA090-T" data-default-axis="x" data-default-depth="0.74" data-default-zoom="1.15" data-velocity-max-fraction="0.90" data-error-max-fraction="0.90" data-aaa-velocity-max-fraction="0.80" data-aaa-error-max-fraction="0.80" data-manifest="{{ '/assets/data/abgatr-demo/manifest.json' | relative_url }}" data-metrics="{{ '/assets/data/abgatr-demo/metrics.json' | relative_url }}" aria-labelledby="aneumo-demo-title">
+<section class="aneumo-demo" id="aneumo-demo" data-aneumo-demo data-default-dataset="aaa-100" data-default-sample="AAA090-T" data-default-axis="x" data-default-depth="0.74" data-default-zoom="1.15" data-velocity-max-fraction="0.90" data-error-max-fraction="0.90" data-aaa-velocity-max="40" data-aaa-error-max="40" data-manifest="{{ '/assets/data/abgatr-demo/manifest.json' | relative_url }}" data-metrics="{{ '/assets/data/abgatr-demo/metrics.json' | relative_url }}" aria-labelledby="aneumo-demo-title">
   <div class="demo-heading"><p class="section-kicker">Interactive examples</p><h2 id="aneumo-demo-title">Compare velocity predictions</h2></div>
   <div class="demo-launch"><button type="button" class="demo-start" data-demo-start hidden>Load 3D viewer <span aria-hidden="true">↗</span></button><noscript><p>Enable JavaScript to use the interactive viewer. The figures above show the paper’s results.</p></noscript></div>
   <p class="demo-status" data-demo-status role="status" aria-live="polite"></p>
@@ -6,7 +6,7 @@
     <div class="demo-controls">
       <label class="demo-dataset">Dataset<span class="demo-select"><select data-demo-dataset aria-label="Dataset"></select></span></label>
       <label class="demo-sample">Sample<span class="demo-select"><select data-demo-sample aria-label="Sample"></select></span></label>
-      <label class="demo-model">Prediction<span class="demo-select"><select data-demo-model aria-label="Prediction model"></select></span></label>
+      <label class="demo-model">Model<span class="demo-select"><select data-demo-model aria-label="Model"></select></span></label>
       <label class="demo-axis">Slice direction<span class="demo-select"><select data-demo-axis aria-label="Slice direction"><option value="x">X</option><option value="y">Y</option><option value="z">Z</option></select></span></label>
       <label class="demo-depth">Slice depth <output data-demo-depth-label for="aneumo-depth">50%</output><input type="range" id="aneumo-depth" data-demo-depth min="0" max="14" value="7" step="1"></label>
     </div>
@@ -21,9 +21,46 @@
     </div>
     <p class="demo-instructions" id="aneumo-controls-help">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan<span class="sr-only">. With a view focused, use arrow keys to rotate, plus and minus to zoom, and R to reset.</span></p>
     <div class="demo-panels" data-demo-panels>
-      <section class="demo-panel" aria-labelledby="demo-cfd-title"><div class="demo-panel-heading"><h3 id="demo-cfd-title">CFD</h3><p>Ground truth</p></div><div class="demo-viewport" data-demo-view="gt"></div><div class="demo-legend"><p>Velocity magnitude <span>cm/s</span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-demo-velocity-ticks></div></div></section>
-      <section class="demo-panel" aria-labelledby="demo-prediction-title"><div class="demo-panel-heading"><h3 id="demo-prediction-title" data-demo-prediction-title>AB-GATr</h3><p data-demo-prediction-subtitle>Prediction</p></div><div class="demo-viewport" data-demo-view="prediction"></div><div class="demo-legend"><p>Velocity magnitude <span>cm/s</span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-demo-velocity-ticks></div></div></section>
-      <section class="demo-panel" aria-labelledby="demo-error-title"><div class="demo-panel-heading"><h3 id="demo-error-title">Absolute error</h3><p data-demo-error-subtitle>AB-GATr vs CFD</p></div><div class="demo-viewport" data-demo-view="error"></div><div class="demo-legend"><p>Error magnitude <span>cm/s</span></p><div class="demo-colour-bar error-colours"></div><div class="demo-ticks" data-demo-error-ticks></div><div class="demo-error-metrics"><p><span>Slice relative L₂</span><strong data-demo-slice-relative-error>—</strong></p><p><span data-demo-volume-error-label>Volume relative L₂</span><strong data-demo-volume-relative-error>—</strong></p></div></div></section>
+      <section class="demo-panel" aria-labelledby="demo-cfd-title">
+        <div class="demo-panel-heading"><h3 id="demo-cfd-title">CFD</h3><p>Ground truth</p></div>
+        <div class="demo-viewport" data-demo-view="gt"></div>
+        <div class="demo-legend">
+          <p>Velocity magnitude <span>cm/s</span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-demo-velocity-ticks></div>
+          <fieldset class="demo-colour-controls" data-demo-colour-controls disabled>
+            <legend class="sr-only">Velocity colorbar maximum</legend>
+            <div class="demo-colour-heading"><label for="aneumo-velocity-max">Maximum (cm/s)</label><button type="button" data-demo-colour-reset="velocity" aria-label="Reset velocity colorbar maximum">Reset</button></div>
+            <div class="demo-colour-row">
+              <input type="range" data-demo-colour-slider="velocity" aria-label="Velocity colorbar maximum in cm/s">
+              <input type="number" id="aneumo-velocity-max" data-demo-colour-max="velocity" min="0" step="any" required aria-describedby="aneumo-velocity-validation">
+            </div>
+            <p class="demo-colour-validation" id="aneumo-velocity-validation" data-demo-colour-validation role="status"></p>
+          </fieldset>
+        </div>
+      </section>
+      <section class="demo-panel" aria-labelledby="demo-prediction-title">
+        <div class="demo-panel-heading"><h3 id="demo-prediction-title" data-demo-prediction-title>AB-GATr</h3><p data-demo-prediction-subtitle>Prediction</p></div>
+        <div class="demo-viewport" data-demo-view="prediction"></div>
+        <div class="demo-legend">
+          <p>Velocity magnitude <span>cm/s</span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-demo-velocity-ticks></div>
+          <div class="demo-error-metrics"><p><span>Slice relative L₂</span><strong data-demo-slice-relative-error>—</strong></p><p><span data-demo-volume-error-label>Volume relative L₂</span><strong data-demo-volume-relative-error>—</strong></p></div>
+        </div>
+      </section>
+      <section class="demo-panel" aria-labelledby="demo-error-title">
+        <div class="demo-panel-heading"><h3 id="demo-error-title">Absolute error</h3><p data-demo-error-subtitle>AB-GATr vs CFD</p></div>
+        <div class="demo-viewport" data-demo-view="error"></div>
+        <div class="demo-legend">
+          <p>Error magnitude <span>cm/s</span></p><div class="demo-colour-bar error-colours"></div><div class="demo-ticks" data-demo-error-ticks></div>
+          <fieldset class="demo-colour-controls" data-demo-colour-controls disabled>
+            <legend class="sr-only">Error colorbar maximum</legend>
+            <div class="demo-colour-heading"><label for="aneumo-error-max">Maximum (cm/s)</label><button type="button" data-demo-colour-reset="error" aria-label="Reset error colorbar maximum">Reset</button></div>
+            <div class="demo-colour-row">
+              <input type="range" data-demo-colour-slider="error" aria-label="Error colorbar maximum in cm/s">
+              <input type="number" id="aneumo-error-max" data-demo-colour-max="error" min="0" step="any" required aria-describedby="aneumo-error-validation">
+            </div>
+            <p class="demo-colour-validation" id="aneumo-error-validation" data-demo-colour-validation role="status"></p>
+          </fieldset>
+        </div>
+      </section>
     </div>
   </div>
 </section>

@@ -8,7 +8,7 @@
 .demo-start:disabled {opacity:.7;cursor:wait;}
 .prose .demo-status {font-size:12px;color:var(--muted);margin:16px 0 24px;min-height:1.6em;}
 .demo-status:empty {display:none;}
-.demo-controls {display:grid;grid-template-columns:minmax(130px,1fr) minmax(100px,.7fr) minmax(0,2fr);grid-template-areas:"dataset sample model" "axis depth depth";gap:20px 24px;padding-top:4px;}
+.demo-controls {display:grid;grid-template-columns:minmax(120px,1fr) minmax(84px,.65fr) minmax(0,2fr);grid-template-areas:"dataset sample model" "axis depth depth";gap:12px 16px;padding-top:4px;}
 .demo-controls label,.demo-time-controls label {min-width:0;font-size:12px;font-weight:600;color:var(--muted);}
 .demo-dataset {grid-area:dataset;}
 .demo-sample {grid-area:sample;}
@@ -28,6 +28,18 @@
 .demo-time-controls button:disabled {opacity:.6;cursor:wait;}
 .demo-time output {float:right;font-variant-numeric:tabular-nums;}
 .demo-time input {display:block;width:100%;height:44px;margin:8px 0 0;accent-color:var(--accent);}
+.demo-colour-controls {display:grid;gap:6px;min-width:0;margin:10px 0 0;padding:8px 0 0;border:0;border-top:1px solid var(--line);}
+.demo-colour-heading {display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:10px;}
+.demo-colour-row {display:grid;grid-template-columns:minmax(0,1fr) 64px;align-items:center;gap:8px;}
+.demo-colour-row input[type=range] {width:100%;min-width:0;height:32px;margin:0;accent-color:var(--accent);}
+.demo-colour-row input[type=number] {box-sizing:border-box;width:100%;min-width:0;min-height:32px;margin:0;padding:5px 6px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-size:11px;font-variant-numeric:tabular-nums;appearance:textfield;-moz-appearance:textfield;}
+.demo-colour-row input[type=number]::-webkit-inner-spin-button,.demo-colour-row input[type=number]::-webkit-outer-spin-button {-webkit-appearance:none;margin:0;}
+.demo-colour-row input[aria-invalid=true] {border-color:var(--accent);outline:1px solid var(--accent);}
+.demo-colour-controls button {min-height:24px;padding:2px 6px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font-size:10px;}
+.demo-colour-controls button:hover {border-color:var(--accent);}
+.demo-colour-controls:disabled {opacity:.6;}
+.prose .demo-legend .demo-colour-validation {margin:8px 0 0;font-size:11px;color:var(--ink);}
+.demo-legend .demo-colour-validation:empty {display:none;}
 .demo-toolbar {display:flex;justify-content:space-between;align-items:center;gap:16px;margin:28px 0 12px;}
 .demo-wall {display:flex;align-items:center;gap:8px;font-size:12px;}
 .demo-wall input {accent-color:var(--accent);}
@@ -57,7 +69,25 @@
 .aneumo-demo[data-state=loading] .demo-panels {opacity:.45;pointer-events:none;}
 .aneumo-demo:fullscreen {overflow:auto;border:0;border-radius:0;max-width:none;padding:26px 32px;background:var(--surface);}
 .aneumo-demo:fullscreen .demo-viewport {height:clamp(280px,55vh,700px);}
-@media(max-width:1000px) {.demo-controls {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"dataset sample" "model model" "axis depth";}.demo-viewport {height:285px;}.prose .demo-panel-heading h3 {font-size:15px;}}
-@media(max-width:680px) {.aneumo-demo {padding:18px;}.prose .demo-heading h2 {font-size:24px;}.demo-controls {gap:20px 16px;}.demo-panels {grid-template-columns:1fr;gap:20px;}.demo-panel-heading {min-height:0;padding:16px;}.demo-viewport {height:300px;margin-top:0;}.demo-toolbar {align-items:flex-start;flex-direction:column;}.demo-legend {padding:16px;}.aneumo-demo:fullscreen {padding:18px;}.aneumo-demo:fullscreen .demo-viewport {height:350px;}.demo-time-controls {grid-template-columns:auto minmax(0,1fr);gap:16px 20px;padding:16px;}.demo-time {grid-column:1/-1;grid-row:1;}}
+@media(max-width:1000px) {.demo-viewport {height:285px;}.prose .demo-panel-heading h3 {font-size:15px;}}
+@media(max-width:680px) {.aneumo-demo {padding:18px;}.prose .demo-heading h2 {font-size:24px;}.demo-controls {grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"dataset sample" "model model" "axis depth";}.demo-panels {grid-template-columns:1fr;gap:20px;}.demo-panel-heading {min-height:0;padding:16px;}.demo-viewport {height:300px;margin-top:0;}.demo-toolbar {align-items:flex-start;flex-direction:column;}.demo-legend {padding:16px;}.aneumo-demo:fullscreen {padding:18px;}.aneumo-demo:fullscreen .demo-viewport {height:350px;}.demo-time-controls {grid-template-columns:auto minmax(0,1fr);gap:16px 20px;padding:16px;}.demo-time {grid-column:1/-1;grid-row:1;}}
+/* Compact velocity-viewer controls; the WSS viewer shares the base styles. */
+[data-aneumo-demo] {padding:24px;}
+.prose [data-aneumo-demo] .section-kicker {font-size:10px;margin:0;}
+.prose [data-aneumo-demo] .demo-heading h2 {font-size:24px;line-height:1.3;margin:4px 0 0;}
+.prose [data-aneumo-demo] .demo-status {margin:8px 0 14px;}
+[data-aneumo-demo] .demo-launch:not(:empty) {margin-top:12px;}
+[data-aneumo-demo][data-state=ready] .demo-launch {display:none;}
+[data-aneumo-demo] .demo-select,[data-aneumo-demo] .demo-depth input,[data-aneumo-demo] .demo-time input {margin-top:4px;}
+[data-aneumo-demo] .demo-time-controls {margin-top:16px;padding:12px;gap:12px 16px;}
+[data-aneumo-demo] .demo-toolbar {margin:12px 0;}
+.prose [data-aneumo-demo] .demo-instructions {margin:8px 0 12px;}
+[data-aneumo-demo] .demo-panel-heading {padding:12px;min-height:0;}
+.prose [data-aneumo-demo] .demo-panel-heading h3 {line-height:1.3;margin-bottom:3px;}
+.prose [data-aneumo-demo] .demo-panel-heading p {line-height:1.4;}
+[data-aneumo-demo] .demo-viewport {margin-top:0;}
+[data-aneumo-demo] .demo-legend {padding:12px;}
+[data-aneumo-demo] .demo-error-metrics {gap:6px;margin-top:10px;padding-top:8px;}
+@media(max-width:680px) {[data-aneumo-demo] {padding:18px;}[data-aneumo-demo] .demo-toolbar {flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;}}
 @media print {.aneumo-demo {display:none;}}
 @media(forced-colors:active) {.demo-select::after {display:none;}.demo-select select {appearance:auto;-webkit-appearance:auto;}}

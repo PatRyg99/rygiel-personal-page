@@ -64,9 +64,12 @@ try {
     return {hash:hash>>>0,colored,ink,step:canvas.dataset.timestep,geometry:canvas.dataset.geometry,glyphs:Number(canvas.dataset.glyphCount||0)};
   })`);
   const legends = () => evaluate(`Array.from(document.querySelectorAll('[data-wss-ticks]'),n=>n.textContent)`);
+  const setMaximum = async (field, value, control = 'max') => {
+    await evaluate(`(()=>{const input=document.querySelector('[data-wss-colour-${control}="${field}"]');input.value=${JSON.stringify(String(value))};input.dispatchEvent(new Event('input',{bubbles:true}));})()`); await frame();
+  };
   const metrics = () => evaluate(`Array.from(document.querySelectorAll('[data-wss-group]'),group=>({id:group.dataset.wssGroup,values:['step','total'].map(key=>({text:group.querySelector('[data-wss-'+key+'-error]').textContent,value:Number(group.querySelector('[data-wss-'+key+'-error]').dataset.value)}))}))`);
   const manifest = await (await fetch(`${base}/assets/data/wss-demo/manifest.json`)).json();
-  const verifyChallenge = async id => {
+  const verifyChallenge = async (id, maxima = {}) => {
     const challenge = manifest.challenges.find(item => item.id === id);
     assert.ok(await evaluate(`(()=>{const root=document.querySelector('[data-wss-demo]').getBoundingClientRect();return Array.from(document.querySelectorAll('.wss-header label,.wss-header select,.wss-header button')).filter(node=>!node.hidden).every(node=>{const r=node.getBoundingClientRect();return r.top>=root.top && r.bottom<=root.bottom && r.left>=root.left && r.right<=root.right})})()`), 'Challenge and camera controls remain inside the viewer');
     assert.equal(await evaluate(`document.querySelector('[data-wss-demo]').dataset.challenge`), id);
@@ -79,8 +82,8 @@ try {
       assert.equal(group.values[1].text, `${expected.metrics.relativeL2AllFrames.toFixed(2)}%`);
     }
     const expectedLegends = ['wss','error'].map(key => {
-      const limit=challenge.displayRanges[key][1]*manifest.unitScale;
-      return `0${Number((limit/2).toPrecision(3))}≥ ${Number(limit.toPrecision(3))}`;
+      const limit=maxima[key] ?? challenge.displayRanges[key][1]*manifest.unitScale;
+      return `0.00${(limit/2).toFixed(2)}≥ ${limit.toFixed(2)}`;
     });
     assert.deepEqual(await legends(), expectedLegends, 'Both scales correspond to the selected challenge');
     (await pixels()).forEach(view=>{assert.ok(view.ink>1500);assert.ok(view.colored>50);assert.equal(view.step,String(step));});
@@ -106,6 +109,36 @@ try {
   assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('[data-wss-units]'),n=>n.textContent)`), Array(2).fill('Pa'));
   const fixedLegends = await legends();
   assert.equal(fixedLegends.length, 2, 'Both geometries share one WSS scale and one error scale');
+  const defaultMetrics = await metrics(), requestCount = requests.length;
+  await setMaximum('wss',1.25);
+  const wssAdjusted = await pixels();
+  for(const index of [0,1,3,4]) assert.notEqual(wssAdjusted[index].hash,first[index].hash,'WSS limit recolors CFD and predictions for both cases');
+  for(const index of [2,5]) assert.equal(wssAdjusted[index].hash,first[index].hash,'WSS limit leaves error maps unchanged');
+  await setMaximum('error',.625,'slider');
+  const bothAdjusted = await pixels();
+  for(const index of [2,5]) assert.notEqual(bothAdjusted[index].hash,wssAdjusted[index].hash,'Error slider recolors both error maps');
+  for(const index of [0,1,3,4]) assert.equal(bothAdjusted[index].hash,wssAdjusted[index].hash,'Error slider leaves WSS views unchanged');
+  await verifyChallenge('topology',{wss:1.25,error:.625});
+  assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('[data-wss-colour-slider]'),input=>input.valueAsNumber)`),[1.25,.625],'Sliders reflect the limits in Pa');
+  assert.equal(await evaluate(`document.querySelector('[data-wss-colour-max="error"]').valueAsNumber`),.625,'Sliders update numeric inputs');
+  assert.deepEqual(await metrics(),defaultMetrics,'Changing color limits leaves L2 metrics unchanged');
+  assert.equal(requests.length,requestCount,'Adjusting limits does not fetch data');
+  const customLegends = await legends();
+  for (const invalid of ['',0,-1,'1e999']) {
+    await setMaximum('wss',invalid);
+    assert.equal(await evaluate(`document.querySelector('[data-wss-colour-max="wss"]').getAttribute('aria-invalid')`),'true');
+    assert.deepEqual(await legends(),customLegends,'Invalid maxima preserve the last valid scale');
+  }
+  await setMaximum('wss',1.25);
+  await timestep(10);await verifyChallenge('topology',{wss:1.25,error:.625});
+  await select('display','magnitude');await frame();await verifyChallenge('topology',{wss:1.25,error:.625});
+  await select('display','glyphs');await timestep(0);
+  assert.deepEqual((await pixels()).map(view=>view.hash),bothAdjusted.map(view=>view.hash),'Custom scales survive time and glyph/scalar changes');
+  await evaluate(`document.querySelector('[data-wss-colour-reset="wss"]').click()`);await frame();
+  await verifyChallenge('topology',{error:.625});
+  await evaluate(`document.querySelector('[data-wss-colour-reset="error"]').click()`);await frame();
+  assert.deepEqual(await legends(),fixedLegends,'Reset restores the 99th-percentile defaults');
+  assert.deepEqual((await pixels()).map(view=>view.hash),first.map(view=>view.hash),'Reset restores the original rendering');
   for (const step of [0, 5, 20]) {
     await timestep(step);
     for (const group of await metrics()) {
@@ -119,16 +152,21 @@ try {
   await timestep(5);
   const systole = await pixels(); systole.forEach((view, i) => assert.notEqual(view.hash, first[i].hash, 'All six panels update with time'));
   // Six portrait views must actually fit within a typical laptop viewport.
-  for (const [width,height] of [[1280,720],[1366,768],[1440,900]]) {
+  for (const [width,height] of [[1050,768],[1280,720],[1366,768],[1440,900]]) {
     await call('Emulation.setDeviceMetricsOverride', {width,height,deviceScaleFactor:1,mobile:false}); await frame();
     await evaluate(`document.querySelector('[data-wss-demo]').scrollIntoView({block:'start',behavior:'instant'})`); await frame();
     const layout = await evaluate(`(()=>{
       const root=document.querySelector('[data-wss-demo]').getBoundingClientRect();
       const rects=Array.from(document.querySelectorAll('[data-wss-view]'),node=>{const r=node.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,height:r.height}});
-      return {top:root.top,bottom:root.bottom,scrollWidth:document.documentElement.scrollWidth,rects};
+      const parent=document.querySelector('[data-wss-demo]').parentElement.getBoundingClientRect();
+      const sliders=Array.from(document.querySelectorAll('[data-wss-colour-controls]'),node=>{const r=node.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom}});
+      return {top:root.top,bottom:root.bottom,left:root.left,right:root.right,parentLeft:parent.left,parentRight:parent.right,scrollWidth:document.documentElement.scrollWidth,rects,sliders};
     })()`);
     assert.ok(layout.top>=0 && layout.bottom<=height+1, `${width}×${height}: the entire viewer fits on screen: ${JSON.stringify(layout)}`);
     assert.ok(layout.scrollWidth<=width+1, 'Wide viewer does not create horizontal page scrolling');
+    assert.ok(layout.left>=layout.parentLeft-1 && layout.right<=layout.parentRight+1,'Viewer stays within the page content margins');
+    assert.ok(await evaluate(`(()=>{const bottom=document.querySelector('[data-wss-challenge]').getBoundingClientRect().bottom;return Array.from(document.querySelectorAll('[data-wss-camera-controls] button')).filter(node=>!node.hidden).every(node=>Math.abs(node.getBoundingClientRect().bottom-bottom)<1)})()`),'Camera buttons align with the challenge dropdown');
+    layout.sliders.forEach(rect=>assert.ok(rect.left>=layout.left && rect.right<=layout.right && rect.bottom<=layout.bottom,'Colorbar controls fit inside the panel'));
     layout.rects.forEach(rect=>{assert.ok(rect.top>=layout.top && rect.bottom<=layout.bottom);assert.ok(rect.left>=0 && rect.right<=width);assert.ok(rect.height>=200,'Vessels remain large enough to compare');});
     assert.ok(Math.max(...layout.rects.map(r=>r.top))-Math.min(...layout.rects.map(r=>r.top))<2, 'All six viewports share one row');
     (await pixels()).forEach(view=>assert.ok(view.ink>1500,'Resizing keeps every geometry visible'));
@@ -190,6 +228,10 @@ try {
     await select('challenge',id); await ready(); await verifyChallenge(id);
   }
   assert.equal(requests.filter(url => /wss-demo\/.*\.gz/.test(url)).length,warmedRequests,'All visited cases are reused without new downloads');
+  await setMaximum('wss',1.25);await setMaximum('error',.625);
+  await select('challenge','topology');await ready();await verifyChallenge('topology');
+  await select('challenge','remodelling');await ready();await verifyChallenge('remodelling',{wss:1.25,error:.625});
+  await evaluate(`document.querySelectorAll('[data-wss-colour-reset]').forEach(button=>button.click())`);await frame();await verifyChallenge('remodelling');
   await select('speed','0.5'); await evaluate(`document.querySelector('[data-wss-play]').click()`);
   await select('challenge','boundary-conditions'); await ready();
   assert.equal(await evaluate(`document.querySelector('[data-wss-play]').getAttribute('aria-pressed')`),'true','Playback resumes after switching challenge');
@@ -208,7 +250,7 @@ try {
   assert.ok(await evaluate(`Math.abs(document.querySelector('[data-wss-density]').closest('label').getBoundingClientRect().y-document.querySelector('[data-wss-size]').closest('label').getBoundingClientRect().y)<2`), 'Arrow density and size sit beside each other');
   (await pixels()).forEach(view => assert.ok(view.ink > 1500));
   assert.deepEqual(errors, [], 'No console/network errors');
-  console.log('WSS browser checks passed: three challenges, lazy/cached case loading, stale-request protection, six panels fitting laptop screens, glyph/scalar switching, 21-step playback, Pa legends, fixed percentile limits, both surface metrics, shared cameras, dark/light themes, and mobile layout.');
+  console.log('WSS browser checks passed: three challenges, lazy/cached case loading, stale-request protection, six panels fitting page margins and laptop screens, glyph/scalar switching, 21-step playback, adjustable Pa limits with percentile defaults, both surface metrics, shared cameras, dark/light themes, and mobile layout.');
 } finally {
   await send('Browser.close').catch(() => {});
   chrome.kill();

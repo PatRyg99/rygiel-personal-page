@@ -3,7 +3,7 @@ import { OrbitControls } from './vendor/three/OrbitControls.js';
 import { SPEED_COLORS, ERROR_COLORS } from './viewer-palettes.js';
 import { decodeSurface, decodeVectors, glyphSites } from './wss-codec.js';
 
-const labelNumber = value => Number(value.toPrecision(3)).toString();
+const labelNumber = value => value.toFixed(2);
 const up = new THREE.Vector3(0, 1, 0);
 function colorAt(value, maximum, palette, target) {
   const t = Math.min(1, Math.max(0, value / (maximum || 1))) * (palette.length - 1);
@@ -39,9 +39,13 @@ class WSSViewer {
   constructor(root, manifest, url) {
     this.root = root; this.manifest = manifest; this.url = url;
     this.views = []; this.cache = new Map(); this.surfaceCache = new Map(); this.step = 0; this.generation = 0;
+    this.colourMaxima = new Map();
     this.listeners = new AbortController(); this.motion = matchMedia('(prefers-reduced-motion: reduce)');
     this.ui = name => root.querySelector(`[data-wss-${name}]`);
     this.interface = this.ui('interface'); this.status = this.ui('status');
+    this.colourControls = [...root.querySelectorAll('[data-wss-colour-controls]')];
+    this.colourInputs = [...root.querySelectorAll('[data-wss-colour-max]')];
+    this.colourSliders = [...root.querySelectorAll('[data-wss-colour-slider]')];
     const preferred = this.ui('challenge').value || manifest.defaultChallenge;
     this.ui('challenge').replaceChildren(...manifest.challenges.map(challenge => new Option(challenge.label, challenge.id)));
     this.ui('challenge').value = manifest.challenges.some(challenge => challenge.id === preferred) ? preferred : manifest.challenges[0].id;
@@ -105,6 +109,31 @@ class WSSViewer {
     on(this.ui('time'), 'input', () => { this.setPlaying(false); this.step = Number(this.ui('time').value); if (this.loaded) this.update(); });
     on(this.ui('play'), 'click', () => this.setPlaying(!this.playing));
     on(this.ui('speed'), 'change', () => this.schedule());
+    this.colourInputs.forEach(input => on(input, 'input', () => {
+      if (this.root.dataset.state !== 'ready') return;
+      const maximum = input.valueAsNumber;
+      const valid = Number.isFinite(maximum) && maximum > 0 && Number.isFinite(maximum / this.manifest.unitScale);
+      input.setCustomValidity(valid ? '' : 'Enter a positive, finite maximum in Pa.');
+      input.setAttribute('aria-invalid', String(!valid));
+      input.closest('fieldset').querySelector('[data-wss-colour-validation]').textContent = valid ? '' : 'Enter a positive, finite maximum in Pa.';
+      if (!valid) return;
+      const field = input.dataset.wssColourMax;
+      this.colourMaxima.set(this.challenge.id, { ...this.colourMaxima.get(this.challenge.id), [field]: maximum });
+      this.syncColourSlider(field, maximum);
+      this.update();
+    }));
+    this.colourSliders.forEach(slider => on(slider, 'input', () => {
+      const input = this.colourInputs.find(node => node.dataset.wssColourMax === slider.dataset.wssColourSlider);
+      input.value = Number(Number(slider.value).toPrecision(3));
+      input.dispatchEvent(new Event('input'));
+    }));
+    this.root.querySelectorAll('[data-wss-colour-reset]').forEach(button => on(button, 'click', () => {
+      if (this.root.dataset.state !== 'ready') return;
+      const maxima = this.colourMaxima.get(this.challenge.id);
+      if (maxima) delete maxima[button.dataset.wssColourReset];
+      this.syncColourControls();
+      this.update();
+    }));
     on(document, 'visibilitychange', () => this.schedule());
     on(this.motion, 'change', event => { if (event.matches) this.setPlaying(false); });
     on(this.ui('reset'), 'click', () => this.resetView());
@@ -144,6 +173,7 @@ class WSSViewer {
     };
     this.interface.hidden = false;
     this.root.dataset.state = 'loading'; this.interface.setAttribute('aria-busy', 'true');
+    this.colourControls.forEach(controls => { controls.disabled = true; });
     this.status.textContent = `Loading ${challenge.label.toLowerCase()}…`;
     await Promise.all(samples.map(async sample => {
       if (this.cache.has(sample.id)) return;
@@ -173,6 +203,8 @@ class WSSViewer {
     this.step = Math.min(this.step, this.frameCount - 1);
     this.root.dataset.hasData = 'true'; this.root.dataset.challenge = challenge.id;
     this.root.dataset.state = 'ready'; this.interface.setAttribute('aria-busy', 'false');
+    this.syncColourControls();
+    this.colourControls.forEach(controls => { controls.disabled = false; });
     this.makeSurfaces(); this.makeGlyphs(); this.resize();
     if (first) this.resetView();
     this.update(); this.status.textContent = `${challenge.label} · LaB-GATr`;
@@ -207,8 +239,38 @@ class WSSViewer {
     });
   }
 
+  colourRanges() {
+    const maxima = this.colourMaxima.get(this.challenge.id);
+    // Inputs are in Pa; rendering still uses the original dyn/cm² vectors.
+    return Object.fromEntries(['wss', 'error'].map(field => [field,
+      maxima?.[field] === undefined ? this.challenge.displayRanges[field] : [0, maxima[field] / this.manifest.unitScale],
+    ]));
+  }
+
+  syncColourControls() {
+    const ranges = this.colourRanges();
+    this.colourInputs.forEach(input => {
+      const field = input.dataset.wssColourMax, maximum = ranges[field][1] * this.manifest.unitScale;
+      input.value = maximum.toFixed(2);
+      input.setCustomValidity(''); input.removeAttribute('aria-invalid');
+      input.closest('fieldset').querySelector('[data-wss-colour-validation]').textContent = '';
+      this.syncColourSlider(field, maximum, true);
+    });
+  }
+
+  syncColourSlider(field, maximum, reset = false) {
+    const slider = this.colourSliders.find(node => node.dataset.wssColourSlider === field);
+    const extent = Math.max(this.challenge.displayRanges[field][1] * this.manifest.unitScale * 2, maximum);
+    const step = 10 ** (Math.floor(Math.log10(extent)) - 2);
+    const upper = Math.ceil(extent / step / 10) * step * 10;
+    slider.min = Math.min(step, maximum); slider.step = 'any';
+    slider.max = Math.max(Number.isFinite(upper) ? upper : extent, reset ? 0 : Number(slider.max));
+    slider.value = maximum;
+    slider.setAttribute('aria-valuetext', `${labelNumber(maximum)} Pa`);
+  }
+
   update() {
-    const ranges = this.challenge.displayRanges, color = new THREE.Color(), dummy = new THREE.Object3D();
+    const ranges = this.colourRanges(), color = new THREE.Color(), dummy = new THREE.Object3D();
     const direction = new THREE.Vector3(), normal = new THREE.Vector3();
     const size = Number(this.ui('size').value), glyphs = this.ui('display').value === 'glyphs';
     this.ui('size').disabled = !glyphs; this.ui('density').disabled = !glyphs;
@@ -230,7 +292,8 @@ class WSSViewer {
           normal.fromArray(normals, offset);
           dummy.position.fromArray(surface.positions, offset).addScaledVector(normal, .002);
           dummy.quaternion.setFromUnitVectors(up, magnitude ? direction.multiplyScalar(1 / magnitude) : up);
-          const length = magnitude ? .055 * size * (.35 + .65 * Math.sqrt(Math.min(1, magnitude / ranges.wss[1]))) : 0;
+          // Colorbar adjustments change colors, while the arrow-size control sets glyph size.
+          const length = magnitude ? .055 * size * (.35 + .65 * Math.sqrt(Math.min(1, magnitude / this.challenge.displayRanges.wss[1]))) : 0;
           dummy.scale.setScalar(length); dummy.updateMatrix();
           view.glyphs.setMatrixAt(index, dummy.matrix);
           view.glyphs.setColorAt(index, colorAt(magnitude, ranges.wss[1], SPEED_COLORS, color));
@@ -265,11 +328,13 @@ class WSSViewer {
       }
     });
     this.root.querySelectorAll('[data-wss-ticks]').forEach(node => {
-      const maximum = ranges[node.dataset.wssTicks][1] * this.manifest.unitScale;
+      const field = node.dataset.wssTicks;
+      const maximum = ranges[field][1] * this.manifest.unitScale;
+      const clipped = this.views.some(view => view.sample.ranges[field][1] > ranges[field][1]);
       node.replaceChildren(...[0, maximum / 2, maximum].map((value, index) => {
-        const span = document.createElement('span'); span.textContent = `${index === 2 ? '≥ ' : ''}${labelNumber(value)}`; return span;
+        const span = document.createElement('span'); span.textContent = `${clipped && index === 2 ? '≥ ' : ''}${labelNumber(value)}`; return span;
       }));
-      node.title = 'Fixed 99th-percentile limit across both cases in this challenge and all timesteps; higher values saturate.';
+      node.title = `${this.colourMaxima.get(this.challenge.id)?.[field] === undefined ? 'Default 99th-percentile' : 'Selected'} limit across both cases in this challenge and all timesteps; higher values saturate.`;
     });
     this.requestRender();
   }

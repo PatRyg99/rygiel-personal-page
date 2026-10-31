@@ -55,6 +55,7 @@ class AneumoViewer {
     this.metrics = metrics;
     this.views = [];
     this.cache = new Map();
+    this.colourMaxima = new Map();
     this.cacheBytes = 0;
     this.timeStep = 0;
     this.playing = false;
@@ -76,6 +77,9 @@ class AneumoViewer {
     this.timeLabel = root.querySelector('[data-demo-time-label]');
     this.playButton = root.querySelector('[data-demo-play]');
     this.speedSelect = root.querySelector('[data-demo-speed]');
+    this.colourControls = [...root.querySelectorAll('[data-demo-colour-controls]')];
+    this.colourInputs = [...root.querySelectorAll('[data-demo-colour-max]')];
+    this.colourSliders = [...root.querySelectorAll('[data-demo-colour-slider]')];
     this.datasetSelect.replaceChildren(...manifest.datasets.map(dataset => new Option(dataset.label, dataset.id)));
     this.datasetSelect.value = manifest.datasets.some(dataset => dataset.id === root.dataset.defaultDataset) ? root.dataset.defaultDataset : manifest.datasets[0].id;
     this.setSampleOptions();
@@ -174,6 +178,31 @@ class AneumoViewer {
       this.syncTimeControls();
     });
     on(this.speedSelect, 'change', () => this.schedulePlayback());
+    this.colourInputs.forEach(input => on(input, 'input', () => {
+      if (this.root.dataset.state !== 'ready') return;
+      const maximum = input.valueAsNumber;
+      const valid = Number.isFinite(maximum) && maximum > 0;
+      input.setCustomValidity(valid ? '' : 'Enter a maximum greater than 0 cm/s.');
+      input.setAttribute('aria-invalid', String(!valid));
+      input.closest('fieldset').querySelector('[data-demo-colour-validation]').textContent = valid ? '' : 'Enter a maximum greater than 0 cm/s.';
+      if (!valid) return;
+      const maxima = this.colourMaxima.get(this.loadedSample.id) || {};
+      this.colourMaxima.set(this.loadedSample.id, { ...maxima, [input.dataset.demoColourMax]: maximum });
+      this.syncColourSlider(input.dataset.demoColourMax, maximum);
+      this.updateFields();
+    }));
+    this.colourSliders.forEach(slider => on(slider, 'input', () => {
+      const input = this.colourInputs.find(node => node.dataset.demoColourMax === slider.dataset.demoColourSlider);
+      input.value = Number(Number(slider.value).toPrecision(3));
+      input.dispatchEvent(new Event('input'));
+    }));
+    this.root.querySelectorAll('[data-demo-colour-reset]').forEach(button => on(button, 'click', () => {
+      if (this.root.dataset.state !== 'ready') return;
+      const maxima = this.colourMaxima.get(this.loadedSample.id);
+      if (maxima) delete maxima[button.dataset.demoColourReset];
+      this.syncColourControls();
+      this.updateFields();
+    }));
     on(document, 'visibilitychange', () => this.schedulePlayback());
     on(this.reducedMotion, 'change', event => { if (event.matches) this.setPlaying(false); });
     on(this.root.querySelector('[data-demo-wall]'), 'change', event => {
@@ -307,6 +336,7 @@ class AneumoViewer {
     const sample = this.sample, axis = this.axisSelect.value, depth = Number(this.depth.value);
     const model = this.manifest.models.find(model => model.id === this.modelSelect.value);
     this.root.dataset.state = 'loading';
+    this.colourControls.forEach(controls => { controls.disabled = true; });
     this.syncTimeControls();
     this.interface.setAttribute('aria-busy', 'true');
     this.status.textContent = `Loading ${this.sampleLabel(sample)}, ${axis.toUpperCase()} slice at ${Math.round(this.manifest.fractions[depth] * 100)}%…`;
@@ -327,6 +357,7 @@ class AneumoViewer {
       this.loadedDepth = depth;
       this.loadedAxis = axis;
       this.loadedSample = sample;
+      this.syncColourControls();
       if (this.wallSample !== sample.id) {
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.BufferAttribute(shell.positions, 3));
@@ -350,6 +381,7 @@ class AneumoViewer {
       this.resize();
       if (reset) this.resetView();
       this.root.dataset.state = 'ready';
+      this.colourControls.forEach(controls => { controls.disabled = false; });
       this.interface.setAttribute('aria-busy', 'false');
       this.syncTimeControls();
       this.describe();
@@ -361,13 +393,52 @@ class AneumoViewer {
     }
   }
 
+  colourRanges() {
+    const caps = this.root.dataset;
+    const ranges = {
+      velocity: colourRange(this.loadedSample.velocityRange, caps.velocityMaxFraction),
+      error: colourRange(this.loadedSample.errorRange, caps.errorMaxFraction),
+    };
+    const defaults = this.loadedSample.dataset === 'aaa-100'
+      ? { velocity: Number(caps.aaaVelocityMax), error: Number(caps.aaaErrorMax) } : {};
+    // Display limits belong to the sample, independent of model, slice and time.
+    const maxima = this.colourMaxima.get(this.loadedSample.id);
+    for (const field of ['velocity', 'error']) {
+      const maximum = maxima?.[field] ?? defaults[field];
+      if (Number.isFinite(maximum) && maximum > 0) ranges[field][1] = maximum;
+    }
+    return ranges;
+  }
+
+  syncColourControls() {
+    const ranges = this.colourRanges();
+    this.colourInputs.forEach(input => {
+      const field = input.dataset.demoColourMax;
+      const maximum = ranges[field][1];
+      input.value = Number(maximum.toPrecision(6));
+      input.setCustomValidity('');
+      input.removeAttribute('aria-invalid');
+      input.closest('fieldset').querySelector('[data-demo-colour-validation]').textContent = '';
+      this.syncColourSlider(field, maximum, true);
+    });
+  }
+
+  syncColourSlider(field, maximum, reset = false) {
+    const slider = this.colourSliders.find(node => node.dataset.demoColourSlider === field);
+    const extent = Math.max(this.loadedSample[`${field}Range`][1], maximum);
+    const step = 10 ** (Math.floor(Math.log10(extent)) - 2);
+    const upper = Math.ceil(extent / step / 10) * step * 10;
+    slider.min = Math.min(step, maximum);
+    slider.step = 'any';
+    slider.max = Math.max(Number.isFinite(upper) ? upper : extent, reset ? 0 : Number(slider.max));
+    slider.value = maximum;
+    slider.setAttribute('aria-valuetext', `${number(maximum)} cm/s`);
+  }
+
   updateFields() {
     const model = this.loadedSample.timeSteps ? this.loadedModel : this.manifest.models.find(model => model.id === this.modelSelect.value);
     const fields = ['GT', model.id, model.errorField];
-    const caps = this.root.dataset;
-    const aaa = this.loadedSample.dataset === 'aaa-100';
-    const velocityRange = colourRange(this.loadedSample.velocityRange, aaa ? caps.aaaVelocityMaxFraction ?? caps.velocityMaxFraction : caps.velocityMaxFraction);
-    const errorRange = colourRange(this.loadedSample.errorRange, aaa ? caps.aaaErrorMaxFraction ?? caps.errorMaxFraction : caps.errorMaxFraction);
+    const { velocity: velocityRange, error: errorRange } = this.colourRanges();
     if (this.loadedSample.timeSteps) {
       const values = (series, field) => {
         const start = (this.timeStep * series.fieldCount + field) * series.vertices;

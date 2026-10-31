@@ -35,11 +35,36 @@
     </div>
     <div class="wss-footer">
       <div class="wss-legends">
-        <div class="demo-legend"><p>WSS magnitude · CFD &amp; LaB-GATr <span data-wss-units></span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-wss-ticks="wss"></div></div>
-        <div class="demo-legend"><p title="Magnitude of the vector difference: ‖WSS prediction − WSS CFD‖₂">Absolute WSS error <span data-wss-units></span></p><div class="demo-colour-bar error-colours"></div><div class="demo-ticks" data-wss-ticks="error"></div></div>
+        <div class="demo-legend">
+          <p>WSS magnitude · CFD &amp; LaB-GATr <span data-wss-units></span></p><div class="demo-colour-bar velocity-colours"></div><div class="demo-ticks" data-wss-ticks="wss"></div>
+          <fieldset class="demo-colour-controls" data-wss-colour-controls disabled>
+            <legend class="sr-only">WSS colorbar maximum</legend>
+            <label for="wss-magnitude-max">Max (Pa)</label>
+            <div class="demo-colour-row">
+              <input type="range" data-wss-colour-slider="wss" aria-label="WSS colorbar maximum in Pa">
+              <input type="number" id="wss-magnitude-max" data-wss-colour-max="wss" min="0" step="any" required aria-describedby="wss-magnitude-validation">
+            </div>
+            <button type="button" data-wss-colour-reset="wss" aria-label="Reset WSS colorbar maximum">Reset</button>
+            <p class="demo-colour-validation" id="wss-magnitude-validation" data-wss-colour-validation role="status"></p>
+          </fieldset>
+        </div>
+        <div class="demo-legend">
+          <p title="Magnitude of the vector difference: ‖WSS prediction − WSS CFD‖₂">Absolute WSS error <span data-wss-units></span></p><div class="demo-colour-bar error-colours"></div><div class="demo-ticks" data-wss-ticks="error"></div>
+          <fieldset class="demo-colour-controls" data-wss-colour-controls disabled>
+            <legend class="sr-only">WSS error colorbar maximum</legend>
+            <label for="wss-error-max">Max (Pa)</label>
+            <div class="demo-colour-row">
+              <input type="range" data-wss-colour-slider="error" aria-label="WSS error colorbar maximum in Pa">
+              <input type="number" id="wss-error-max" data-wss-colour-max="error" min="0" step="any" required aria-describedby="wss-error-validation">
+            </div>
+            <button type="button" data-wss-colour-reset="error" aria-label="Reset WSS error colorbar maximum">Reset</button>
+            <p class="demo-colour-validation" id="wss-error-validation" data-wss-colour-validation role="status"></p>
+          </fieldset>
+        </div>
       </div>
       <p class="demo-instructions" id="wss-controls-help">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan<span class="sr-only">. With a view focused, use arrow keys to rotate, plus and minus to zoom, and R to reset.</span></p>
     </div>
   </div>
 </section>
+<p class="wss-follow-up">This project dates from early 2025. Our newer <a href="{{ '/publications/abgatr/' | relative_url }}">AB-GATr work</a> provides more accurate wall shear stress and velocity estimates.</p>
 <script src="{{ '/assets/js/wss-loader.js' | relative_url }}" defer></script>

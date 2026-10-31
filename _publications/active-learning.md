@@ -36,7 +36,7 @@ pages: "108--118"
 first_online: "2026-05-01"
 conference_year: 2025
 arxiv: "2503.03453"
-feature_order: 2
+feature_order: 3
 sources:
   - "https://doi.org/10.1007/978-3-032-17734-6_11"
   - "https://arxiv.org/abs/2503.03453"
