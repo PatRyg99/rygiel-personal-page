@@ -387,17 +387,6 @@ nav a:hover {
   line-height:1.8;
 }
 
-.hero .bio-viewers {
-  font-size:clamp(18px,1.6vw,20px);
-  font-weight:500;
-  line-height:1.6;
-  color:var(--ink);
-}
-
-.hero .bio-viewers a {
-  color:var(--accent);
-}
-
 .section-heading {
   display:flex;
   justify-content:space-between;
