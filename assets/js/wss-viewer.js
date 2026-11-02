@@ -2,6 +2,7 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { OrbitControls } from './vendor/three/OrbitControls.js';
 import { SPEED_COLORS, ERROR_COLORS } from './viewer-palettes.js';
 import { decodeSurface, decodeVectors, glyphSites } from './wss-codec.js';
+import { bindViewerExport } from './viewer-screenshot.js';
 
 const labelNumber = value => value.toFixed(2);
 const up = new THREE.Vector3(0, 1, 0);
@@ -62,6 +63,7 @@ class WSSViewer {
     }
     this.arrowGeometry = arrowGeometry();
     this.bind();
+    bindViewerExport(root, this, this.listeners.signal);
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.views.forEach(view => this.resizeObserver.observe(view.holder));
     this.themeObserver = new MutationObserver(() => this.setTheme());
@@ -147,6 +149,46 @@ class WSSViewer {
       });
       on(document, 'fullscreenchange', () => { fullscreen.textContent = document.fullscreenElement === this.root ? 'Exit fullscreen' : 'Fullscreen'; this.resize(); });
     }
+  }
+
+  exportAnimation() {
+    if (!(this.frameCount > 1)) return null;
+    const step = this.step, playing = this.playing;
+    const seek = value => { this.step = value; this.update(); };
+    return {
+      frameCount: this.frameCount,
+      delay: 130 / Number(this.ui('speed').value),
+      pause: () => this.setPlaying(false),
+      seek,
+      restore: () => { seek(step); this.setPlaying(playing); },
+    };
+  }
+
+  screenshot() {
+    const glyphs = this.ui('display').value === 'glyphs';
+    const groups = [...this.root.querySelectorAll('[data-wss-group]')];
+    const sameRow = Math.abs(groups[0].getBoundingClientRect().top - groups[1].getBoundingClientRect().top) < 2;
+    const ticks = field => [...this.root.querySelector(`[data-wss-ticks="${field}"]`).children].map(node => node.textContent);
+    return {
+      title: `Wall shear stress · ${this.challenge.label}`,
+      subtitle: `LaB-GATr · ${glyphs ? 'Arrow glyphs' : 'Magnitude field'} · Time step ${this.step + 1} / ${this.frameCount}`,
+      filename: `wss-${this.challenge.id}-${glyphs ? 'glyphs' : 'magnitude'}-t${String(this.step + 1).padStart(2, '0')}`,
+      groupColumns: sameRow ? 2 : 1,
+      groups: this.challenge.cases.map((item, slot) => ({
+        title: item.label,
+        panels: this.views.filter(view => view.slot === slot).map(view => ({
+          view,
+          title: view.name === 'gt' ? 'CFD' : view.name === 'prediction' ? 'LaB-GATr' : 'Absolute error',
+          subtitle: view.name === 'error' ? 'LaB-GATr vs CFD' : glyphs ? 'Surface WSS vectors' : 'Surface WSS magnitude',
+          legend: {
+            label: view.name === 'error' ? 'Absolute WSS error' : 'WSS magnitude', units: 'Pa',
+            palette: view.name === 'error' ? ERROR_COLORS : SPEED_COLORS,
+            ticks: ticks(view.name === 'error' ? 'error' : 'wss'),
+          },
+        })),
+        metrics: [...groups[slot].querySelectorAll('.demo-error-metrics p')].map(node => [...node.children].map(child => child.textContent).join(': ')),
+      })),
+    };
   }
 
   async asset(path, signal) {
@@ -393,7 +435,7 @@ class WSSViewer {
   }
 
   resize() {
-    if (this.disposed) return;
+    if (this.disposed || this.exporting) return;
     this.views.forEach(view => {
       const width = Math.max(1, view.holder.clientWidth), height = Math.max(1, view.holder.clientHeight);
       view.renderer.setSize(width, height, false); view.camera.aspect = width / height; view.camera.updateProjectionMatrix();
@@ -408,6 +450,7 @@ class WSSViewer {
   }
 
   setTheme() {
+    if (this.exporting) return;
     const dark = document.documentElement.dataset.theme === 'dark';
     const background = getComputedStyle(this.root).getPropertyValue('--bg').trim();
     this.views.forEach(view => { view.renderer.setClearColor(background); view.wallMaterial.color.set(dark ? '#bdc9ce' : '#697c88'); });

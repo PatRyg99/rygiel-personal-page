@@ -17,9 +17,10 @@
     </div>
     <div class="demo-toolbar">
       <label class="demo-wall"><input type="checkbox" data-demo-wall checked> Translucent wall</label>
-      <div class="demo-view-buttons" role="group" aria-label="Camera controls"><button type="button" data-demo-zoom="in" aria-label="Zoom in">+</button><button type="button" data-demo-zoom="out" aria-label="Zoom out">−</button><button type="button" data-demo-reset>Reset view</button><button type="button" data-demo-expand hidden>Fullscreen</button></div>
+      <div class="demo-view-buttons" role="group" aria-label="View controls"><button type="button" data-demo-zoom="in" aria-label="Zoom in">+</button><button type="button" data-demo-zoom="out" aria-label="Zoom out">−</button><button type="button" data-demo-reset>Reset view</button><button type="button" data-demo-expand hidden>Fullscreen</button>{% include viewer-export-button.html %}</div>
     </div>
     <p class="demo-instructions" id="aneumo-controls-help">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan<span class="sr-only">. With a view focused, use arrow keys to rotate, plus and minus to zoom, and R to reset.</span></p>
+    <p class="demo-export-status" data-viewer-export-status role="status" hidden></p>
     <div class="demo-panels" data-demo-panels>
       <section class="demo-panel" aria-labelledby="demo-cfd-title">
         <div class="demo-panel-heading"><h3 id="demo-cfd-title">CFD</h3><p>Ground truth</p></div>

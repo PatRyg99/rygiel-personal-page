@@ -1,7 +1,7 @@
 ---
 ---
 
-.aneumo-demo {margin:46px 0;padding:32px;border:1px solid var(--line);border-radius:7px;background:var(--surface);}
+.aneumo-demo {position:relative;margin:46px 0;padding:32px;border:1px solid var(--line);border-radius:7px;background:var(--surface);}
 .prose .demo-heading h2 {margin:8px 0 12px;font-size:28px;}
 .prose .demo-heading>p:not(.section-kicker) {font-size:14px;max-width:720px;color:var(--muted);}
 .demo-start {border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:4px;padding:10px 16px;font-size:13px;font-weight:600;}
@@ -46,6 +46,10 @@
 .demo-view-buttons {display:flex;flex-wrap:wrap;gap:8px;}
 .demo-view-buttons button {font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--bg);padding:8px 12px;min-width:44px;min-height:44px;}
 .demo-view-buttons button:hover {border-color:var(--accent);}
+.demo-view-buttons .demo-export-button {display:inline-grid;place-items:center;padding:8px;}
+.demo-export-button:disabled {opacity:.45;cursor:wait;}
+.prose .demo-export-status {position:absolute;bottom:8px;right:16px;z-index:2;margin:0;padding:6px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);font-size:12px;color:var(--ink);}
+.demo-export-status[hidden] {display:none;}
 .prose .demo-instructions {font-size:11px;color:var(--muted);margin:12px 0 24px;}
 .demo-panels {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
 .demo-panel {min-width:0;border:1px solid var(--line);border-radius:5px;overflow:hidden;}

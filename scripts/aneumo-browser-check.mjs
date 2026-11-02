@@ -4,6 +4,7 @@ import { readFile, writeFile, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
+import { checkScreenshot, checkGIFRecovery } from './viewer-screenshot-check.mjs';
 const base = process.env.SITE_PREVIEW_URL || 'http://127.0.0.1:4000/rygiel-personal-page';
 const browserPath = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const profile = await mkdtemp(join(tmpdir(), 'rygiel-browser-'));
@@ -176,6 +177,12 @@ try {
   await select('[data-demo-model]','LaB-GATr');await ready();
   await select('[data-demo-axis]','y');await ready();
   assert.deepEqual(await colourScales(),customScales,'Chosen limits stay fixed across timesteps, models and slices');
+  await evaluate(`document.documentElement.dataset.theme='dark'`);await frame();
+  const beforeExport = await snapshot();
+  await checkGIFRecovery({evaluate,root:'[data-aneumo-demo]'});
+  await checkScreenshot({send,evaluate,root:'[data-aneumo-demo]',panels:3,format:'gif',delay:170,filename:/abgatr-aaa-100-AAA090-T-LaB-GATr-y-.*-cycle\.gif$/,texts:['CFD','LaB-GATr','Absolute error','≥12.5','≥7.5','cm/s',`Volume relative L₂: ${(await verifyMetrics())[1].toFixed(2)}%`]});
+  assert.deepEqual(await snapshot(),beforeExport,'Export restores the live renderers and camera exactly');
+  await evaluate(`document.documentElement.dataset.theme='light'`);await frame();
   await select('[data-demo-sample]','AAA021-T');await ready();await pause();
   assert.notDeepEqual(await colourScales(),customScales,'A different sample uses its own limits');
   await select('[data-demo-dataset]','aneumo');await ready();
@@ -204,6 +211,8 @@ try {
   assert.ok(initial.every(view=>view.colored>100),'Every panel renders an actual scalar field');
   assert.equal(new Set(initial.map(view=>view.hash)).size,3,'CFD, prediction and error are distinct renders');
   await screenshot('777-desktop');
+  await checkScreenshot({send,evaluate,root:'[data-aneumo-demo]',panels:3,filename:/abgatr-aneumo-777-AB-GATr-x-50pct\.png$/,texts:['CFD','AB-GATr','Absolute error','Velocity magnitude','Error magnitude','cm/s']});
+  assert.deepEqual(await snapshot(),initial,'Static sample export preserves live visualization');
   const speedScale=await evaluate(`document.querySelector('[data-demo-velocity-ticks]').textContent`);
   const errorScale=await evaluate(`document.querySelector('[data-demo-error-ticks]').textContent`);
   for(const model of ['AB-GATr','AB-UPT','AB-UPT-180','LaB-GATr','Transolver','Transolver-180']) {
@@ -334,6 +343,11 @@ try {
   await evaluate(`document.querySelector('[data-demo-colour-controls]').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Colorbar sliders fit beneath CFD on mobile');
   await screenshot('colour-sliders-mobile');
+  await select('[data-demo-speed]','2');
+  await evaluate(`document.querySelector('[data-demo-play]').click()`);
+  await checkScreenshot({send,evaluate,root:'[data-aneumo-demo]',panels:3,format:'gif',delay:85,filename:/abgatr-aaa-100-AAA021-T-AB-UPT-.*-cycle\.gif$/,texts:['CFD','AB-UPT','Absolute error','≥40','cm/s']});
+  assert.equal(await evaluate(`document.querySelector('[data-demo-play]').getAttribute('aria-pressed')`),'true','GIF export restores playback');
+  await pause();
   await evaluate(`document.querySelector('.demo-error-metrics').scrollIntoView({behavior:'instant',block:'center'})`);await frame();
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth+1`),false,'Error percentages fit on mobile');
   await verifyMetrics();
@@ -432,5 +446,5 @@ try {
 } finally {
   try { await send('Browser.close'); } catch (_) { chrome.kill(); }
   await new Promise(resolve=>{if(chrome.exitCode!==null)resolve();else{chrome.once('exit',resolve);setTimeout(resolve,2000);}});
-  await rm(profile,{recursive:true,force:true});
+  await rm(profile,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 }

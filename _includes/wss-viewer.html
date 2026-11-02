@@ -2,7 +2,7 @@
   <div class="wss-header">
   <div class="demo-heading"><p class="section-kicker">Interactive examples</p><h2 id="wss-demo-title">Generalisation challenges</h2></div>
     <label class="wss-challenge" data-wss-challenge-controls hidden>Generalisation challenge<span class="demo-select"><select data-wss-challenge aria-label="Generalisation challenge"></select></span></label>
-    <div class="demo-toolbar" data-wss-camera-controls hidden><div class="demo-view-buttons" role="group" aria-label="Camera controls"><button type="button" data-wss-zoom="in" aria-label="Zoom in">+</button><button type="button" data-wss-zoom="out" aria-label="Zoom out">−</button><button type="button" data-wss-reset>Reset view</button><button type="button" data-wss-fullscreen hidden>Fullscreen</button></div></div>
+    <div class="demo-toolbar" data-wss-camera-controls hidden><div class="demo-view-buttons" role="group" aria-label="View controls"><button type="button" data-wss-zoom="in" aria-label="Zoom in">+</button><button type="button" data-wss-zoom="out" aria-label="Zoom out">−</button><button type="button" data-wss-reset>Reset view</button><button type="button" data-wss-fullscreen hidden>Fullscreen</button>{% include viewer-export-button.html %}</div></div>
   </div>
   <div class="demo-launch"><button type="button" class="demo-start" data-wss-start hidden>Load 3D viewer <span aria-hidden="true">↗</span></button><noscript><p>Enable JavaScript to use the interactive viewer.</p></noscript></div>
   <p class="demo-status" data-wss-status role="status" aria-live="polite"></p>
@@ -63,6 +63,7 @@
         </div>
       </div>
       <p class="demo-instructions" id="wss-controls-help">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan<span class="sr-only">. With a view focused, use arrow keys to rotate, plus and minus to zoom, and R to reset.</span></p>
+      <p class="demo-export-status" data-viewer-export-status role="status" hidden></p>
     </div>
   </div>
 </section>

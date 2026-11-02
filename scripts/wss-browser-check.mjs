@@ -4,6 +4,7 @@ import { writeFile, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
+import { checkScreenshot, checkGIFRecovery } from './viewer-screenshot-check.mjs';
 
 const base = process.env.SITE_PREVIEW_URL || 'http://127.0.0.1:4000/rygiel-personal-page';
 const profile = await mkdtemp(join(tmpdir(), 'rygiel-wss-browser-'));
@@ -123,6 +124,9 @@ try {
   assert.equal(await evaluate(`document.querySelector('[data-wss-colour-max="error"]').valueAsNumber`),.625,'Sliders update numeric inputs');
   assert.deepEqual(await metrics(),defaultMetrics,'Changing color limits leaves L2 metrics unchanged');
   assert.equal(requests.length,requestCount,'Adjusting limits does not fetch data');
+  await checkGIFRecovery({evaluate,root:'[data-wss-demo]'});
+  await checkScreenshot({send,evaluate,root:'[data-wss-demo]',panels:6,format:'gif',delay:130,filename:/wss-topology-glyphs-cycle\.gif$/,texts:['Base geometry','Extended geometry','CFD','LaB-GATr','Absolute error','≥ 1.25','≥ 0.63','Pa']});
+  assert.deepEqual(await pixels(),bothAdjusted,'Export restores all six renderers and cameras');
   const customLegends = await legends();
   for (const invalid of ['',0,-1,'1e999']) {
     await setMaximum('wss',invalid);
@@ -221,6 +225,9 @@ try {
   assert.equal(await evaluate(`document.querySelector('[data-wss-time]').value`),'5','Heart-cycle phase survives challenge switching');
   const remodellingLegends = await legends();
   await capture('remodelling-scalar');
+  const beforeScalarExport = await pixels();
+  await checkScreenshot({send,evaluate,root:'[data-wss-demo]',panels:6,format:'gif',filename:/wss-remodelling-magnitude-cycle\.gif$/,texts:['Patient P6 · 2001.10.25','Patient P6 · 2010.12.02','Surface WSS magnitude','Pa']});
+  assert.deepEqual(await pixels(),beforeScalarExport,'Scalar export preserves the live visualization');
   await timestep(15); await verifyChallenge('remodelling'); assert.deepEqual(await legends(),remodellingLegends);
   await select('display','glyphs'); await timestep(5); await verifyChallenge('remodelling'); await capture('remodelling-glyphs');
   const warmedRequests = requests.filter(url => /wss-demo\/.*\.gz/.test(url)).length;
@@ -246,6 +253,7 @@ try {
   await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 900, deviceScaleFactor: 1, mobile: true }); await frame();
   await evaluate(`document.querySelector('[data-wss-reset]').click()`); await timestep(5); await capture('mobile');
   assert.ok(await evaluate(`document.documentElement.scrollWidth <= innerWidth + 1`), 'No mobile horizontal overflow');
+  await checkScreenshot({send,evaluate,root:'[data-wss-demo]',panels:6,format:'gif',filename:/wss-boundary-conditions-glyphs-cycle\.gif$/,texts:['Low inflow','High inflow','CFD','LaB-GATr','Absolute error','Pa']});
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('.wss-demo .demo-panels')).gridTemplateColumns.split(' ').length`), 1);
   assert.ok(await evaluate(`Math.abs(document.querySelector('[data-wss-density]').closest('label').getBoundingClientRect().y-document.querySelector('[data-wss-size]').closest('label').getBoundingClientRect().y)<2`), 'Arrow density and size sit beside each other');
   (await pixels()).forEach(view => assert.ok(view.ink > 1500));
@@ -254,6 +262,7 @@ try {
 } finally {
   await send('Browser.close').catch(() => {});
   chrome.kill();
+  await new Promise(resolve=>{if(chrome.exitCode!==null||chrome.signalCode!==null)resolve();else{chrome.once('exit',resolve);setTimeout(resolve,2000);}});
   for (const task of pending.values()) clearTimeout(task.timer);
-  await rm(profile, { recursive: true, force: true });
+  await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 }

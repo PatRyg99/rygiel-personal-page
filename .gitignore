@@ -7,6 +7,7 @@ local/
 
 # Keep original photos local; the website uses images/gallery/.
 /images/photography/
+*.[hH][eE][iI][cC]
 
 # Original simulation meshes; viewers use prepared assets/data/ files.
 *.vtu

@@ -3,6 +3,7 @@ import * as THREE from './vendor/three/three.module.min.js';
 import { OrbitControls } from './vendor/three/OrbitControls.js';
 
 import { SPEED_COLORS, ERROR_COLORS } from './viewer-palettes.js';
+import { bindViewerExport } from './viewer-screenshot.js';
 
 const number = value => value === 0 ? '0' : Number(value.toPrecision(3)).toString();
 const colourRange = (range, fraction) => {
@@ -95,6 +96,7 @@ class AneumoViewer {
       throw error;
     }
     this.bindControls();
+    bindViewerExport(root, this, this.listeners.signal);
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.views.forEach(view => this.resizeObserver.observe(view.holder));
     this.themeObserver = new MutationObserver(() => this.setTheme());
@@ -222,6 +224,46 @@ class AneumoViewer {
       });
       on(document, 'fullscreenchange', () => { expand.textContent = document.fullscreenElement === this.root ? 'Exit fullscreen' : 'Fullscreen'; this.resize(); });
     }
+  }
+
+  exportAnimation() {
+    if (!(this.loadedSample?.timeSteps > 1)) return null;
+    const step = this.timeStep, playing = this.playing;
+    const seek = value => { this.timeStep = value; this.updateFields(); this.syncTimeControls(); };
+    return {
+      frameCount: this.loadedSample.timeSteps,
+      delay: 170 / Number(this.speedSelect.value),
+      pause: () => this.setPlaying(false),
+      seek,
+      restore: () => { seek(step); this.setPlaying(playing); },
+    };
+  }
+
+  screenshot() {
+    const sample = this.loadedSample;
+    const model = sample.timeSteps ? this.loadedModel : this.manifest.models.find(item => item.id === this.modelSelect.value);
+    const depth = Math.round(this.manifest.fractions[this.loadedDepth] * 100);
+    const step = sample.timeSteps ? ` · Time step ${this.timeStep + 1} / ${sample.timeSteps}` : '';
+    const ticks = selector => [...this.root.querySelector(selector).children].map(node => node.textContent);
+    return {
+      title: `Velocity predictions · ${this.sampleLabel(sample)}`,
+      subtitle: `${model.label} · ${this.loadedAxis.toUpperCase()} slice at ${depth}%${step}`,
+      filename: `abgatr-${sample.dataset}-${sample.id}-${model.id}-${this.loadedAxis}-${depth}pct${sample.timeSteps ? `-t${String(this.timeStep + 1).padStart(2, '0')}` : ''}`,
+      groups: [{ panels: this.views.map((view, index) => {
+        const error = index === 2, panel = view.holder.closest('.demo-panel');
+        return {
+          view,
+          title: panel.querySelector('h3').textContent,
+          subtitle: panel.querySelector('.demo-panel-heading p').textContent,
+          legend: {
+            label: error ? 'Error magnitude' : 'Velocity magnitude', units: 'cm/s',
+            palette: error ? ERROR_COLORS : SPEED_COLORS,
+            ticks: ticks(error ? '[data-demo-error-ticks]' : '[data-demo-velocity-ticks]'),
+          },
+          metrics: [...panel.querySelectorAll('.demo-error-metrics p')].map(node => [...node.children].map(child => child.textContent).join(': ')),
+        };
+      }) }],
+    };
   }
 
   setSampleOptions() {
@@ -564,7 +606,7 @@ class AneumoViewer {
   }
 
   resize() {
-    if (this.disposed) return;
+    if (this.disposed || this.exporting) return;
     this.views.forEach(view => {
       const width = Math.max(1, view.holder.clientWidth), height = Math.max(1, view.holder.clientHeight);
       view.renderer.setSize(width, height, false);
@@ -575,6 +617,7 @@ class AneumoViewer {
   }
 
   setTheme() {
+    if (this.exporting) return;
     const background = getComputedStyle(this.root).getPropertyValue('--bg').trim();
     const dark = document.documentElement.dataset.theme === 'dark';
     this.views.forEach(view => { view.renderer.setClearColor(background, 1); view.wallMaterial.color.set(dark ? '#9cbbb7' : '#8daba5'); });
